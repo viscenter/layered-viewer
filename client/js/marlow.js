@@ -2,13 +2,13 @@
     var primary = OpenSeadragon({
         id: "primary",
         prefixUrl: "/build/openseadragon/images/",
-        tileSources: "/test/data/testpattern.dzi",
+        tileSources: "/test/data/color.dzi",
         showNavigator: false
     });
     var secondary = OpenSeadragon({
         id: "secondary",
         prefixUrl: "/build/openseadragon/images/",
-        tileSources: "/test/data/testpattern.dzi",
+        tileSources: "/test/data/grey.dzi",
         showNavigator: false
     });
     primary.addHandler('pan', function (e) {
