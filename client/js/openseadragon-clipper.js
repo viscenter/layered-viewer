@@ -1,1 +1,1 @@
-(function($) {} (OpenSeadragon))
+(function($) {} (OpenSeadragon));

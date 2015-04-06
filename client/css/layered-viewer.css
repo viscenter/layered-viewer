@@ -1,16 +1,24 @@
-.openseadragon1 {
-    width: 800px;
-    height: 600px;
+.openseadragon {
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-.openseadragon2 {
-    width: 800px;
-    height: 600px;
-    position: absolute;
+#primary {
+    z-index: 0;
+}
+
+#secondary {
+    z-index: -1;
+}
+
+/* wrapper can be sized/placed any way, contents will fill container */
+#viewer-wrapper {
+    position: relative;
     top: 0px;
     left: 0px;
-    z-index: -1;
+    width: 900px;
+    height: 700px;
 }
