@@ -3,13 +3,17 @@
         id: "primary",
         prefixUrl: "/external/openseadragon/images/",
         tileSources: "/test/data/color.dzi",
-        showNavigator: false
+	// tileSources: "/test/data/ChadGospels-146-142-2010.dzi",
+        showNavigator: false,
+	animationTime: 0
     });
     var secondary = OpenSeadragon({
         id: "secondary",
         prefixUrl: "/external/openseadragon/images/",
         tileSources: "/test/data/grey.dzi",
-        showNavigator: false
+	// tileSources: "/test/data/ChadGospels-080-142-2003_Reg2010.dzi",
+        showNavigator: false,
+	animationTime: 0
     });
     primary.addHandler('pan', function (e) {
         if (primary && secondary) {
