@@ -2,16 +2,16 @@
     var primary = OpenSeadragon({
         id: "primary",
         prefixUrl: "/external/openseadragon/images/",
-        tileSources: "/test/data/color.dzi",
-	// tileSources: "/test/data/ChadGospels-146-142-2010.dzi",
+        // tileSources: "/test/data/color.dzi",
+	tileSources: "/data/dzi/2010/ChadGospels-146-142-2010.dzi",
         showNavigator: false,
 	animationTime: 0
     });
     var secondary = OpenSeadragon({
         id: "secondary",
         prefixUrl: "/external/openseadragon/images/",
-        tileSources: "/test/data/grey.dzi",
-	// tileSources: "/test/data/ChadGospels-080-142-2003_Reg2010.dzi",
+        // tileSources: "/test/data/grey.dzi",
+	tileSources: "/data/dzi/2003_Reg2010/ChadGospels-080-142-2003_Reg2010.dzi",
         showNavigator: false,
 	animationTime: 0
     });
