@@ -2,16 +2,16 @@
     var primary = OpenSeadragon({
         id: "primary",
         prefixUrl: "/external/openseadragon/images/",
-        // tileSources: "/test/data/color.dzi",
-	tileSources: "/data/dzi/2010/ChadGospels-146-142-2010.dzi",
+         tileSources: "/test/data/color.dzi",
+	//tileSources: "/data/dzi/2010/ChadGospels-146-142-2010.dzi",
         showNavigator: false,
 	animationTime: 0
     });
     var secondary = OpenSeadragon({
         id: "secondary",
         prefixUrl: "/external/openseadragon/images/",
-        // tileSources: "/test/data/grey.dzi",
-	tileSources: "/data/dzi/2003_Reg2010/ChadGospels-080-142-2003_Reg2010.dzi",
+         tileSources: "/test/data/grey.dzi",
+	//tileSources: "/data/dzi/2003_Reg2010/ChadGospels-080-142-2003_Reg2010.dzi",
         showNavigator: false,
 	animationTime: 0
     });
@@ -42,10 +42,12 @@
         mpos = getmpos(pc, e);
         if (primary.viewport != undefined) {
             primary.forceRedraw();
-            ctx.clearRect(mpos.x,mpos.y, 50,50);
+	    ctx.clearRect((mpos.x-25),(mpos.y-25),50,50);
+	    primary.canvas.style.cursor = "none";
         }
     });
     primary.addHandler('tile-drawn', function (e) {
-        ctx.clearRect(mpos.x,mpos.y,50,50);
+	ctx.clearRect((mpos.x-25),(mpos.y-25),50,50);
+	
     });
 }());
