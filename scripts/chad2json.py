@@ -34,7 +34,7 @@ pages["pages"] = []
 for [name, images] in final:
     pages["pages"].append({name: []})
     for [imagename, dziname] in images:
-        pages["pages"][-1].append({imagename: dziname})
+        pages["pages"][-1][name].append({imagename: dziname})
     
 
 open("chad.json", "w").write(json.dumps(pages, indent=4, separators=(',',': ')))
