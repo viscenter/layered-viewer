@@ -29,4 +29,12 @@ final = []
 for name in names:
     final.append([name, images[name]])
 
-open("chad.json", "w").write(json.dumps(final, indent=4, separators=(',',': ')))
+pages = {}
+pages["pages"] = []
+for [name, images] in final:
+    pages["pages"].append({name: []})
+    for [imagename, dziname] in images:
+        pages["pages"][-1].append({imagename: dziname})
+    
+
+open("chad.json", "w").write(json.dumps(pages, indent=4, separators=(',',': ')))
