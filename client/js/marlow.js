@@ -57,7 +57,6 @@
     }
 
     pc.addEventListener('mousemove', drawopacity(true, true));
-    pc.addEventListener('dragover',  drawopacity(true, true));
     primary.addHandler('tile-drawn', drawopacity(false, false));
     primary.canvas.style.cursor = "none";
 }());
