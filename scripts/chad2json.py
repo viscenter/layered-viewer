@@ -4,7 +4,8 @@
 import json, os
 
 directories = os.listdir('.')
-directories.remove(__file__)
+if __file__ in directories:
+	directories.remove(__file__)
 
 images = {}
 for directory in directories:
@@ -32,9 +33,11 @@ for name in names:
 pages = {}
 pages["pages"] = []
 for [name, images] in final:
-    pages["pages"].append({name: []})
+    pages["pages"].append({"name": name,
+                           "entries": []})
     for [imagename, dziname] in images:
-        pages["pages"][-1][name].append({imagename: dziname})
+        pages["pages"][-1]["entries"].append({"version": imagename,
+                                   	      "dzi": dziname})
     
 
 open("chad.json", "w").write(json.dumps(pages, indent=4, separators=(',',': ')))
