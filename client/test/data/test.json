@@ -1,0 +1,17 @@
+{
+    "pages": [
+	{
+	    "name": "Test Page",
+	    "entries": [
+		{
+		    "dzi": "test/data/grey.dzi",
+		    "version": "Grey"
+		},
+		{
+		    "dzi": "test/data/color.dzi",
+		    "version": "Color"
+		}
+	    ]
+	}
+    ]
+}
