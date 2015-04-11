@@ -124,4 +124,15 @@
 	return false;
     });
 
+    $(document).keydown(function (event) {
+	switch (event.which) {
+	case 67: // c
+	    cursor.isCircle = !cursor.isCircle;
+	    drawopacity(true, true);
+	    break;
+	default:
+	    return;
+	}
+    });
+
 }());
