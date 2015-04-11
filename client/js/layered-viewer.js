@@ -17,7 +17,7 @@
 
     // clipSize can be radius or side length
     var cursor = {clipSize: 50,
-		  isCircle: false};
+		  isCircle: true};
     
     // read in JSON which defines image set structure and locations of
     // images in the set
@@ -68,6 +68,15 @@
     var pc = primary.canvas.children[0];
     var ctx = pc.getContext('2d');
 
+    function clearCircle(x, y, size) {
+	ctx.save();
+	ctx.globalCompositeOperation = 'destination-out';
+	ctx.beginPath();
+	ctx.arc(x, y, size, 0, 2*Math.PI, false);
+	ctx.fill();
+	ctx.restore();
+    }
+
     function getmpos(canvas, e) {
 	var rect = canvas.getBoundingClientRect();
 	return { x: e.clientX - rect.left,
@@ -84,7 +93,13 @@
 		if (refresh) {
 		    primary.forceRedraw();
 		}
-		ctx.clearRect((mpos.x-cursor.clipSize/2),(mpos.y-cursor.clipSize/2),cursor.clipSize,cursor.clipSize);
+		if (cursor.isCircle) {
+		    clearCircle(mpos.x,	mpos.y,	cursor.clipSize/2);
+		} else {
+		    ctx.clearRect((mpos.x-cursor.clipSize/2),
+				  (mpos.y-cursor.clipSize/2),
+				  cursor.clipSize,cursor.clipSize);
+		}
 	    }
 	};
     }
