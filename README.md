@@ -16,3 +16,6 @@ One time use scripts used for managing specific sets of data such as the Chad ma
 
 - chad2json.py: created to go through the Chad Manuscript image files and store their structure in a json file
 - varwwwtodzi.sh: created to go through the Chad Manuscript image files and convert them into a Deep Zoom Image format
+
+###Issues
+Check the [issues page](https://github.com/viscenter/layered-viewer/issues) to stay up to date with our current work.
