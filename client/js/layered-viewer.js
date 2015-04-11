@@ -86,7 +86,7 @@
     var mpos = {};
     function drawopacity(updatempos, refresh) {
 	return function (e) {
-	    if (primary.viewport != undefined) {
+	    if (primary.viewport !== undefined) {
 		if (updatempos) {
 		    mpos = getmpos(pc, e);
 		}
@@ -104,8 +104,11 @@
 	};
     }
 
+    // redraw canvas when things change
     pc.addEventListener('mousemove', drawopacity(true, true));
     primary.addHandler('tile-drawn', drawopacity(false, false));
+    
+    // cursor need not be visible over canvas
     primary.canvas.style.cursor = 'none';
 
     // resize clipping on shift+mouseWheel
@@ -124,9 +127,27 @@
 	return false;
     });
 
+    // on window resize, make sure to redraw everything so that the
+    // sizes of the two canvases are in sync
+    $(window).resize(function () {
+	// the below code (commented out) does not work as I would
+	// expect [Stephen] but this event does fire on a window
+	// resize so it can be used to fix the resize issues
+
+	// if (primary && secondary) {
+	//     if (secondary.viewport) {
+	// 	secondary.viewport.panTo(primary.viewport.getCenter(false));
+	// 	secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+	//     }
+	// }
+	// drawopacity(true, true);
+    });
+
+    // handle keypresses
     $(document).keydown(function (event) {
 	switch (event.which) {
 	case 67: // c
+	    // change cursor shape from circle <=> square
 	    cursor.isCircle = !cursor.isCircle;
 	    drawopacity(true, true);
 	    break;
