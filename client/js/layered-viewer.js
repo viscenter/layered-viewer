@@ -15,10 +15,9 @@
     // looks bad
     var ANIMATION_TIME = 0;
 
-    // cursor can be square or circular
-    var cursorCircular = false;
     // clipSize can be radius or side length
-    var cursor = {clipSize: 50};
+    var cursor = {clipSize: 50,
+		  isCircle: false};
     
     // read in JSON which defines image set structure and locations of
     // images in the set
@@ -94,11 +93,14 @@
     primary.addHandler('tile-drawn', drawopacity(false, false));
     primary.canvas.style.cursor = 'none';
 
+    // resize clipping on shift+mouseWheel
     $(document).on('mousewheel', function(event) {
 	if (event.shiftKey) {
 	    var delta = event.originalEvent.wheelDelta;
 
+	    // make sure we do not make the size negative
 	    if (!(delta < 0 && cursor.clipSize < 10)) {
+		// divide delta by scale factor to make it feel right
 		cursor.clipSize = Math.max(cursor.clipSize + delta / 5, 10);
 	    }
 
