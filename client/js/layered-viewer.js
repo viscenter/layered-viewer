@@ -13,8 +13,7 @@
     var SHOW_NAV = false;
     var ANIMATION_TIME = 0;
 
-    var cursor = {width: 50,
-		  height: 50};
+    var cursor = {size: 50};
 
     var pages = $.parseJSON(
 	$.ajax(
@@ -76,7 +75,7 @@
 		    mpos = getmpos(pc, e);
 		if (refresh)
 		    primary.forceRedraw();
-		ctx.clearRect((mpos.x-cursor.width/2),(mpos.y-cursor.height/2),cursor.width,cursor.height);
+		ctx.clearRect((mpos.x-cursor.size/2),(mpos.y-cursor.size/2),cursor.size,cursor.size);
 	    }
 	};
     }
