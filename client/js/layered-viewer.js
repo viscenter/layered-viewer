@@ -79,16 +79,32 @@
     function drawopacity(updatempos, refresh) {
 	return function (e) {
 	    if (primary.viewport != undefined) {
-		if (updatempos)
+		if (updatempos) {
 		    mpos = getmpos(pc, e);
-		if (refresh)
+		}
+		if (refresh) {
 		    primary.forceRedraw();
-		ctx.clearRect((mpos.x-cursor.size/2),(mpos.y-cursor.size/2),cursor.size,cursor.size);
+		}
+		ctx.clearRect((mpos.x-cursor.clipSize/2),(mpos.y-cursor.clipSize/2),cursor.clipSize,cursor.clipSize);
 	    }
 	};
     }
 
     pc.addEventListener('mousemove', drawopacity(true, true));
     primary.addHandler('tile-drawn', drawopacity(false, false));
-    primary.canvas.style.cursor = "none";
+    primary.canvas.style.cursor = 'none';
+
+    $(document).on('mousewheel', function(event) {
+	if (event.shiftKey) {
+	    var delta = event.originalEvent.wheelDelta;
+
+	    if (!(delta < 0 && cursor.clipSize < 10)) {
+		cursor.clipSize = Math.max(cursor.clipSize + delta / 5, 10);
+	    }
+
+	    drawopacity(true, true);
+	}
+	return false;
+    });
+
 }());
