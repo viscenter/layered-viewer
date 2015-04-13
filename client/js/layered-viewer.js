@@ -33,6 +33,7 @@
 	).responseText
     )['pages'];
 
+
     var primary = OpenSeadragon({
 	id: 'primary',
 	prefixUrl: OSD_PREFIX_URL,
@@ -67,6 +68,9 @@
 
     var pc = primary.canvas.children[0];
     var ctx = pc.getContext('2d');
+
+  
+
 
     function clearCircle(x, y, size) {
 	ctx.save();
@@ -156,4 +160,55 @@
 	}
     });
 
+
+//fills sliders with names of each dzi.
+
+// tracker for number of pages in layer
+var numPages = pages[DEF_PAGE_IDX]['entries'].length;
+
+$(document ).ready(function fillSlider() {
+
+  for(i=0;i < numPages;i++)
+  {
+
+    $(".slidee").append('<li><div class="thumbnail"  id="' + i + '" "style="overflow:hidden"><p>'+pages[DEF_PAGE_IDX]['entries'][i]['dzi']+'</p></div></li>');
+
+
+  }
+  
+
+});
+
+
+
 }());
+
+
+//sly code
+
+
+
+jQuery(function ($) {
+
+  
+  $('#frame').sly({
+    horizontal: 1,
+    
+    itemNav: 'forceCentered',
+    smart: 1,
+    activateOn: 'click',
+    
+    scrollBy: 1,
+    
+    mouseDragging: 1,
+    swingSpeed: 0.2,
+    
+    scrollBar: $('.scrollbar'),
+    dragHandle: 1,
+    
+    speed: 600,
+    startAt: 2
+  });
+  
+});
+

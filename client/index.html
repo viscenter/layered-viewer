@@ -5,13 +5,27 @@
     <!-- the libraries we need but others maintain -->
     <script type="text/javascript" src='/external/openseadragon/openseadragon.min.js'></script>
     <script type="text/javascript" src='/external/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='/external/sly.min.js'></script>
     <!-- our code -->
     <link rel="stylesheet" type="text/css" href='css/layered-viewer.css'>
+    <link rel="stylesheet" type="text/css" href='css/horizontal.css'>
   </head>
   <body>
     <div id="viewer-wrapper">
       <div id="primary"   class="openseadragon" ></div>
       <div id="secondary" class="openseadragon"></div>
+    </div>
+    <div id="sly-wrapper">
+     <div class="scrollbar">
+      <div class="handle">
+	<div class="mousearea"></div>
+      </div>
+     </div>
+     <div id="frame">
+       <ul class="slidee" id="slidee">
+       </ul>
+      </div>
+     </div>
     </div>
     <script type="text/javascript" src='js/layered-viewer.js'></script>
   </body>
