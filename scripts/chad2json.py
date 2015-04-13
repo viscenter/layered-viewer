@@ -1,4 +1,4 @@
-# Author: Stephen Parsons
+# Author: Stephen Parsons and John Walker
 
 # The Chad Gospels are stored as images on the customer's
 # server. There are 5 directories of images, one of images taken in
