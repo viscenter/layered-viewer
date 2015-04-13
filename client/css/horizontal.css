@@ -1,0 +1,57 @@
+#sly-wrapper {
+    height: 20%;
+
+}
+
+#frame {
+	height: 100%;
+    margin: 0px 0px;
+    padding: 10px 0px; //(ver,hor)
+	overflow: hidden;
+    width: 100%;
+}
+.slidee {
+	list-style: none;
+	margin: 0px 10px;
+    padding: 0px 0px;
+	height: 50%;
+	font-size: 30px;
+}
+.slidee li {
+	float: left;
+	height: 100%;
+    width: 200px;
+	margin: 0 5px 0 0;
+	background: #fff;
+    border: solid black;
+    border-radius: 20px;
+	color: #ddd;
+	text-align: center;
+	cursor: pointer;
+}
+.slidee li.active {
+	border: solid red;
+}
+p {
+  font-size: 14px;
+  color: #000;
+}
+.scrollbar {
+	margin: 0 0 1em 0;
+	height: 5px;
+	background: #ccc;
+	line-height: 0;
+}
+.scrollbar .handle {
+	width: 100px;
+	height: 100%;
+	background: red;
+	cursor: pointer;
+}
+.scrollbar .handle .mousearea {
+	position: absolute;
+	top: -9px;
+	left: 0;
+	width: 100%;
+	height: 20px;
+}
