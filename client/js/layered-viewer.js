@@ -214,7 +214,7 @@ $(document ).ready(function fillSlider() {
   for(i=0;i < numPages;i++)
   {
 
-    $(".slidee").append('<li><div class="thumbnail"  id="' + i + '" "style="overflow:hidden"><p>'+pages[DEF_PAGE_IDX]['entries'][i]['dzi']+'</p></div></li>');
+    $(".slidee").append('<li><div class="thumbnail"  id="' + i + '" "style="overflow:hidden"><p>'+pages[DEF_PAGE_IDX]['entries'][i]['version']+'</p></div></li>');
 
 
   }
