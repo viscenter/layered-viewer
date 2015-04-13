@@ -1,3 +1,10 @@
+// Authors: John Walker, Stephen Parsons, Thomas Loy
+
+// The primary functionality of the viewer is implemented here. This
+// file parses the image set JSON file, constructs an internal
+// representation of the image set, and manages the OpenSeadragon
+// viewers in order to display the layers in the viewer.
+
 (function() {
     // Default image set json file location
     var DEF_IMAGE_SET = '/test/data/test.json';
