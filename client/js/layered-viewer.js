@@ -214,6 +214,31 @@
 	    // if the mouse position changed.
 	    makedrawfn(false, true)(null);
 	    break;
+
+	case 73: // i
+	    // increment secondary layer index
+	    break;
+
+	case 74: // j
+	    // decrement primary layer index
+	    break;
+
+	case 75: // k
+	    // decrement secondary layer index
+	    break;
+
+	case 76: // l
+	    // increment primary layer index
+	    break;
+
+	case 77: // m
+	    // expand clipping region
+	    break;
+
+	case 78: // n
+	    // reduce clipping region
+	    break;
+
 	default:
 	    return;
 	}
