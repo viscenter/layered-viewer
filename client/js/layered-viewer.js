@@ -7,26 +7,26 @@
 
 (function() {
     // Default image set json file location
-    var DEF_IMAGE_SET;
+    var imageSetJSONFile;
     // Default page index to begin with
-    var DEF_PAGE_IDX;
+    var pageIndex;
     // Default layer index for primary viewer
-    var DEF_PRIMARY_IDX;
+    var primaryLayerIndex;
     // Default layer index for secondary viewer
-    var DEF_SECONDARY_IDX;
+    var secondaryLayerIndex;
 
     // On production server with Chad data available, show Chad data
     if (window.location.hostname == 'infoforest.vis.uky.edu') {
-	DEF_IMAGE_SET = '/data/chad.json';
-	DEF_PAGE_IDX = 142;
-	DEF_PRIMARY_IDX = 1;
-	DEF_SECONDARY_IDX = 0;
+	imageSetJSONFile = '/data/chad.json';
+	pageIndex = 142;
+	primaryLayerIndex = 1;
+	secondaryLayerIndex = 0;
     } else {
 	// On other machines (for development and testing, show test images
-	DEF_IMAGE_SET = '/test/data/test.json';
-	DEF_PAGE_IDX = 0;
-	DEF_PRIMARY_IDX = 1;
-	DEF_SECONDARY_IDX = 0;
+	imageSetJSONFile = '/test/data/test.json';
+	pageIndex = 0;
+	primaryLayerIndex = 1;
+	secondaryLayerIndex = 0;
     }
 
     // OpenSeadragon (OSD) initialization settings
@@ -45,7 +45,7 @@
     var pages = $.parseJSON(
 	$.ajax(
 	    {
-		url: DEF_IMAGE_SET,
+		url: imageSetJSONFile,
 		// necessary to make sure we wait for this to load
 		// before moving on
 		async: false,
@@ -54,13 +54,11 @@
 	).responseText
     )['pages'];
 
-
     // Initialize an OSD instance for the foreground.  
-
     var primary = OpenSeadragon({
 	id: 'primary',
 	prefixUrl: OSD_PREFIX_URL,
-	tileSources: pages[DEF_PAGE_IDX]['entries'][DEF_PRIMARY_IDX]['dzi'],
+	tileSources: pages[pageIndex]['entries'][primaryLayerIndex]['dzi'],
 	showNavigator: SHOW_NAV,
 	animationTime: ANIMATION_TIME
     });
@@ -69,7 +67,7 @@
     var secondary = OpenSeadragon({
 	id: 'secondary',
 	prefixUrl: OSD_PREFIX_URL,
-	tileSources: pages[DEF_PAGE_IDX]['entries'][DEF_SECONDARY_IDX]['dzi'],
+	tileSources: pages[pageIndex]['entries'][secondaryLayerIndex]['dzi'],
 	showNavigator: SHOW_NAV,
 	animationTime: ANIMATION_TIME
     });
@@ -109,10 +107,8 @@
     }
     var ctx = pc.getContext('2d');
 
-
     // Draw a clear circle at coordinates x, y with radius size. Allow
     // us to see the background canvas.
-
     function clearCircle(x, y, size) {
 	ctx.save();
 	ctx.globalCompositeOperation = 'destination-out';
@@ -174,7 +170,6 @@
     primary.canvas.style.cursor = 'none';
 
     // resize clipping on shift+mouseWheel
-
     $(document).on('mousewheel', function(e) {
 	if (e.shiftKey) {
 	    var delta = e.originalEvent.wheelDelta;
@@ -224,55 +219,39 @@
 	}
     });
 
+    //fills sliders with names of each dzi.
 
-//fills sliders with names of each dzi.
+    // tracker for number of pages in layer
+    var numPages = pages[pageIndex]['entries'].length;
 
-// tracker for number of pages in layer
-var numPages = pages[DEF_PAGE_IDX]['entries'].length;
-
-$(document ).ready(function fillSlider() {
-
-  for(i=0;i < numPages;i++)
-  {
-
-    $(".slidee").append('<li><div class="thumbnail"  id="' + i + '" "style="overflow:hidden"><p>'+pages[DEF_PAGE_IDX]['entries'][i]['version']+'</p></div></li>');
-
-
-  }
-  
-
-});
-
-
-
+    $(document ).ready(function fillSlider() {
+	for(i=0;i < numPages;i++)
+	{
+	    version = pages[pageIndex]['entries'][i]['version'];
+	    div = '<li><div class="thumbnail"  id="'+i+'" "style="overflow:hidden"><p>'+version+'</p></div></li>';
+	    $(".slidee").append(div);
+	}
+    });
 }());
 
-
 //sly code
-
-
-
 jQuery(function ($) {
-
-  
-  $('#frame').sly({
-    horizontal: 1,
-    
-    itemNav: 'forceCentered',
-    smart: 1,
-    activateOn: 'click',
-    
-    scrollBy: 1,
-    
-    mouseDragging: 1,
-    swingSpeed: 0.2,
-    
-    scrollBar: $('.scrollbar'),
-    dragHandle: 1,
-    
-    speed: 600,
-    startAt: 2
-  });
-  
+    $('#frame').sly({
+	horizontal: 1,
+	
+	itemNav: 'forceCentered',
+	smart: 1,
+	activateOn: 'click',
+	
+	scrollBy: 1,
+	
+	mouseDragging: 1,
+	swingSpeed: 0.2,
+	
+	scrollBar: $('.scrollbar'),
+	dragHandle: 1,
+	
+	speed: 600,
+	startAt: 2
+    });
 });
-
