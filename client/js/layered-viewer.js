@@ -54,6 +54,11 @@
 	).responseText
     )['pages'];
 
+    // number of pages in image set
+    var numPages = pages.length;
+    // number of layers in current page
+    var numLayers = pages[pageIndex]['entries'].length;
+    
     // Initialize an OSD instance for the foreground.  
     var primary = OpenSeadragon({
 	id: 'primary',
@@ -73,7 +78,7 @@
     });
 
     // The primary OSD instance is going to be overlayed on top of the
-    // seconday OSD instance. So it is going to be catching all user
+    // secondary OSD instance. So it is going to be catching all user
     // input.
 
     // Every time the user pans on the primary OSD, pan to the same
@@ -217,25 +222,39 @@
 
 	case 73: // i
 	    // increment secondary layer index
+	    secondaryLayerIndex = (secondaryLayerIndex + 1) % numLayers;
 	    break;
 
 	case 74: // j
 	    // decrement primary layer index
+	    primaryLayerIndex = (primaryLayerIndex - 1 + numLayers) % numLayers;
 	    break;
 
 	case 75: // k
 	    // decrement secondary layer index
+	    secondaryLayerIndex = (secondaryLayerIndex - 1 + numLayers) % numLayers;
 	    break;
 
 	case 76: // l
 	    // increment primary layer index
+	    primaryLayerIndex = (primaryLayerIndex + 1) % numLayers;	    
 	    break;
 
 	case 77: // m
-	    // expand clipping region
+	    // increment page index
+	    pageIndex = (pageIndex + 1) % numPages;
 	    break;
 
 	case 78: // n
+	    // decrement page index
+	    pageIndex = (pageIndex - 1 + numPages) % numPages;
+	    break;
+
+	case 79: // o
+	    // expand clipping region
+	    break;
+
+	case 85: // u
 	    // reduce clipping region
 	    break;
 
@@ -244,19 +263,17 @@
 	}
     });
 
-    //fills sliders with names of each dzi.
-
-    // tracker for number of pages in layer
-    var numPages = pages[pageIndex]['entries'].length;
-
-    $(document ).ready(function fillSlider() {
-	for(i=0;i < numPages;i++)
+    // fill slider with names of each layer
+    function fillSlider() {
+	for(i=0;i < numLayers;i++)
 	{
 	    version = pages[pageIndex]['entries'][i]['version'];
 	    div = '<li><div class="thumbnail"  id="'+i+'" "style="overflow:hidden"><p>'+version+'</p></div></li>';
 	    $(".slidee").append(div);
 	}
-    });
+    }
+
+    $(document).ready(fillSlider);
 }());
 
 //sly code
