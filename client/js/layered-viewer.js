@@ -170,6 +170,24 @@
 	};
     }
 
+    // After the primary layer index has been changed, update the primary
+    // viewer to reflect this change.
+    function updatePrimaryImage() {
+	
+    }
+
+    // After the secondary layer index has been changed, update the secondary
+    // viewer to reflect this change.
+    function updateSecondaryImage() {
+
+    }
+
+    // After the page index has been changed, update both the primary and
+    // secondary viewers to reflect this change.
+    function updatePage() {
+
+    }
+
     // redraw canvas when the mouse moves and update the mpos.
     pc.addEventListener('mousemove', makedrawfn(true, true));
     
@@ -229,31 +247,37 @@
 	case 73: // i
 	    // increment secondary layer index
 	    secondaryLayerIndex = (secondaryLayerIndex + 1) % numLayers;
+	    updateSecondaryImage();
 	    break;
 
 	case 74: // j
 	    // decrement primary layer index
 	    primaryLayerIndex = (primaryLayerIndex - 1 + numLayers) % numLayers;
+	    updatePrimaryImage();
 	    break;
 
 	case 75: // k
 	    // decrement secondary layer index
 	    secondaryLayerIndex = (secondaryLayerIndex - 1 + numLayers) % numLayers;
+	    updateSecondaryImage();
 	    break;
 
 	case 76: // l
 	    // increment primary layer index
 	    primaryLayerIndex = (primaryLayerIndex + 1) % numLayers;	    
+	    updatePrimaryImage();
 	    break;
 
 	case 77: // m
 	    // increment page index
 	    pageIndex = (pageIndex + 1) % numPages;
+	    updatePage();
 	    break;
 
 	case 78: // n
 	    // decrement page index
 	    pageIndex = (pageIndex - 1 + numPages) % numPages;
+	    updatePage();
 	    break;
 
 	case 79: // o
