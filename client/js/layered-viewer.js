@@ -42,6 +42,11 @@
     //
     ////////////////////////////////////////////////////////////////////////////////
 
+    var imageSetJSONFile = defaultImageSetJSONFile;
+    var pageIndex = defaultPageIndex;
+    var primaryLayerIndex = defaultPrimaryLayerIndex;
+    var secondaryLayerIndex = defaultSecondaryLayerIndex;
+
     // clipSize can be radius or side length
     var cursor = {clipSize: 50,
 		  isCircle: true};
