@@ -7,13 +7,27 @@
 
 (function() {
     // Default image set json file location
-    var DEF_IMAGE_SET = '/test/data/test.json';
-    // page index to start with
-    var DEF_PAGE_IDX = 0;
-    // layer of page for primary layer
-    var DEF_PRIMARY_IDX = 1;
-    // layer of page for secondary layer
-    var DEF_SECONDARY_IDX = 0;
+    var DEF_IMAGE_SET;
+    // Default page index to begin with
+    var DEF_PAGE_IDX;
+    // Default layer index for primary viewer
+    var DEF_PRIMARY_IDX;
+    // Default layer index for secondary viewer
+    var DEF_SECONDARY_IDX;
+
+    // On production server with Chad data available, show Chad data
+    if (window.location.hostname == 'infoforest.vis.uky.edu') {
+	DEF_IMAGE_SET = '/data/chad.json';
+	DEF_PAGE_IDX = 142;
+	DEF_PRIMARY_IDX = 1;
+	DEF_SECONDARY_IDX = 0;
+    } else {
+	// On other machines (for development and testing, show test images
+	DEF_IMAGE_SET = '/test/data/test.json';
+	DEF_PAGE_IDX = 0;
+	DEF_PRIMARY_IDX = 1;
+	DEF_SECONDARY_IDX = 0;
+    }
 
     // OpenSeadragon (OSD) initialization settings
     var OSD_PREFIX_URL = '/external/openseadragon/images/';
