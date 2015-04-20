@@ -36,7 +36,7 @@ for directory in directories:
             images[folioID] = []
         # store the version name and the DZI location for this layer
         # of the page
-        images[folioID].append([version, "data/dzi/"+filename+".dzi"])
+        images[folioID].append([version, "/data/dzi/"+version+"/"+filename+".dzi"])
 
 # Sort the folioIDs lexicographically to order the manuscript.
 names = sorted(images.keys())
