@@ -175,22 +175,26 @@
 	};
     }
 
+    // TODO make the below maintain pan and zoom
+    // TODO make the below update sly layer nav tool
+
     // After the primary layer index has been changed, update the primary
     // viewer to reflect this change.
     function updatePrimaryImage() {
-	
+	primary.open(pages[pageIndex]['entries'][primaryLayerIndex]['dzi']);
     }
 
     // After the secondary layer index has been changed, update the secondary
     // viewer to reflect this change.
     function updateSecondaryImage() {
-
+	secondary.open(pages[pageIndex]['entries'][secondaryLayerIndex]['dzi']);
     }
 
     // After the page index has been changed, update both the primary and
     // secondary viewers to reflect this change.
     function updatePage() {
-
+	updatePrimaryImage();
+	updateSecondaryImage();
     }
 
     // redraw canvas when the mouse moves and update the mpos.
