@@ -7,34 +7,40 @@
 
 (function() {
     // Default image set json file location
-    var imageSetJSONFile;
+    var defaultImageSetJSONFile;
     // Default page index to begin with
-    var pageIndex;
+    var defaultPageIndex;
     // Default layer index for primary viewer
-    var primaryLayerIndex;
+    var defaultprimaryLayerIndex;
     // Default layer index for secondary viewer
-    var secondaryLayerIndex;
+    var defaultSecondaryLayerIndex;
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Initialization settings
 
     // On production server with Chad data available, show Chad data
     if (window.location.hostname == 'infoforest.vis.uky.edu') {
-	imageSetJSONFile = '/data/chad.json';
-	pageIndex = 142;
-	primaryLayerIndex = 1;
-	secondaryLayerIndex = 0;
+	defaultimageSetJSONFile = '/data/chad.json';
+	defaultpageIndex = 142;
+	defaultPrimaryLayerIndex = 1;
+	defaultSecondaryLayerIndex = 0;
     } else {
 	// On other machines (for development and testing, show test images
-	imageSetJSONFile = '/test/data/test.json';
-	pageIndex = 0;
-	primaryLayerIndex = 1;
-	secondaryLayerIndex = 0;
+	defaultImageSetJSONFile = '/test/data/test.json';
+	defaultPageIndex = 0;
+	defaultPrimaryLayerIndex = 1;
+	defaultSecondaryLayerIndex = 0;
     }
 
     // OpenSeadragon (OSD) initialization settings
-    var OSD_PREFIX_URL = '/external/openseadragon/images/';
-    var SHOW_NAV = false;
+    var OSDprefixURL = '/external/openseadragon/images/';
+    var showNav = false;
     // disable OSD animations since second canvas lags behind and it
     // looks bad
-    var ANIMATION_TIME = 0;
+    var animationTime = 0;
+
+    //
+    ////////////////////////////////////////////////////////////////////////////////
 
     // clipSize can be radius or side length
     var cursor = {clipSize: 50,
@@ -62,19 +68,19 @@
     // Initialize an OSD instance for the foreground.  
     var primary = OpenSeadragon({
 	id: 'primary',
-	prefixUrl: OSD_PREFIX_URL,
+	prefixUrl: OSDprefixURL,
 	tileSources: pages[pageIndex]['entries'][primaryLayerIndex]['dzi'],
-	showNavigator: SHOW_NAV,
-	animationTime: ANIMATION_TIME
+	showNavigator: showNav,
+	animationTime: animationTime
     });
 
     // Initialize an OSD instance for the background.
     var secondary = OpenSeadragon({
 	id: 'secondary',
-	prefixUrl: OSD_PREFIX_URL,
+	prefixUrl: OSDprefixURL,
 	tileSources: pages[pageIndex]['entries'][secondaryLayerIndex]['dzi'],
-	showNavigator: SHOW_NAV,
-	animationTime: ANIMATION_TIME
+	showNavigator: showNav,
+	animationTime: animationTime
     });
 
     // The primary OSD instance is going to be overlayed on top of the
