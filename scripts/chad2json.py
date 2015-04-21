@@ -66,8 +66,11 @@ for [name, images] in final:
     pages["pages"].append({"name": name,
                            "entries": []})
     for [imagename, dziname] in images:
-        pages["pages"][-1]["entries"].append({"version": imagename,
-                                   	      "dzi": dziname})
+        pages["pages"][-1]["entries"].append({
+                "version": imagename,
+                "dzi": dziname,
+                "pixelsPerMeter": 13000
+        })
     
 # Write the resulting data structure to chad.json with nice
 # formatting.
