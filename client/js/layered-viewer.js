@@ -20,10 +20,10 @@
 
     // On production server with Chad data available, show Chad data
     if (window.location.hostname == 'infoforest.vis.uky.edu') {
-	defaultimageSetJSONFile = '/data/chad.json';
-	defaultpageIndex = 142;
-	defaultPrimaryLayerIndex = 1;
-	defaultSecondaryLayerIndex = 0;
+	defaultImageSetJSONFile = '/data/chad.json';
+	defaultPageIndex = 223;
+	defaultPrimaryLayerIndex = 4;
+	defaultSecondaryLayerIndex = 2;
     } else {
 	// On other machines (for development and testing, show test images
 	defaultImageSetJSONFile = '/test/data/test.json';
@@ -192,6 +192,7 @@
 
     // After the page index has been changed, update both the primary and
     // secondary viewers to reflect this change.
+    // TODO if the new page has fewer layers, reduce the layer indices
     function updatePage() {
 	updatePrimaryImage();
 	updateSecondaryImage();
