@@ -5,11 +5,13 @@
 	    "entries": [
 		{
 		    "dzi": "test/data/grey.dzi",
-		    "version": "Grey"
+		    "version": "Grey",
+		    "pixelsPerMeter": 10000
 		},
 		{
 		    "dzi": "test/data/color.dzi",
-		    "version": "Color"
+		    "version": "Color",
+		    "pixelsPerMeter": 10000
 		}
 	    ]
 	}
