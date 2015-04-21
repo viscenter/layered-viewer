@@ -35,6 +35,8 @@
     // OpenSeadragon (OSD) initialization settings
     var OSDprefixURL = '/external/openseadragon/images/';
     var showNav = false;
+    var showScale = true;
+    var scaleMinWidth = '75px';
     // configurable zoom limits (default from client suggestion)
     var minZoom = 0.15;
     var maxZoom = 2.00;
@@ -94,6 +96,22 @@
 	minZoomLevel: minZoom,
 	maxZoomLevel: maxZoom
     });
+
+    if (showScale) {
+	primary.scalebar({
+	    type: OpenSeadragon.ScalebarType.MAP,
+	    minWidth: scaleMinWidth,
+	    pixelsPerMeter: pages[pageIndex]['entries'][primaryLayerIndex]['pixelsPerMeter'],
+	    location: OpenSeadragon.ScalebarLocation.BOTTOM_LEFT,
+	    xOffset: 5,
+	    yOffset: 10,
+	    stayInsideImage: true,
+	    color: 'rgb(150, 150, 150)',
+	    fontColor: 'rgb(100, 100, 100)',
+	    fontSize: 'small',
+	    barThickness: 2
+	});
+    }
 
     // The primary OSD instance is going to be overlayed on top of the
     // secondary OSD instance. So it is going to be catching all user
