@@ -35,6 +35,9 @@
     // OpenSeadragon (OSD) initialization settings
     var OSDprefixURL = '/external/openseadragon/images/';
     var showNav = false;
+    // configurable zoom limits (default from client suggestion)
+    var minZoom = 0.15;
+    var maxZoom = 2.00;
     // disable OSD animations since second canvas lags behind and it
     // looks bad
     var animationTime = 0;
@@ -76,7 +79,9 @@
 	prefixUrl: OSDprefixURL,
 	tileSources: pages[pageIndex]['entries'][primaryLayerIndex]['dzi'],
 	showNavigator: showNav,
-	animationTime: animationTime
+	animationTime: animationTime,
+	minZoomLevel: minZoom,
+	maxZoomLevel: maxZoom
     });
 
     // Initialize an OSD instance for the background.
@@ -85,7 +90,9 @@
 	prefixUrl: OSDprefixURL,
 	tileSources: pages[pageIndex]['entries'][secondaryLayerIndex]['dzi'],
 	showNavigator: false,
-	animationTime: animationTime
+	animationTime: animationTime,
+	minZoomLevel: minZoom,
+	maxZoomLevel: maxZoom
     });
 
     // The primary OSD instance is going to be overlayed on top of the
