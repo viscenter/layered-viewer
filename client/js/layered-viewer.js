@@ -241,6 +241,13 @@
     // secondary viewers to reflect this change.
     // TODO if the new page has fewer layers, reduce the layer indices
     function updatePage() {
+	// If we are currently at a layer index that does not exist in the
+	// new page, we must update the index to be in range of the layers
+	// in the new page.
+	primaryLayerIndex = Math.min(primaryLayerIndex,
+				     pages[pageIndex]['entries'].length - 1);
+	secondaryLayerIndex = Math.min(secondaryLayerIndex,
+				       pages[pageIndex]['entries'].length - 1);
 	updatePrimaryImage();
 	updateSecondaryImage();
     }
@@ -258,6 +265,7 @@
     // resize clipping on shift+mouseWheel
     function onScroll(e) {
 	if (shiftDown) {
+	    // prevent the OpenSeadragon viewer from trying to scroll
 	    e.preventDefaultAction = true;
 	    var delta = e.originalEvent.wheelDelta;
 
