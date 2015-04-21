@@ -279,21 +279,33 @@
 	    makedrawfn(false, false)({});
 	}
     }
+    
+    // Generic function to wait for the final call of something. In this
+    // case we use this to resync the pan and zoom only once after the
+    // window has finished resizing.
+    var waitForFinalEvent = (function () {
+	var timers = {};
+	return function (callback, ms, uniqueId) {
+	    if (!uniqueId) {
+		uniqueId = "Don't call this twice without a uniqueId";
+	    }
+	    if (timers[uniqueId]) {
+		clearTimeout (timers[uniqueId]);
+	    }
+	    timers[uniqueId] = setTimeout(callback, ms);
+	};
+    })();
 
     // on window resize, make sure to redraw everything so that the
     // sizes of the two canvases are in sync
-    $(window).resize(function () {
-	// the below code (commented out) does not work as I would
-	// expect [Stephen] but this event does fire on a window
-	// resize so it can be used to fix the resize issues
-
-	// if (primary && secondary) {
-	//     if (secondary.viewport) {
-	// 	secondary.viewport.panTo(primary.viewport.getCenter(false));
-	// 	secondary.viewport.zoomTo(primary.viewport.getZoom(false));
-	//     }
-	// }
-	// makedrawfn(true, true);
+    $(window).resize(function (e) {
+	// A hardcoded delay is used here which is not ideal. This creates
+	// a small flicker but it is an improvement from before, when the
+	// viewers simply did not resync after a window resize.
+	waitForFinalEvent(function () {
+	    secondary.viewport.panTo(primary.viewport.getCenter(false));
+	    secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+	}, 50, "resize");
     });
 
     // Keep track of whether or not the shift key is down (used for
