@@ -84,7 +84,7 @@
 	id: 'secondary',
 	prefixUrl: OSDprefixURL,
 	tileSources: pages[pageIndex]['entries'][secondaryLayerIndex]['dzi'],
-	showNavigator: showNav,
+	showNavigator: false,
 	animationTime: animationTime
     });
 
@@ -175,19 +175,36 @@
 	};
     }
 
-    // TODO make the below maintain pan and zoom
     // TODO make the below update sly layer nav tool
+
+    // The OpenSeadragon Viewer.open() method is asynchronous and we have to
+    // wait for it to complete before we can pan/zoom the new image to the
+    // old pan/zoom settings. There is certainly a cleaner way to do this
+    // if we get around to it.
+    var updateDelay = 50;
 
     // After the primary layer index has been changed, update the primary
     // viewer to reflect this change.
     function updatePrimaryImage() {
+	var zoom = primary.viewport.getZoom(false);
+	var pan = primary.viewport.getCenter(false);
 	primary.open(pages[pageIndex]['entries'][primaryLayerIndex]['dzi']);
+	setTimeout(function() {
+	    primary.viewport.zoomTo(zoom);
+	    primary.viewport.panTo(pan);
+	}, updateDelay);
     }
 
     // After the secondary layer index has been changed, update the secondary
     // viewer to reflect this change.
     function updateSecondaryImage() {
+	var zoom = secondary.viewport.getZoom(false);
+	var pan = primary.viewport.getCenter(false);
 	secondary.open(pages[pageIndex]['entries'][secondaryLayerIndex]['dzi']);
+	setTimeout(function() {
+	    secondary.viewport.zoomTo(zoom);
+	    secondary.viewport.panTo(pan);
+	}, updateDelay);
     }
 
     // After the page index has been changed, update both the primary and
