@@ -138,6 +138,10 @@
 	}
     });
 
+    primary.addViewerInputHook({hooks: [
+	{tracker: 'viewer', handler: 'scrollHandler', hookHandler: onScroll}
+    ]});
+
     // The primary OSD instance's canvas is where we paint
     // transparency effects. OSD works without canvas, but our client
     // will fail if the browser does not. 
@@ -252,8 +256,9 @@
     primary.canvas.style.cursor = 'none';
 
     // resize clipping on shift+mouseWheel
-    $(document).on('mousewheel', function(e) {
-	if (e.shiftKey) {
+    function onScroll(e) {
+	if (shiftDown) {
+	    e.preventDefaultAction = true;
 	    var delta = e.originalEvent.wheelDelta;
 
 	    // make sure we do not make the size negative
@@ -265,8 +270,7 @@
 	    // update the mouse position.
 	    makedrawfn(false, false)({});
 	}
-	return false;
-    });
+    }
 
     // on window resize, make sure to redraw everything so that the
     // sizes of the two canvases are in sync
@@ -284,9 +288,26 @@
 	// makedrawfn(true, true);
     });
 
+    // Keep track of whether or not the shift key is down (used for
+    // mouse scroll to resize clipping region).
+    var shiftDown = false;
+
     // handle keypresses
+    $(document).keyup(function (e) {
+	switch (e.which) {
+	case 16: // shift
+	    shiftDown = false;
+	    break;
+	default:
+	    return;
+	}
+    });
+
     $(document).keydown(function (e) {
 	switch (e.which) {
+	case 16: // shift
+	    shiftDown = true;
+	    break;
 	case 67: // c
 	    // change cursor shape from circle <=> square
 	    cursor.isCircle = !cursor.isCircle;
