@@ -397,7 +397,7 @@
 	for(i=0;i < numLayers;i++)
 	{
 	    version = pages[pageIndex]['entries'][i]['version'];
-	    div = '<li><div class="thumbnail"  id="'+i+'" "style="overflow:hidden"><p>'+version+'</p></div></li>';
+	    div = '<li id="'+i+'">'+version+'</li>';
 	    $(".slidee").append(div);
 	}
     }

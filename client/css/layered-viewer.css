@@ -1,5 +1,8 @@
 html, body {
     height: 100%;
+    font-size: 1em;
+    color: #666;
+    font-family: sans-serif;
 }
 
 .openseadragon {
@@ -16,7 +19,7 @@ html, body {
 
 #secondary {
     z-index: -1;
-    background-color: #000000;   
+    background-color: #000000;
 }
 
 /* wrapper can be sized/placed any way, contents will fill container */
@@ -25,13 +28,5 @@ html, body {
     top: 0px;
     left: 0px;
     width: 100%;
-    /*height: 100%;*/
-    height: 75%;
+    height: 80%;
 }
-
-#sly-wrapper {
-    position: relative;
-    height: 25%;
-
-}
-
