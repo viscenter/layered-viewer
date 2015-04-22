@@ -265,15 +265,20 @@
     // resize clipping on shift+mouseWheel
     function onScroll(e) {
 	if (shiftDown) {
+	    // configurable min and max sizes for clipping region
+	    var minClipSize = 10;
+	    var maxClipSize = 1000;
 	    // prevent the OpenSeadragon viewer from trying to scroll
 	    e.preventDefaultAction = true;
-	    var delta = e.originalEvent.wheelDelta;
+	    // divide delta by scale factor to make it feel right
+	    var delta = e.originalEvent.wheelDelta / 5;
 
-	    // make sure we do not make the size negative
-	    if (!(delta < 0 && cursor.clipSize < 10)) {
-		// divide delta by scale factor to make it feel right
-		cursor.clipSize = Math.max(cursor.clipSize + delta / 5, 10);
+	    // make sure we do not make the size outside the min and max
+	    var newClipSize = cursor.clipSize + delta;
+	    if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
+		cursor.clipSize = newClipSize;
 	    }
+
 	    // don't force the canvas to redraw itself and don't
 	    // update the mouse position.
 	    makedrawfn(false, false)({});
