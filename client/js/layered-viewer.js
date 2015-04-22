@@ -250,6 +250,7 @@
 				       pages[pageIndex]['entries'].length - 1);
 	updatePrimaryImage();
 	updateSecondaryImage();
+	fillSlider();
     }
 
     // redraw canvas when the mouse moves and update the mpos.
@@ -394,35 +395,37 @@
 
     // fill slider with names of each layer
     function fillSlider() {
-	for(i=0;i < numLayers;i++)
+	$(".slidee").empty();
+	for(i=0; i < numLayers; i++)
 	{
 	    version = pages[pageIndex]['entries'][i]['version'];
-	    div = '<li id="'+i+'">'+version+'</li>';
-	    $(".slidee").append(div);
+	    elem = '<li id="'+i+'">'+version+'</li>';
+	    $('#frame').sly('add', elem);
 	}
     }
+
+    //sly code
+    $(function ($) {
+	$('#frame').sly({
+	    horizontal: 1,
+	    
+	    itemNav: 'forceCentered',
+	    smart: 1,
+	    activateOn: 'click',
+	    
+	    scrollBy: 1,
+	    
+	    mouseDragging: 1,
+	    swingSpeed: 0.2,
+	    
+	    scrollBar: $('.scrollbar'),
+	    dragHandle: 1,
+	    
+	    speed: 600,
+	    startAt: 2
+	});
+    });
 
     $(document).ready(fillSlider);
 }());
 
-//sly code
-jQuery(function ($) {
-    $('#frame').sly({
-	horizontal: 1,
-	
-	itemNav: 'forceCentered',
-	smart: 1,
-	activateOn: 'click',
-	
-	scrollBy: 1,
-	
-	mouseDragging: 1,
-	swingSpeed: 0.2,
-	
-	scrollBar: $('.scrollbar'),
-	dragHandle: 1,
-	
-	speed: 600,
-	startAt: 2
-    });
-});
