@@ -26,12 +26,13 @@
     height: 100%;
     width: 227px;
     margin: 0 1px 0 0;
-    padding: 13% 0;
+    padding: 0;
     background: #333;
     color: #ddd;
     text-align: center;
     cursor: pointer;
     display: list-item;
+    line-height: 150px;
 }
 .slidee li.active {
     color: #fff;
