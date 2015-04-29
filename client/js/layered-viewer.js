@@ -73,13 +73,13 @@
     // number of pages in image set
     var numPages = pages.length;
     // number of layers in current page
-    var numLayers = pages[pageIndex]['entries'].length;
+    var numLayers = pages[pageIndex]['layers'].length;
     
     // Initialize an OSD instance for the foreground.  
     var primary = OpenSeadragon({
 	id: 'primary',
 	prefixUrl: OSDprefixURL,
-	tileSources: pages[pageIndex]['entries'][primaryLayerIndex]['dzi'],
+	tileSources: pages[pageIndex]['layers'][primaryLayerIndex]['dzi'],
 	showNavigator: showNav,
 	animationTime: animationTime,
 	minZoomLevel: minZoom,
@@ -90,7 +90,7 @@
     var secondary = OpenSeadragon({
 	id: 'secondary',
 	prefixUrl: OSDprefixURL,
-	tileSources: pages[pageIndex]['entries'][secondaryLayerIndex]['dzi'],
+	tileSources: pages[pageIndex]['layers'][secondaryLayerIndex]['dzi'],
 	showNavigator: false,
 	animationTime: animationTime,
 	minZoomLevel: minZoom,
@@ -102,7 +102,7 @@
 	primary.scalebar({
 	    type: OpenSeadragon.ScalebarType.MAP,
 	    minWidth: scaleMinWidth,
-	    pixelsPerMeter: pages[pageIndex]['entries'][primaryLayerIndex]['pixelsPerMeter'],
+	    pixelsPerMeter: pages[pageIndex]['layers'][primaryLayerIndex]['pixelsPerMeter'],
 	    location: OpenSeadragon.ScalebarLocation.BOTTOM_LEFT,
 	    xOffset: 5,
 	    yOffset: 10,
@@ -218,7 +218,7 @@
     function updatePrimaryImage() {
 	var zoom = primary.viewport.getZoom(false);
 	var pan = primary.viewport.getCenter(false);
-	primary.open(pages[pageIndex]['entries'][primaryLayerIndex]['dzi']);
+	primary.open(pages[pageIndex]['layers'][primaryLayerIndex]['dzi']);
 	setTimeout(function() {
 	    primary.viewport.zoomTo(zoom);
 	    primary.viewport.panTo(pan);
@@ -230,7 +230,7 @@
     function updateSecondaryImage() {
 	var zoom = secondary.viewport.getZoom(false);
 	var pan = primary.viewport.getCenter(false);
-	secondary.open(pages[pageIndex]['entries'][secondaryLayerIndex]['dzi']);
+	secondary.open(pages[pageIndex]['layers'][secondaryLayerIndex]['dzi']);
 	setTimeout(function() {
 	    secondary.viewport.zoomTo(zoom);
 	    secondary.viewport.panTo(pan);
@@ -245,9 +245,9 @@
 	// new page, we must update the index to be in range of the layers
 	// in the new page.
 	primaryLayerIndex = Math.min(primaryLayerIndex,
-				     pages[pageIndex]['entries'].length - 1);
+				     pages[pageIndex]['layers'].length - 1);
 	secondaryLayerIndex = Math.min(secondaryLayerIndex,
-				       pages[pageIndex]['entries'].length - 1);
+				       pages[pageIndex]['layers'].length - 1);
 	updatePrimaryImage();
 	updateSecondaryImage();
 	fillSlider();
@@ -398,7 +398,7 @@
 	$(".slidee").empty();
 	for(i=0; i < numLayers; i++)
 	{
-	    version = pages[pageIndex]['entries'][i]['version'];
+	    version = pages[pageIndex]['layers'][i]['version'];
 	    elem = '<li id="'+i+'">'+version+'</li>';
 	    $('#frame').sly('add', elem);
 	}

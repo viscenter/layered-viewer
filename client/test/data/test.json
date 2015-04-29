@@ -2,7 +2,7 @@
     "pages": [
 	{
 	    "name": "Test Page",
-	    "entries": [
+	    "layers": [
 		{
 		    "dzi": "test/data/grey.dzi",
 		    "version": "Grey",

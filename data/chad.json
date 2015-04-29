@@ -2,7 +2,7 @@
     "pages": [
         {
             "name": "FrontCover",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2003_Reg2010/ChadGospels-001-FrontCover-2003_Reg2010.dzi",
                     "version": "2003_Reg2010",
@@ -17,7 +17,7 @@
         },
         {
             "name": "FrontBoard",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2003_Reg2010/ChadGospels-002-FrontBoard-2003_Reg2010.dzi",
                     "version": "2003_Reg2010",
@@ -32,7 +32,7 @@
         },
         {
             "name": "FrontFly001r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-003-FrontFly001r-2010.dzi",
                     "version": "2010",
@@ -42,7 +42,7 @@
         },
         {
             "name": "FrontFly002r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-004-FrontFly002r-2010.dzi",
                     "version": "2010",
@@ -52,7 +52,7 @@
         },
         {
             "name": "001",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-003-001-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -77,7 +77,7 @@
         },
         {
             "name": "002",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-004-002-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -102,7 +102,7 @@
         },
         {
             "name": "003",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-005-003-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -127,7 +127,7 @@
         },
         {
             "name": "004",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-006-004-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -152,7 +152,7 @@
         },
         {
             "name": "005",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-002-005-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -182,7 +182,7 @@
         },
         {
             "name": "006",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-008-006-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -207,7 +207,7 @@
         },
         {
             "name": "007",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-009-007-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -232,7 +232,7 @@
         },
         {
             "name": "008",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-010-008-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -257,7 +257,7 @@
         },
         {
             "name": "009",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-011-009-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -282,7 +282,7 @@
         },
         {
             "name": "010",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-012-010-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -307,7 +307,7 @@
         },
         {
             "name": "011",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-013-011-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -332,7 +332,7 @@
         },
         {
             "name": "012",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-014-012-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -357,7 +357,7 @@
         },
         {
             "name": "013",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-015-013-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -377,7 +377,7 @@
         },
         {
             "name": "014",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-016-014-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -397,7 +397,7 @@
         },
         {
             "name": "015",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-017-015-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -417,7 +417,7 @@
         },
         {
             "name": "016",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-018-016-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -437,7 +437,7 @@
         },
         {
             "name": "017",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-019-017-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -457,7 +457,7 @@
         },
         {
             "name": "018",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-020-018-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -477,7 +477,7 @@
         },
         {
             "name": "019",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-003-019-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -497,7 +497,7 @@
         },
         {
             "name": "020",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-022-020-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -517,7 +517,7 @@
         },
         {
             "name": "021",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-023-021-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -537,7 +537,7 @@
         },
         {
             "name": "022",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-024-022-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -557,7 +557,7 @@
         },
         {
             "name": "023",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-025-023-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -577,7 +577,7 @@
         },
         {
             "name": "024",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-026-024-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -597,7 +597,7 @@
         },
         {
             "name": "025",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-027-025-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -617,7 +617,7 @@
         },
         {
             "name": "026",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-028-026-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -637,7 +637,7 @@
         },
         {
             "name": "027",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-029-027-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -657,7 +657,7 @@
         },
         {
             "name": "028",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-030-028-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -677,7 +677,7 @@
         },
         {
             "name": "029",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-031-029-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -697,7 +697,7 @@
         },
         {
             "name": "030",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-032-030-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -717,7 +717,7 @@
         },
         {
             "name": "031",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-033-031-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -737,7 +737,7 @@
         },
         {
             "name": "032",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-034-032-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -757,7 +757,7 @@
         },
         {
             "name": "033",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-035-033-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -777,7 +777,7 @@
         },
         {
             "name": "034",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-036-034-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -797,7 +797,7 @@
         },
         {
             "name": "035",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-037-035-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -817,7 +817,7 @@
         },
         {
             "name": "036",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-038-036-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -837,7 +837,7 @@
         },
         {
             "name": "037",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-039-037-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -857,7 +857,7 @@
         },
         {
             "name": "038",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-040-038-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -877,7 +877,7 @@
         },
         {
             "name": "039",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-041-039-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -897,7 +897,7 @@
         },
         {
             "name": "040",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-042-040-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -917,7 +917,7 @@
         },
         {
             "name": "041",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-043-041-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -937,7 +937,7 @@
         },
         {
             "name": "042",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-044-042-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -957,7 +957,7 @@
         },
         {
             "name": "043",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-045-043-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -977,7 +977,7 @@
         },
         {
             "name": "044",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-046-044-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -997,7 +997,7 @@
         },
         {
             "name": "045",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-047-045-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1017,7 +1017,7 @@
         },
         {
             "name": "046",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-048-046-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1037,7 +1037,7 @@
         },
         {
             "name": "047",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-049-047-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1057,7 +1057,7 @@
         },
         {
             "name": "048",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-050-048-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1077,7 +1077,7 @@
         },
         {
             "name": "049",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-051-049-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1097,7 +1097,7 @@
         },
         {
             "name": "050",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-052-050-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1117,7 +1117,7 @@
         },
         {
             "name": "051",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-053-051-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1137,7 +1137,7 @@
         },
         {
             "name": "052",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-054-052-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1157,7 +1157,7 @@
         },
         {
             "name": "053",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-055-053-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1177,7 +1177,7 @@
         },
         {
             "name": "054",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-056-054-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1197,7 +1197,7 @@
         },
         {
             "name": "055",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-057-055-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1217,7 +1217,7 @@
         },
         {
             "name": "056",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-058-056-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1237,7 +1237,7 @@
         },
         {
             "name": "057",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-059-057-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1257,7 +1257,7 @@
         },
         {
             "name": "058",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-060-058-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1277,7 +1277,7 @@
         },
         {
             "name": "059",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-061-059-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1297,7 +1297,7 @@
         },
         {
             "name": "060",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-062-060-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1317,7 +1317,7 @@
         },
         {
             "name": "061",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-063-061-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1337,7 +1337,7 @@
         },
         {
             "name": "062",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-064-062-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1357,7 +1357,7 @@
         },
         {
             "name": "063",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-065-063-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1377,7 +1377,7 @@
         },
         {
             "name": "064",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-066-064-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1397,7 +1397,7 @@
         },
         {
             "name": "065",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-067-065-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1417,7 +1417,7 @@
         },
         {
             "name": "066",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-068-066-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1437,7 +1437,7 @@
         },
         {
             "name": "067",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-069-067-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1457,7 +1457,7 @@
         },
         {
             "name": "068",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-070-068-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1477,7 +1477,7 @@
         },
         {
             "name": "069",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-071-069-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1497,7 +1497,7 @@
         },
         {
             "name": "070",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-072-070-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1517,7 +1517,7 @@
         },
         {
             "name": "071",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-073-071-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1537,7 +1537,7 @@
         },
         {
             "name": "072",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-074-072-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1557,7 +1557,7 @@
         },
         {
             "name": "073",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-075-073-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1577,7 +1577,7 @@
         },
         {
             "name": "074",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-076-074-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1597,7 +1597,7 @@
         },
         {
             "name": "075",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-077-075-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1617,7 +1617,7 @@
         },
         {
             "name": "076",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-078-076-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1637,7 +1637,7 @@
         },
         {
             "name": "077",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-079-077-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1662,7 +1662,7 @@
         },
         {
             "name": "078",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-080-078-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1687,7 +1687,7 @@
         },
         {
             "name": "079",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-081-079-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1712,7 +1712,7 @@
         },
         {
             "name": "080",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-082-080-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1737,7 +1737,7 @@
         },
         {
             "name": "081",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-083-081-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1762,7 +1762,7 @@
         },
         {
             "name": "082",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-084-082-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1787,7 +1787,7 @@
         },
         {
             "name": "083",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-085-083-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1812,7 +1812,7 @@
         },
         {
             "name": "084",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-086-084-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1837,7 +1837,7 @@
         },
         {
             "name": "085",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-087-085-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1862,7 +1862,7 @@
         },
         {
             "name": "086",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-088-086-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1887,7 +1887,7 @@
         },
         {
             "name": "087",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-089-087-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1912,7 +1912,7 @@
         },
         {
             "name": "088",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-090-088-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1937,7 +1937,7 @@
         },
         {
             "name": "089",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-091-089-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1962,7 +1962,7 @@
         },
         {
             "name": "090",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-092-090-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -1987,7 +1987,7 @@
         },
         {
             "name": "091",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-093-091-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2012,7 +2012,7 @@
         },
         {
             "name": "092",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-094-092-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2037,7 +2037,7 @@
         },
         {
             "name": "093",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-095-093-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2062,7 +2062,7 @@
         },
         {
             "name": "094",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-096-094-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2087,7 +2087,7 @@
         },
         {
             "name": "095",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-097-095-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2112,7 +2112,7 @@
         },
         {
             "name": "096",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-098-096-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2137,7 +2137,7 @@
         },
         {
             "name": "097",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-099-097-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2162,7 +2162,7 @@
         },
         {
             "name": "098",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-100-098-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2187,7 +2187,7 @@
         },
         {
             "name": "099",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-101-099-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2212,7 +2212,7 @@
         },
         {
             "name": "100",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-102-100-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2237,7 +2237,7 @@
         },
         {
             "name": "101",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-103-101-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2262,7 +2262,7 @@
         },
         {
             "name": "102",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-104-102-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2287,7 +2287,7 @@
         },
         {
             "name": "103",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-105-103-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2312,7 +2312,7 @@
         },
         {
             "name": "104",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-106-104-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2337,7 +2337,7 @@
         },
         {
             "name": "105",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-107-105-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2362,7 +2362,7 @@
         },
         {
             "name": "106",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-108-106-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2387,7 +2387,7 @@
         },
         {
             "name": "107",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-109-107-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2412,7 +2412,7 @@
         },
         {
             "name": "108",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-110-108-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2437,7 +2437,7 @@
         },
         {
             "name": "109",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-111-109-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2462,7 +2462,7 @@
         },
         {
             "name": "110",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-112-110-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2487,7 +2487,7 @@
         },
         {
             "name": "111",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-113-111-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2512,7 +2512,7 @@
         },
         {
             "name": "112",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-114-112-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2537,7 +2537,7 @@
         },
         {
             "name": "113",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-115-113-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2562,7 +2562,7 @@
         },
         {
             "name": "114",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-116-114-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2587,7 +2587,7 @@
         },
         {
             "name": "115",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-117-115-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2612,7 +2612,7 @@
         },
         {
             "name": "116",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-118-116-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2637,7 +2637,7 @@
         },
         {
             "name": "117",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-119-117-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2662,7 +2662,7 @@
         },
         {
             "name": "118",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-120-118-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2687,7 +2687,7 @@
         },
         {
             "name": "119",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-121-119-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2712,7 +2712,7 @@
         },
         {
             "name": "120",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-122-120-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2737,7 +2737,7 @@
         },
         {
             "name": "121",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-123-121-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2762,7 +2762,7 @@
         },
         {
             "name": "122",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-124-122-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2787,7 +2787,7 @@
         },
         {
             "name": "123",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-125-123-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2812,7 +2812,7 @@
         },
         {
             "name": "124",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-126-124-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2837,7 +2837,7 @@
         },
         {
             "name": "125",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-127-125-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2862,7 +2862,7 @@
         },
         {
             "name": "126",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-128-126-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2887,7 +2887,7 @@
         },
         {
             "name": "127",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-129-127-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2912,7 +2912,7 @@
         },
         {
             "name": "128",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-130-128-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2937,7 +2937,7 @@
         },
         {
             "name": "129",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-131-129-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2962,7 +2962,7 @@
         },
         {
             "name": "130",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-132-130-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -2987,7 +2987,7 @@
         },
         {
             "name": "131",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-133-131-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3012,7 +3012,7 @@
         },
         {
             "name": "132",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-134-132-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3037,7 +3037,7 @@
         },
         {
             "name": "133",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-135-133-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3062,7 +3062,7 @@
         },
         {
             "name": "134",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-136-134-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3087,7 +3087,7 @@
         },
         {
             "name": "135",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-137-135-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3112,7 +3112,7 @@
         },
         {
             "name": "136",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-138-136-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3137,7 +3137,7 @@
         },
         {
             "name": "137",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-139-137-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3162,7 +3162,7 @@
         },
         {
             "name": "138",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-140-138-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3187,7 +3187,7 @@
         },
         {
             "name": "139",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-141-139-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3212,7 +3212,7 @@
         },
         {
             "name": "140",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-142-140-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3237,7 +3237,7 @@
         },
         {
             "name": "141",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-004-141-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -3267,7 +3267,7 @@
         },
         {
             "name": "142",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-005-142-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -3297,7 +3297,7 @@
         },
         {
             "name": "143",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-006-143-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -3327,7 +3327,7 @@
         },
         {
             "name": "144",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-146-144-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3352,7 +3352,7 @@
         },
         {
             "name": "145",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-147-145-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3377,7 +3377,7 @@
         },
         {
             "name": "146",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-148-146-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3402,7 +3402,7 @@
         },
         {
             "name": "147",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-149-147-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3427,7 +3427,7 @@
         },
         {
             "name": "148",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-150-148-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3452,7 +3452,7 @@
         },
         {
             "name": "149",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-151-149-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3477,7 +3477,7 @@
         },
         {
             "name": "150",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-152-150-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3502,7 +3502,7 @@
         },
         {
             "name": "151",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-153-151-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3527,7 +3527,7 @@
         },
         {
             "name": "152",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-154-152-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3552,7 +3552,7 @@
         },
         {
             "name": "153",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-155-153-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3577,7 +3577,7 @@
         },
         {
             "name": "154",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-156-154-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3602,7 +3602,7 @@
         },
         {
             "name": "155",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-157-155-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3627,7 +3627,7 @@
         },
         {
             "name": "156",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-158-156-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3652,7 +3652,7 @@
         },
         {
             "name": "157",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-159-157-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3677,7 +3677,7 @@
         },
         {
             "name": "158",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-160-158-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3702,7 +3702,7 @@
         },
         {
             "name": "159",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-161-159-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3727,7 +3727,7 @@
         },
         {
             "name": "160",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-162-160-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3752,7 +3752,7 @@
         },
         {
             "name": "161",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-163-161-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3777,7 +3777,7 @@
         },
         {
             "name": "162",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-164-162-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3802,7 +3802,7 @@
         },
         {
             "name": "163",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-165-163-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3827,7 +3827,7 @@
         },
         {
             "name": "164",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-166-164-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3852,7 +3852,7 @@
         },
         {
             "name": "165",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-167-165-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3877,7 +3877,7 @@
         },
         {
             "name": "166",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-168-166-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3902,7 +3902,7 @@
         },
         {
             "name": "167",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-169-167-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3927,7 +3927,7 @@
         },
         {
             "name": "168",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-170-168-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3952,7 +3952,7 @@
         },
         {
             "name": "169",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-171-169-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -3977,7 +3977,7 @@
         },
         {
             "name": "170",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-172-170-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4002,7 +4002,7 @@
         },
         {
             "name": "171",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-173-171-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4027,7 +4027,7 @@
         },
         {
             "name": "172",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-174-172-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4052,7 +4052,7 @@
         },
         {
             "name": "173",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-175-173-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4077,7 +4077,7 @@
         },
         {
             "name": "174",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-176-174-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4102,7 +4102,7 @@
         },
         {
             "name": "175",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-177-175-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4127,7 +4127,7 @@
         },
         {
             "name": "176",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-178-176-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4152,7 +4152,7 @@
         },
         {
             "name": "177",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-179-177-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4177,7 +4177,7 @@
         },
         {
             "name": "178",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-180-178-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4202,7 +4202,7 @@
         },
         {
             "name": "179",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-181-179-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4227,7 +4227,7 @@
         },
         {
             "name": "180",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-182-180-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4252,7 +4252,7 @@
         },
         {
             "name": "181",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-183-181-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4277,7 +4277,7 @@
         },
         {
             "name": "182",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-184-182-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4302,7 +4302,7 @@
         },
         {
             "name": "183",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-185-183-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4327,7 +4327,7 @@
         },
         {
             "name": "184",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-186-184-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4352,7 +4352,7 @@
         },
         {
             "name": "185",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-187-185-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4377,7 +4377,7 @@
         },
         {
             "name": "186",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-188-186-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4402,7 +4402,7 @@
         },
         {
             "name": "187",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-189-187-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4427,7 +4427,7 @@
         },
         {
             "name": "188",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-190-188-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4452,7 +4452,7 @@
         },
         {
             "name": "189",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-191-189-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4477,7 +4477,7 @@
         },
         {
             "name": "190",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-192-190-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4502,7 +4502,7 @@
         },
         {
             "name": "191",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-193-191-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4527,7 +4527,7 @@
         },
         {
             "name": "192",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-194-192-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4552,7 +4552,7 @@
         },
         {
             "name": "193",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-195-193-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4577,7 +4577,7 @@
         },
         {
             "name": "194",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-196-194-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4602,7 +4602,7 @@
         },
         {
             "name": "195",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-197-195-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4627,7 +4627,7 @@
         },
         {
             "name": "196",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-198-196-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4652,7 +4652,7 @@
         },
         {
             "name": "197",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-199-197-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4677,7 +4677,7 @@
         },
         {
             "name": "198",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-200-198-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4702,7 +4702,7 @@
         },
         {
             "name": "199",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-201-199-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4727,7 +4727,7 @@
         },
         {
             "name": "200",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-202-200-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4752,7 +4752,7 @@
         },
         {
             "name": "201",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-203-201-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4777,7 +4777,7 @@
         },
         {
             "name": "202",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-204-202-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4802,7 +4802,7 @@
         },
         {
             "name": "203",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-205-203-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4827,7 +4827,7 @@
         },
         {
             "name": "204",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-206-204-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4852,7 +4852,7 @@
         },
         {
             "name": "205",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-207-205-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4877,7 +4877,7 @@
         },
         {
             "name": "206",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-208-206-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4902,7 +4902,7 @@
         },
         {
             "name": "207",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-209-207-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4927,7 +4927,7 @@
         },
         {
             "name": "208",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-210-208-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4952,7 +4952,7 @@
         },
         {
             "name": "209",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-211-209-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -4977,7 +4977,7 @@
         },
         {
             "name": "210",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-212-210-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5002,7 +5002,7 @@
         },
         {
             "name": "211",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-213-211-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5027,7 +5027,7 @@
         },
         {
             "name": "212",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-214-212-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5052,7 +5052,7 @@
         },
         {
             "name": "213",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-215-213-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5072,7 +5072,7 @@
         },
         {
             "name": "214",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-216-214-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5097,7 +5097,7 @@
         },
         {
             "name": "215",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-217-215-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5122,7 +5122,7 @@
         },
         {
             "name": "216",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-218-216-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5147,7 +5147,7 @@
         },
         {
             "name": "217",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-219-217-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5172,7 +5172,7 @@
         },
         {
             "name": "218",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-007-218-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -5202,7 +5202,7 @@
         },
         {
             "name": "219",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-008-219-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -5227,7 +5227,7 @@
         },
         {
             "name": "220",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-009-220-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -5257,7 +5257,7 @@
         },
         {
             "name": "221",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1912_Reg2010/ChadGospels-010-221-1912_Reg2010.dzi",
                     "version": "1912_Reg2010",
@@ -5287,7 +5287,7 @@
         },
         {
             "name": "222",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-224-222-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5312,7 +5312,7 @@
         },
         {
             "name": "223",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-225-223-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5337,7 +5337,7 @@
         },
         {
             "name": "224",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-226-224-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5362,7 +5362,7 @@
         },
         {
             "name": "225",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-227-225-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5387,7 +5387,7 @@
         },
         {
             "name": "226",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-228-226-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5412,7 +5412,7 @@
         },
         {
             "name": "227",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-229-227-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5437,7 +5437,7 @@
         },
         {
             "name": "228",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-230-228-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5462,7 +5462,7 @@
         },
         {
             "name": "229",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-231-229-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5487,7 +5487,7 @@
         },
         {
             "name": "230",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-232-230-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5512,7 +5512,7 @@
         },
         {
             "name": "231",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-233-231-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5537,7 +5537,7 @@
         },
         {
             "name": "232",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-234-232-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5562,7 +5562,7 @@
         },
         {
             "name": "233",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-235-233-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5587,7 +5587,7 @@
         },
         {
             "name": "234",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-236-234-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5612,7 +5612,7 @@
         },
         {
             "name": "235",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-237-235-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5637,7 +5637,7 @@
         },
         {
             "name": "236",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-238-236-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5662,7 +5662,7 @@
         },
         {
             "name": "BackFly001r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-241-BackFly001r-2010.dzi",
                     "version": "2010",
@@ -5672,7 +5672,7 @@
         },
         {
             "name": "BackFly001v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-242-BackFly001v-2010.dzi",
                     "version": "2010",
@@ -5682,7 +5682,7 @@
         },
         {
             "name": "BackFly002r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-243-BackFly002r-2010.dzi",
                     "version": "2010",
@@ -5692,7 +5692,7 @@
         },
         {
             "name": "BackFly002v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-244-BackFly002v-2010.dzi",
                     "version": "2010",
@@ -5702,7 +5702,7 @@
         },
         {
             "name": "BackFly003r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1962_Reg2010/ChadGospels-235-BackFly003r-1962_Reg2010.dzi",
                     "version": "1962_Reg2010",
@@ -5722,7 +5722,7 @@
         },
         {
             "name": "BackFly003v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-239-BackFly003v-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5747,7 +5747,7 @@
         },
         {
             "name": "BackFly004r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-240-BackFly004r-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5772,7 +5772,7 @@
         },
         {
             "name": "BackFly004v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1962_Reg2010/ChadGospels-238-BackFly004v-1962_Reg2010.dzi",
                     "version": "1962_Reg2010",
@@ -5792,7 +5792,7 @@
         },
         {
             "name": "BackFly005r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-249-BackFly005r-2010.dzi",
                     "version": "2010",
@@ -5802,7 +5802,7 @@
         },
         {
             "name": "BackFly005v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-250-BackFly005v-2010.dzi",
                     "version": "2010",
@@ -5812,7 +5812,7 @@
         },
         {
             "name": "BackFly006r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-241-BackFly006r-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5832,7 +5832,7 @@
         },
         {
             "name": "BackFly006v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/1929_Reg2010/ChadGospels-242-BackFly006v-1929_Reg2010.dzi",
                     "version": "1929_Reg2010",
@@ -5852,7 +5852,7 @@
         },
         {
             "name": "BackFly007r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-253-BackFly007r-2010.dzi",
                     "version": "2010",
@@ -5862,7 +5862,7 @@
         },
         {
             "name": "BackFly007v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-254-BackFly007v-2010.dzi",
                     "version": "2010",
@@ -5872,7 +5872,7 @@
         },
         {
             "name": "BackFly008r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-255-BackFly008r-2010.dzi",
                     "version": "2010",
@@ -5882,7 +5882,7 @@
         },
         {
             "name": "BackFly008v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-256-BackFly008v-2010.dzi",
                     "version": "2010",
@@ -5892,7 +5892,7 @@
         },
         {
             "name": "BackFly009r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-257-BackFly009r-2010.dzi",
                     "version": "2010",
@@ -5902,7 +5902,7 @@
         },
         {
             "name": "BackFly009v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-258-BackFly009v-2010.dzi",
                     "version": "2010",
@@ -5912,7 +5912,7 @@
         },
         {
             "name": "BackFly010r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-259-BackFly010r-2010.dzi",
                     "version": "2010",
@@ -5922,7 +5922,7 @@
         },
         {
             "name": "BackFly010v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-260-BackFly010v-2010.dzi",
                     "version": "2010",
@@ -5932,7 +5932,7 @@
         },
         {
             "name": "BackFly011r",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-261-BackFly011r-2010.dzi",
                     "version": "2010",
@@ -5942,7 +5942,7 @@
         },
         {
             "name": "BackFly011v",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2010/ChadGospels-262-BackFly011v-2010.dzi",
                     "version": "2010",
@@ -5952,7 +5952,7 @@
         },
         {
             "name": "BackBoard",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2003_Reg2010/ChadGospels-180-BackBoard-2003_Reg2010.dzi",
                     "version": "2003_Reg2010",
@@ -5967,7 +5967,7 @@
         },
         {
             "name": "BackCover",
-            "entries": [
+            "layers": [
                 {
                     "dzi": "/data/dzi/2003_Reg2010/ChadGospels-181-BackCover-2003_Reg2010.dzi",
                     "version": "2003_Reg2010",
