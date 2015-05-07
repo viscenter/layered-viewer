@@ -171,8 +171,19 @@
     // canvas from the event e.
     function getmpos(canvas, e) {
 	var rect = canvas.getBoundingClientRect();
-	return { x: e.clientX - rect.left,
-		 y: e.clientY - rect.top };
+		
+        devicePixelRatio = window.devicePixelRatio || 1,
+        backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
+                            ctx.mozBackingStorePixelRatio ||
+                            ctx.msBackingStorePixelRatio ||
+                            ctx.oBackingStorePixelRatio ||
+                            ctx.backingStorePixelRatio || 1,
+
+        ratio = devicePixelRatio / backingStoreRatio;
+
+	
+	return { x: (e.clientX - rect.left) * ratio,
+		 y: (e.clientY - rect.top) * ratio };
     }
     
     // mpos should always contain the last known position of the mouse
