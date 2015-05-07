@@ -35,7 +35,7 @@
     // OpenSeadragon (OSD) initialization settings
     var OSDprefixURL = '/external/openseadragon/images/';
     var showNav = true;
-    var showControls = false;
+    var showFull = false;
     var showScale = true;
     var scaleMinWidth = '75px';
     // configurable zoom limits (default from client suggestion)
@@ -85,7 +85,7 @@
 	animationTime: animationTime,
 	minZoomLevel: minZoom,
 	maxZoomLevel: maxZoom,
-	setControlsEnabled: showControls,
+	showFullPageControl: showFull,
     });
 
     // Initialize an OSD instance for the background.
@@ -97,7 +97,7 @@
 	animationTime: animationTime,
 	minZoomLevel: minZoom,
 	maxZoomLevel: maxZoom,
-	setControlsEnabled: false,
+	showFullPageControl: false,
     });
 
     // create and show scale/ruler
