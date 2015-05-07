@@ -2,6 +2,12 @@ html, body {
     height: 100%;
     font-size: 1em;
     font-family: sans-serif;
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    overflow: auto;
 }
 
 .openseadragon {
