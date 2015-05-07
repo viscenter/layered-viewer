@@ -402,7 +402,12 @@
 	for(i=0; i < numLayers; i++)
 	{
 	    version = pages[pageIndex]['layers'][i]['version'];
-	    elem = '<li id="'+i+'">'+version+'</li>';
+	    var elem = '';
+	    if (i == pageIndex) {
+		elem = '<li id="'+i+'" class="active">'+version+'</li>';
+	    } else {
+		elem = '<li id="'+i+'">'+version+'</li>';
+	    }
 	    $('#frame').sly('add', elem);
 	}
     }
