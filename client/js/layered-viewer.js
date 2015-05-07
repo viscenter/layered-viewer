@@ -219,8 +219,6 @@
 	};
     }
 
-    // TODO make the below update sly layer nav tool
-
     // The OpenSeadragon Viewer.open() method is asynchronous and we have to
     // wait for it to complete before we can pan/zoom the new image to the
     // old pan/zoom settings. There is certainly a cleaner way to do this
@@ -237,6 +235,7 @@
 	    primary.viewport.zoomTo(zoom);
 	    primary.viewport.panTo(pan);
 	}, updateDelay);
+	fillSlider();
     }
 
     // After the secondary layer index has been changed, update the secondary
@@ -249,6 +248,7 @@
 	    secondary.viewport.zoomTo(zoom);
 	    secondary.viewport.panTo(pan);
 	}, updateDelay);
+	fillSlider();
     }
 
     // After the page index has been changed, update both the primary and
@@ -414,7 +414,7 @@
 	{
 	    version = pages[pageIndex]['layers'][i]['version'];
 	    var elem = '';
-	    if (i == pageIndex) {
+	    if (i == primaryLayerIndex) {
 		elem = '<li id="'+i+'" class="active">'+version+'</li>';
 	    } else {
 		elem = '<li id="'+i+'">'+version+'</li>';
