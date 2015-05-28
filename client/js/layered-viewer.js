@@ -297,7 +297,7 @@ function onScroll(e) {
 
 	// don't force the canvas to redraw itself and don't
 	// update the mouse position.
-	makedrawfn(false, false)({});
+	makedrawfn(false, true)({});
     }
 }
 
