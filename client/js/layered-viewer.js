@@ -258,10 +258,11 @@ function updatePage() {
     // If we are currently at a layer index that does not exist in the
     // new page, we must update the index to be in range of the layers
     // in the new page.
+    numLayers = pages[pageIndex]['layers'].length;
     primaryLayerIndex = Math.min(primaryLayerIndex,
-				 pages[pageIndex]['layers'].length - 1);
+				 numLayers - 1);
     secondaryLayerIndex = Math.min(secondaryLayerIndex,
-				   pages[pageIndex]['layers'].length - 1);
+				 numLayers - 1);
     updatePrimaryImage();
     updateSecondaryImage();
     fillSlider();
