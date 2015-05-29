@@ -7,10 +7,14 @@
     <script type="text/javascript" src='/external/openseadragon/openseadragon-scalebar.js'></script>
     <script type="text/javascript" src='/external/openseadragon/openseadragon-viewerinputhook.min.js'></script>
     <script type="text/javascript" src='/external/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='/external/jquery-ui.min.js'></script>
     <script type="text/javascript" src='/external/sly.min.js'></script>
     <!-- our code -->
     <link rel="stylesheet" type="text/css" href='css/layered-viewer.css'>
     <link rel="stylesheet" type="text/css" href='css/horizontal.css'>
+    <link rel="stylesheet" type="text/css" href='css/jquery-ui.min.css'>
+    <link rel="stylesheet" type="text/css" href='css/jquery-ui.structure.min.css'>
+    <link rel="stylesheet" type="text/css" href='css/jquery-ui.theme.min.css'>
     <meta charset="UTF-8">
   </head>
   <body>
@@ -28,14 +32,18 @@
           <div class="mousearea"></div>
         </div>
       </div>
-      <div id="instructions">
-        <p>Image pan: w/a/s/d and arrow keys</p>
-        <p>Switch background layers: i/k </p>
-        <p>Switch foreground layers: j/l </p>
-        <p>Switch pages: n/m</p>
-        <p>Zoom to home: 0</p>
-        <p>Zoom in/out: +/-</p>
-        <p>Switch between circle/square: c</p>
+      <div id="dialog" title="Controls">
+        <ul>
+          <li>Pan: Click + Drag</li>
+          <li>Zoom In: Scroll Up</li>
+          <li>Zoom Out: Scroll Down</li>
+          <li>Reset Zoom: 0</li>
+          <li>Resize Flashlight: ⇧ + Scroll</li>
+          <li>Flashlight Shape: C</li>
+          <li>Page Forward/Back: M/N</li>
+          <li>Flashlight Forward/Back: I/K</li>
+          <li>Background Forward/Back: J/L</li>
+        </ul>
       </div>
     </div>
     <script type="text/javascript" src='js/layered-viewer.js'></script>

@@ -45,6 +45,15 @@ var maxZoom = 2.00;
 // looks bad
 var animationTime = 0;
 
+//JQuery UI
+$(function() {
+    $( "#dialog" ).dialog({
+		resizable: false,
+		width: 320,
+    	position: { my: "left top", at: "left bottom", of: window },
+    });
+ });
+
 //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -420,8 +429,12 @@ function fillSlider() {
     {
 	version = pages[pageIndex]['layers'][i]['version'];
 	var elem = '';
-	if (i == primaryLayerIndex) {
-	    elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active">'+version+'</li>';
+	if (i == primaryLayerIndex && i == secondaryLayerIndex) {
+	    elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-both">'+version+'</li>';
+	} else if (i == primaryLayerIndex) {
+		elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-primary">'+version+'</li>';
+	} else if (i == secondaryLayerIndex) {
+		elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-secondary">'+version+'</li>';
 	} else {
 	    elem = '<li onclick="liClick(this.id)" id="'+i+'">'+version+'</li>';
 	}

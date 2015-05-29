@@ -34,9 +34,20 @@
     display: list-item;
     line-height: 150px;
 }
-.slidee li.active {
+
+.slidee li.active-both {
     color: #fff;
-    background: #a03232;
+    background: linear-gradient(#F4E76E 50%, #91B7C7 50%);
+}
+
+.slidee li.active-primary {
+    color: #fff;
+    background: linear-gradient(#333 50%, #91B7C7 50%);
+}
+
+.slidee li.active-secondary {
+    color: #fff;
+    background: linear-gradient(#F4E76E 50%, #333 50%);
 }
 .scrollbar {
     margin: 0;

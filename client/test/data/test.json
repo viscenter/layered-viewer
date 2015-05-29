@@ -14,6 +14,16 @@
 		    "pixelsPerMeter": 10000
 		}
 	    ]
+	},
+	{
+	    "name": "Test Page2",
+	    "layers": [
+		{
+		    "dzi": "test/data/grey.dzi",
+		    "version": "Grey",
+		    "pixelsPerMeter": 10000
+		}
+	    ]
 	}
     ]
 }
