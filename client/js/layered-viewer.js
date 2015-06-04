@@ -45,15 +45,6 @@ var maxZoom = 2.00;
 // looks bad
 var animationTime = 0;
 
-//JQuery UI
-$(function() {
-    $( "#dialog" ).dialog({
-		resizable: false,
-		width: 320,
-    	position: { my: "left top", at: "left bottom", of: window },
-    });
- });
-
 //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -94,7 +85,8 @@ var primary = OpenSeadragon({
     animationTime: animationTime,
     minZoomLevel: minZoom,
     maxZoomLevel: maxZoom,
-    showFullPageControl: showFull,
+    showFullPageControl: false,
+    toolbar: "viewer-controls",
 });
 
 // Initialize an OSD instance for the background.
@@ -107,6 +99,7 @@ var secondary = OpenSeadragon({
     minZoomLevel: minZoom,
     maxZoomLevel: maxZoom,
     showFullPageControl: false,
+    toolbar: "viewer-controls",
 });
 
 // create and show scale/ruler
@@ -417,6 +410,33 @@ $(document).keydown(function (e) {
     }
 });
 
+
+// Layers
+$(function () {
+		var $frame = $('#frame');
+		var $wrap  = $frame.parent();
+
+		// Call Sly on frame
+		$frame.sly({
+			horizontal: 1,
+			itemNav: 'forceCentered',
+			smart: 1,
+			activateMiddle: 1,
+			activateOn: 'click',
+			mouseDragging: 1,
+			touchDragging: 1,
+			releaseSwing: 1,
+			startAt: 0,
+			scrollBy: 1,
+			speed: 300,
+			elasticBounds: 1,
+			easing: 'easeOutExpo',
+			dragHandle: 1,
+			dynamicHandle: 1,
+			clickBar: 1,
+		}).init();
+});
+
 function liClick(id) {
     primaryLayerIndex = id;
     updatePrimaryImage();
@@ -424,46 +444,14 @@ function liClick(id) {
 
 // fill slider with names of each layer
 function fillSlider() {
-    $(".slidee").empty();
-    for(i=0; i < numLayers; i++)
-    {
-	version = pages[pageIndex]['layers'][i]['version'];
-	var elem = '';
-	if (i == primaryLayerIndex && i == secondaryLayerIndex) {
-	    elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-both">'+version+'</li>';
-	} else if (i == primaryLayerIndex) {
-		elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-primary">'+version+'</li>';
-	} else if (i == secondaryLayerIndex) {
-		elem = '<li onclick="liClick(this.id)" id="'+i+'" class="active-secondary">'+version+'</li>';
-	} else {
-	    elem = '<li onclick="liClick(this.id)" id="'+i+'">'+version+'</li>';
-	}
-	$('#frame').sly('add', elem);
+    $("#slidee").empty();
+    for(i=0; i < numLayers; i++) {
+		version = pages[pageIndex]['layers'][i]['version'];
+		var elem = '';
+	    elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="3">'+version+'</paper-material></li>'
+		$("#frame").sly('add', elem);
     }
 }
-
-
-//sly code
-$(function ($) {
-    $('#frame').sly({
-	horizontal: 1,
-	
-	itemNav: 'forceCentered',
-	smart: 1,
-	activateOn: 'click',
-	
-	scrollBy: 1,
-	
-	mouseDragging: 1,
-	swingSpeed: 0.2,
-	
-	scrollBar: $('.scrollbar'),
-	dragHandle: 1,
-	
-	speed: 600,
-	startAt: 2
-    });
-});
 
 $(document).ready(fillSlider);
 
