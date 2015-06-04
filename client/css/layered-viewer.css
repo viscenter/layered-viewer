@@ -13,6 +13,7 @@ body {
 
 #primary {
     z-index: 0;
+    cursor: crosshair;
 }
 
 #secondary {

@@ -1,6 +1,6 @@
 html {
     height: 100%;
-    background-color: whitesmoke;
+    background-color: #ececec;
     font-size: 1em;
     font-family: sans-serif;
 }
@@ -11,7 +11,8 @@ html {
 
 .toolbar {
 	color: white;
-	background-color: lightslategrey;
+	background-color: #4285f4;
+	height: 50px;
 }
 
 #mainContainer {
@@ -23,16 +24,18 @@ html {
 
 
 /* Navigation Bar */
-.layer-selector {
+#layer-selector-wrapper {
 	width: 100%;
 	position: fixed;
     bottom: 0;
 }
 
+#layer-selector {
+}
+
 /* Frame */
 .frame {
-	height: 110px;
-	/*width: 250px;*/
+	height: 120px;
 	overflow: hidden;
 }
 .frame ul {
@@ -52,15 +55,13 @@ html {
 	cursor: pointer;
 }
 
-li.active .layer-card{
-	background: #a03232;
+li.active {
+	color: #e28f03;
 }
 
 .layer-card {
-	background-color: whitesmoke;
-	margin: 10px 5px 0 5px;
-	position: fixed;
-	bottom: 0;
+	background-color: white;
+	margin: 10px 5px 10px 5px;
 	width: 200px;
 	height: 100px;
 }

@@ -27,8 +27,8 @@ if (window.location.hostname == 'infoforest.vis.uky.edu') {
 } else {
     // On other machines (for development and testing, show test images
     defaultImageSetJSONFile = '/test/data/test.json';
-    defaultPageIndex = 0;
-    defaultPrimaryLayerIndex = 1;
+    defaultPageIndex = 2;
+    defaultPrimaryLayerIndex = 2;
     defaultSecondaryLayerIndex = 0;
 }
 
@@ -112,8 +112,8 @@ if (showScale) {
 	xOffset: 5,
 	yOffset: 10,
 	stayInsideImage: true,
-	color: 'rgb(150, 150, 150)',
-	fontColor: 'rgb(100, 100, 100)',
+	color: 'rgba(255, 255, 255, .75)',
+	fontColor: 'rgba(255, 255, 255, .75)',
 	fontSize: 'small',
 	barThickness: 2
     });
@@ -277,9 +277,6 @@ pc.addEventListener('mousemove', makedrawfn(true, true));
 // but don't update the mouse position or redraw the canvas.
 primary.addHandler('tile-drawn', makedrawfn(false, false));
 
-// make the cursor invisible when it is over the canvas
-primary.canvas.style.cursor = 'none';
-
 // resize clipping on shift+mouseWheel
 function onScroll(e) {
     if (shiftDown) {
@@ -413,28 +410,31 @@ $(document).keydown(function (e) {
 
 // Layers
 $(function () {
-		var $frame = $('#frame');
-		var $wrap  = $frame.parent();
+	var $frame = $('#frame');
+	var $wrap  = $frame.parent();
 
-		// Call Sly on frame
-		$frame.sly({
-			horizontal: 1,
-			itemNav: 'forceCentered',
-			smart: 1,
-			activateMiddle: 1,
-			activateOn: 'click',
-			mouseDragging: 1,
-			touchDragging: 1,
-			releaseSwing: 1,
-			startAt: 0,
-			scrollBy: 1,
-			speed: 300,
-			elasticBounds: 1,
-			easing: 'easeOutExpo',
-			dragHandle: 1,
-			dynamicHandle: 1,
-			clickBar: 1,
-		}).init();
+	// Call Sly on frame
+	$frame.sly({
+		horizontal: 1,
+		itemNav: 'forceCentered',
+		smart: 1,
+		activateOn: 'click',
+		mouseDragging: 1,
+		touchDragging: 1,
+		releaseSwing: 1,
+		startAt: 0,
+		scrollBy: 1,
+		speed: 300,
+		elasticBounds: 1,
+		easing: 'easeOutExpo',
+		dragHandle: 1,
+		dynamicHandle: 1,
+		clickBar: 1,
+	}).init();
+
+	$(window).resize(function(e) {
+    	$frame.sly('reload');
+	});
 });
 
 function liClick(id) {
@@ -448,11 +448,9 @@ function fillSlider() {
     for(i=0; i < numLayers; i++) {
 		version = pages[pageIndex]['layers'][i]['version'];
 		var elem = '';
-	    elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="3">'+version+'</paper-material></li>'
+	    elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="2">'+version+'</paper-material></li>'
 		$("#frame").sly('add', elem);
     }
 }
 
 $(document).ready(fillSlider);
-
-
