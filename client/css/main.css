@@ -5,6 +5,18 @@ html {
     font-family: sans-serif;
 }
 
+.left-aligned {
+    float: left;
+}
+
+.right-aligned {
+    float: right;
+}
+
+#invisible {
+	display: none;
+}
+
 #paperDrawerPanel [drawer] {
 	border-right: 1px solid 1px solid #e0e0e0;
 }
@@ -12,7 +24,6 @@ html {
 .toolbar {
 	color: white;
 	background-color: #4285f4;
-	height: 50px;
 }
 
 #mainContainer {
@@ -35,7 +46,7 @@ html {
 
 /* Frame */
 .frame {
-	height: 120px;
+	height: 130px;
 	overflow: hidden;
 }
 .frame ul {
@@ -47,9 +58,8 @@ html {
 }
 .frame ul li {
 	float: left;
-	width: 210px;
-	height: 100%;
-	margin: 0;
+	width: 200px;
+	margin: 10px 0;
 	padding: 0;
 	text-align: center;
 	cursor: pointer;
@@ -61,7 +71,11 @@ li.active {
 
 .layer-card {
 	background-color: white;
-	margin: 10px 5px 10px 5px;
-	width: 200px;
-	height: 100px;
+	margin: 15px 10px;
+	width: 180px;
+	height: 80px;
+}
+
+.active-background {
+	
 }

@@ -39,11 +39,22 @@
         <div main>
           <paper-header-panel>
             <paper-toolbar id="mainToolbar" class="toolbar">
-              <paper-icon-button icon="icons:menu" onclick="toggleMenu()"></paper-icon-button>
-              <div id="pageTitle">The St. Chad Gospels</div>
-              <div id="viewer-controls"></div>
+              <div class="left-aligned">
+                <paper-icon-button icon="icons:menu" onclick="toggleMenu()"></paper-icon-button>
+                <div id="pageTitle">The St. Chad Gospels</div>
+              </div>
+              <div class="right-aligned">
+                <div id="viewer-controls">
+                  <paper-icon-button icon="icons:youtube-searched-for"  id="reset-view" onClick="resetView()" ></paper-icon-button>
+                  <paper-icon-button icon="icons:zoom-out"              id="zoom-out"   onClick="zoomOut()"   ></paper-icon-button>
+                  <paper-icon-button icon="icons:zoom-in"               id="zoom-in"    onClick="zoomIn()"    ></paper-icon-button>
+                  <paper-icon-button icon="icons:arrow-back"            id="prev-page"  onClick="prevPage()"  ></paper-icon-button>
+                  <paper-icon-button icon="icons:arrow-forward"         id="next-page"  onClick="nextPage()"  ></paper-icon-button>
+                </div>
+              </div>
             </paper-toolbar>
             <div id="viewer-wrapper">
+              <div id="navigator-wrapper"></div>
               <div id="primary"   class="openseadragon"></div>
               <div id="secondary" class="openseadragon"></div>
             </div>

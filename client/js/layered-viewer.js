@@ -82,11 +82,12 @@ var primary = OpenSeadragon({
     prefixUrl: OSDprefixURL,
     tileSources: pages[pageIndex]['layers'][primaryLayerIndex]['dzi'],
     showNavigator: showNav,
+    navigatorID: "navigator-wrapper",
     animationTime: animationTime,
     minZoomLevel: minZoom,
     maxZoomLevel: maxZoom,
     showFullPageControl: false,
-    toolbar: "viewer-controls",
+    showNavigationControl: false,
 });
 
 // Initialize an OSD instance for the background.
@@ -99,7 +100,7 @@ var secondary = OpenSeadragon({
     minZoomLevel: minZoom,
     maxZoomLevel: maxZoom,
     showFullPageControl: false,
-    toolbar: "viewer-controls",
+    showNavigationControl: false,
 });
 
 // create and show scale/ruler
@@ -146,6 +147,38 @@ primary.addHandler('zoom', function (e) {
 primary.addViewerInputHook({hooks: [
     {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onScroll}
 ]});
+
+// Functions for custom control elements
+function resetView() {
+	primary.viewport.goHome();
+	secondary.viewport.goHome();
+}
+
+function zoomOut() {
+	primary.viewport.zoomBy(0.8);
+}
+
+function zoomIn() {
+	primary.viewport.zoomBy(1.2);
+}
+
+function prevPage() {
+	if ( pageIndex != 0 ) {
+		pageIndex = (pageIndex - 1 + numPages) % numPages;
+	} else {
+		pageIndex = numPages - 1;
+	}
+	updatePage();
+}
+
+function nextPage() {
+	if ( pageIndex != numPages - 1 ) {
+		pageIndex = (pageIndex + 1) % numPages;
+	} else {
+		pageIndex = 0;
+	}
+	updatePage();
+}
 
 // The primary OSD instance's canvas is where we paint
 // transparency effects. OSD works without canvas, but our client
@@ -237,7 +270,6 @@ function updatePrimaryImage() {
 	primary.viewport.zoomTo(zoom);
 	primary.viewport.panTo(pan);
     }, updateDelay);
-    fillSlider();
 }
 
 // After the secondary layer index has been changed, update the secondary
@@ -250,7 +282,6 @@ function updateSecondaryImage() {
 	secondary.viewport.zoomTo(zoom);
 	secondary.viewport.panTo(pan);
     }, updateDelay);
-    fillSlider();
 }
 
 // After the page index has been changed, update both the primary and
@@ -384,14 +415,12 @@ $(document).keydown(function (e) {
 
     case 77: // m
 	// increment page index
-	pageIndex = (pageIndex + 1) % numPages;
-	updatePage();
+	nextPage();
 	break;
 
     case 78: // n
 	// decrement page index
-	pageIndex = (pageIndex - 1 + numPages) % numPages;
-	updatePage();
+	prevPage();
 	break;
 
     case 79: // o
@@ -409,32 +438,28 @@ $(document).keydown(function (e) {
 
 
 // Layers
-$(function () {
-	var $frame = $('#frame');
-	var $wrap  = $frame.parent();
 
-	// Call Sly on frame
-	$frame.sly({
-		horizontal: 1,
-		itemNav: 'forceCentered',
-		smart: 1,
-		activateOn: 'click',
-		mouseDragging: 1,
-		touchDragging: 1,
-		releaseSwing: 1,
-		startAt: 0,
-		scrollBy: 1,
-		speed: 300,
-		elasticBounds: 1,
-		easing: 'easeOutExpo',
-		dragHandle: 1,
-		dynamicHandle: 1,
-		clickBar: 1,
-	}).init();
+// Call Sly on frame
+var sly = new Sly('#frame' , {
+	horizontal: 1,
+	itemNav: 'forceCentered',
+	smart: 1,
+	activateOn: 'click',
+	mouseDragging: 1,
+	touchDragging: 1,
+	releaseSwing: 1,
+	startAt: 0,
+	scrollBy: 1,
+	speed: 300,
+	elasticBounds: 1,
+	easing: 'easeOutExpo',
+	dragHandle: 1,
+	dynamicHandle: 1,
+	clickBar: 1,
+}).init();
 
-	$(window).resize(function(e) {
-    	$frame.sly('reload');
-	});
+$(window).resize(function(e) {
+	sly.reload();
 });
 
 function liClick(id) {
@@ -448,9 +473,16 @@ function fillSlider() {
     for(i=0; i < numLayers; i++) {
 		version = pages[pageIndex]['layers'][i]['version'];
 		var elem = '';
-	    elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="2">'+version+'</paper-material></li>'
-		$("#frame").sly('add', elem);
+	    if (i == primaryLayerIndex) {
+	    	elem = '<li id="'+i+'"><paper-material class="layer-card active-background" elevation="3">'+version+'</paper-material></li>';
+	    } else {
+	    	elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="1">'+version+'</paper-material></li>';
+	    }
+		sly.add(elem);
     }
+    var activeCard = $("#"+primaryLayerIndex);
+	sly.activate(activeCard);
+	if (!activeCard.hasClass("active")) { activeCard.addClass("active") };
 }
 
 $(document).ready(fillSlider);
