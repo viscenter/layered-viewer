@@ -55,19 +55,19 @@ var secondaryLayerIndex = defaultSecondaryLayerIndex;
 
 // clipSize can be radius or side length
 var cursor = {clipSize: 50,
-	      isCircle: true};
+          isCircle: true};
 
 // read in JSON which defines image set structure and locations of
 // images in the set
 var pages = $.parseJSON(
     $.ajax(
-	{
-	    url: imageSetJSONFile,
-	    // necessary to make sure we wait for this to load
-	    // before moving on
-	    async: false,
-	    dataType: 'json'
-	}
+    {
+        url: imageSetJSONFile,
+        // necessary to make sure we wait for this to load
+        // before moving on
+        async: false,
+        dataType: 'json'
+    }
     ).responseText
 )['pages'];
 
@@ -106,17 +106,17 @@ var secondary = OpenSeadragon({
 // create and show scale/ruler
 if (showScale) {
     primary.scalebar({
-	type: OpenSeadragon.ScalebarType.MAP,
-	minWidth: scaleMinWidth,
-	pixelsPerMeter: pages[pageIndex]['layers'][primaryLayerIndex]['pixelsPerMeter'],
-	location: OpenSeadragon.ScalebarLocation.BOTTOM_LEFT,
-	xOffset: 5,
-	yOffset: 10,
-	stayInsideImage: true,
-	color: 'rgba(255, 255, 255, .75)',
-	fontColor: 'rgba(255, 255, 255, .75)',
-	fontSize: 'small',
-	barThickness: 2
+    type: OpenSeadragon.ScalebarType.MAP,
+    minWidth: scaleMinWidth,
+    pixelsPerMeter: pages[pageIndex]['layers'][primaryLayerIndex]['pixelsPerMeter'],
+    location: OpenSeadragon.ScalebarLocation.BOTTOM_LEFT,
+    xOffset: 5,
+    yOffset: 10,
+    stayInsideImage: true,
+    color: 'rgba(255, 255, 255, .75)',
+    fontColor: 'rgba(255, 255, 255, .75)',
+    fontSize: 'small',
+    barThickness: 2
     });
 }
 
@@ -128,8 +128,8 @@ if (showScale) {
 // position on the secondary OSD instance.
 primary.addHandler('pan', function (e) {
     if (primary && secondary) {
-	if (secondary.viewport)
-	    secondary.viewport.panTo(primary.viewport.getCenter(false));
+    if (secondary.viewport)
+        secondary.viewport.panTo(primary.viewport.getCenter(false));
     }
 });
 
@@ -137,10 +137,10 @@ primary.addHandler('pan', function (e) {
 // zoom to the same position on the secondary client.
 primary.addHandler('zoom', function (e) {
     if (primary && secondary) {
-	if (secondary.viewport) {
-	    secondary.viewport.panTo(primary.viewport.getCenter(false));
-	    secondary.viewport.zoomTo(primary.viewport.getZoom(false));
-	}
+    if (secondary.viewport) {
+        secondary.viewport.panTo(primary.viewport.getCenter(false));
+        secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+    }
     }
 });
 
@@ -150,34 +150,34 @@ primary.addViewerInputHook({hooks: [
 
 // Functions for custom control elements
 function resetView() {
-	primary.viewport.goHome();
-	secondary.viewport.goHome();
+    primary.viewport.goHome();
+    secondary.viewport.goHome();
 }
 
 function zoomOut() {
-	primary.viewport.zoomBy(0.8);
+    primary.viewport.zoomBy(0.8);
 }
 
 function zoomIn() {
-	primary.viewport.zoomBy(1.2);
+    primary.viewport.zoomBy(1.2);
 }
 
 function prevPage() {
-	if ( pageIndex != 0 ) {
-		pageIndex = (pageIndex - 1 + numPages) % numPages;
-	} else {
-		pageIndex = numPages - 1;
-	}
-	updatePage();
+    if ( pageIndex !== 0 ) {
+        pageIndex = (pageIndex - 1 + numPages) % numPages;
+    } else {
+        pageIndex = numPages - 1;
+    }
+    updatePage();
 }
 
 function nextPage() {
-	if ( pageIndex != numPages - 1 ) {
-		pageIndex = (pageIndex + 1) % numPages;
-	} else {
-		pageIndex = 0;
-	}
-	updatePage();
+    if ( pageIndex !== numPages - 1 ) {
+        pageIndex = (pageIndex + 1) % numPages;
+    } else {
+        pageIndex = 0;
+    }
+    updatePage();
 }
 
 // The primary OSD instance's canvas is where we paint
@@ -218,7 +218,7 @@ function getmpos(canvas, e) {
 
     
     return { x: (e.clientX - rect.left) * ratio,
-	     y: (e.clientY - rect.top) * ratio };
+         y: (e.clientY - rect.top) * ratio };
 }
 
 // mpos should always contain the last known position of the mouse
@@ -236,21 +236,21 @@ function makedrawfn(updatempos, refresh) {
     // the drawfn will draw a circle if the cursor.isCircle is
     // true. Otherwise it will draw a rectangle.
     return function (e) {
-	if (primary.viewport !== undefined) {
-	    if (updatempos) {
-		mpos = getmpos(pc, e);
-	    }
-	    if (refresh) {
-		primary.forceRedraw();
-	    }
-	    if (cursor.isCircle) {
-		clearCircle(mpos.x,	mpos.y,	cursor.clipSize/2);
-	    } else {
-		ctx.clearRect((mpos.x-cursor.clipSize/2),
-			      (mpos.y-cursor.clipSize/2),
-			      cursor.clipSize,cursor.clipSize);
-	    }
-	}
+    if (primary.viewport !== undefined) {
+        if (updatempos) {
+        mpos = getmpos(pc, e);
+        }
+        if (refresh) {
+        primary.forceRedraw();
+        }
+        if (cursor.isCircle) {
+        clearCircle(mpos.x, mpos.y, cursor.clipSize/2);
+        } else {
+        ctx.clearRect((mpos.x-cursor.clipSize/2),
+                  (mpos.y-cursor.clipSize/2),
+                  cursor.clipSize,cursor.clipSize);
+        }
+    }
     };
 }
 
@@ -267,8 +267,8 @@ function updatePrimaryImage() {
     var pan = primary.viewport.getCenter(false);
     primary.open(pages[pageIndex]['layers'][primaryLayerIndex]['dzi']);
     setTimeout(function() {
-	primary.viewport.zoomTo(zoom);
-	primary.viewport.panTo(pan);
+    primary.viewport.zoomTo(zoom);
+    primary.viewport.panTo(pan);
     }, updateDelay);
 }
 
@@ -279,8 +279,8 @@ function updateSecondaryImage() {
     var pan = primary.viewport.getCenter(false);
     secondary.open(pages[pageIndex]['layers'][secondaryLayerIndex]['dzi']);
     setTimeout(function() {
-	secondary.viewport.zoomTo(zoom);
-	secondary.viewport.panTo(pan);
+    secondary.viewport.zoomTo(zoom);
+    secondary.viewport.panTo(pan);
     }, updateDelay);
 }
 
@@ -293,12 +293,13 @@ function updatePage() {
     // in the new page.
     numLayers = pages[pageIndex]['layers'].length;
     primaryLayerIndex = Math.min(primaryLayerIndex,
-				 numLayers - 1);
+                 numLayers - 1);
     secondaryLayerIndex = Math.min(secondaryLayerIndex,
-				 numLayers - 1);
+                 numLayers - 1);
     updatePrimaryImage();
     updateSecondaryImage();
     fillSlider();
+    sly.activate(primaryLayerIndex);
 }
 
 // redraw canvas when the mouse moves and update the mpos.
@@ -311,23 +312,23 @@ primary.addHandler('tile-drawn', makedrawfn(false, false));
 // resize clipping on shift+mouseWheel
 function onScroll(e) {
     if (shiftDown) {
-	// configurable min and max sizes for clipping region
-	var minClipSize = 10;
-	var maxClipSize = 1000;
-	// prevent the OpenSeadragon viewer from trying to scroll
-	e.preventDefaultAction = true;
-	// divide delta by scale factor to make it feel right
-	var delta = e.originalEvent.wheelDelta / 5;
+    // configurable min and max sizes for clipping region
+    var minClipSize = 10;
+    var maxClipSize = 1000;
+    // prevent the OpenSeadragon viewer from trying to scroll
+    e.preventDefaultAction = true;
+    // divide delta by scale factor to make it feel right
+    var delta = e.originalEvent.wheelDelta / 5;
 
-	// make sure we do not make the size outside the min and max
-	var newClipSize = cursor.clipSize + delta;
-	if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
-	    cursor.clipSize = newClipSize;
-	}
+    // make sure we do not make the size outside the min and max
+    var newClipSize = cursor.clipSize + delta;
+    if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
+        cursor.clipSize = newClipSize;
+    }
 
-	// don't force the canvas to redraw itself and don't
-	// update the mouse position.
-	makedrawfn(false, true)({});
+    // don't force the canvas to redraw itself and don't
+    // update the mouse position.
+    makedrawfn(false, true)({});
     }
 }
 
@@ -337,13 +338,13 @@ function onScroll(e) {
 var waitForFinalEvent = (function () {
     var timers = {};
     return function (callback, ms, uniqueId) {
-	if (!uniqueId) {
-	    uniqueId = "Don't call this twice without a uniqueId";
-	}
-	if (timers[uniqueId]) {
-	    clearTimeout (timers[uniqueId]);
-	}
-	timers[uniqueId] = setTimeout(callback, ms);
+    if (!uniqueId) {
+        uniqueId = "Don't call this twice without a uniqueId";
+    }
+    if (timers[uniqueId]) {
+        clearTimeout (timers[uniqueId]);
+    }
+    timers[uniqueId] = setTimeout(callback, ms);
     };
 })();
 
@@ -354,8 +355,8 @@ $(window).resize(function (e) {
     // a small flicker but it is an improvement from before, when the
     // viewers simply did not resync after a window resize.
     waitForFinalEvent(function () {
-	secondary.viewport.panTo(primary.viewport.getCenter(false));
-	secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+    secondary.viewport.panTo(primary.viewport.getCenter(false));
+    secondary.viewport.zoomTo(primary.viewport.getZoom(false));
     }, 50, "resize");
 });
 
@@ -367,122 +368,137 @@ var shiftDown = false;
 $(document).keyup(function (e) {
     switch (e.which) {
     case 16: // shift
-	shiftDown = false;
-	break;
+    shiftDown = false;
+    break;
     default:
-	return;
+    return;
     }
 });
 
 $(document).keydown(function (e) {
     switch (e.which) {
     case 16: // shift
-	shiftDown = true;
-	break;
+    shiftDown = true;
+    break;
     case 67: // c
-	// change cursor shape from circle <=> square
-	cursor.isCircle = !cursor.isCircle;
-	// force the client to redraw itself but don't update the
-	// mouse position. Pass null because the drawfn does not
-	// need to receive an event, which would normally be used
-	// if the mouse position changed.
-	makedrawfn(false, true)(null);
-	break;
+    // change cursor shape from circle <=> square
+    cursor.isCircle = !cursor.isCircle;
+    // force the client to redraw itself but don't update the
+    // mouse position. Pass null because the drawfn does not
+    // need to receive an event, which would normally be used
+    // if the mouse position changed.
+    makedrawfn(false, true)(null);
+    break;
 
     case 73: // i
-	// increment secondary layer index
-	secondaryLayerIndex = (secondaryLayerIndex + 1) % numLayers;
-	updateSecondaryImage();
-	break;
+    // increment secondary layer index
+    secondaryLayerIndex = (secondaryLayerIndex + 1) % numLayers;
+    updateSecondaryImage();
+    break;
 
     case 74: // j
-	// decrement primary layer index
-	primaryLayerIndex = (primaryLayerIndex - 1 + numLayers) % numLayers;
-	updatePrimaryImage();
-	break;
+    // decrement primary layer index
+    sly.activate((primaryLayerIndex - 1 + numLayers) % numLayers);
+    break;
 
     case 75: // k
-	// decrement secondary layer index
-	secondaryLayerIndex = (secondaryLayerIndex - 1 + numLayers) % numLayers;
-	updateSecondaryImage();
-	break;
+    // decrement secondary layer index
+    secondaryLayerIndex = (secondaryLayerIndex - 1 + numLayers) % numLayers;
+    updateSecondaryImage();
+    break;
 
     case 76: // l
-	// increment primary layer index
-	primaryLayerIndex = (primaryLayerIndex + 1) % numLayers;	    
-	updatePrimaryImage();
-	break;
+    // increment primary layer index
+    sly.activate((primaryLayerIndex + 1) % numLayers);        
+    updatePrimaryImage();
+    break;
 
     case 77: // m
-	// increment page index
-	nextPage();
-	break;
+    // increment page index
+    nextPage();
+    break;
 
     case 78: // n
-	// decrement page index
-	prevPage();
-	break;
+    // decrement page index
+    prevPage();
+    break;
 
     case 79: // o
-	// expand clipping region
-	break;
+    // expand clipping region
+    break;
 
     case 85: // u
-	// reduce clipping region
-	break;
+    // reduce clipping region
+    break;
 
     default:
-	return;
+    return;
     }
 });
 
 
 // Layers
-
 // Call Sly on frame
 var sly = new Sly('#frame' , {
-	horizontal: 1,
-	itemNav: 'forceCentered',
-	smart: 1,
-	activateOn: 'click',
-	mouseDragging: 1,
-	touchDragging: 1,
-	releaseSwing: 1,
-	startAt: 0,
-	scrollBy: 1,
-	speed: 300,
-	elasticBounds: 1,
-	easing: 'easeOutExpo',
-	dragHandle: 1,
-	dynamicHandle: 1,
-	clickBar: 1,
-}).init();
-
-$(window).resize(function(e) {
-	sly.reload();
+    horizontal: 1,
+    itemNav: 'forceCentered',
+    smart: 1,
+    activateOn: 'click',
+    mouseDragging: 1,
+    touchDragging: 1,
+    releaseSwing: 1,
+    startAt: primaryLayerIndex,
+    scrollBy: 1,
+    speed: 300,
+    elasticBounds: 1,
+    easing: 'easeOutExpo',
+    dragHandle: 1,
+    dynamicHandle: 1,
+    clickBar: 1,
 });
 
-function liClick(id) {
-    primaryLayerIndex = id;
-    updatePrimaryImage();
-}
+sly.on('active', function (eventName, itemIndex) {
+    // Update the background image if we need to (e.g. the slidee is clicked)
+    if (primaryLayerIndex !== itemIndex) {
+        primaryLayerIndex = itemIndex;
+        updatePrimaryImage();
+    }
+});
+
+sly.init();
+
+$(window).resize(function(e) {
+    sly.reload();
+});
 
 // fill slider with names of each layer
 function fillSlider() {
-    $("#slidee").empty();
-    for(i=0; i < numLayers; i++) {
-		version = pages[pageIndex]['layers'][i]['version'];
-		var elem = '';
-	    if (i == primaryLayerIndex) {
-	    	elem = '<li id="'+i+'"><paper-material class="layer-card active-background" elevation="3">'+version+'</paper-material></li>';
-	    } else {
-	    	elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="1">'+version+'</paper-material></li>';
-	    }
-		sly.add(elem);
+    // Empty the slider. This is the way sly wants you to do it
+    cards = sly.items.length;
+    for (i=0; i < cards; i++){
+        sly.remove(0);
     }
-    var activeCard = $("#"+primaryLayerIndex);
-	sly.activate(activeCard);
-	if (!activeCard.hasClass("active")) { activeCard.addClass("active") };
+
+    // Fill the slider
+    for(i=0; i < numLayers; i++) {
+        version = pages[pageIndex]['layers'][i]['version'];
+        var elem = '';
+        elem = '<li id="'+i+'"><paper-material class="layer-card" elevation="1"><span class="vertically-aligned">'+version+'</span></paper-material></li>';
+        sly.add(elem);
+    }
 }
 
-$(document).ready(fillSlider);
+// WIP - Update the card elevations in the layer-selector toolbar
+function updateCardElevation(newIndex) {
+    $("#slidee").find("paper-material").attr("elevation", 1);
+    var newActive = $("#" + newIndex).children("paper-material");
+    if (primaryLayerIndex !== newIndex) {
+        oldActive.attr("elevation", 1);
+        newActive.attr("elevation", 3);
+    }
+}
+
+$(document).ready( function () {
+    fillSlider();
+    sly.activate(primaryLayerIndex);
+});

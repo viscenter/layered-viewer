@@ -1,4 +1,4 @@
 function toggleMenu() {
-	var hp = document.getElementById('paperDrawerPanel');
-	hp.togglePanel();
+    var hp = document.getElementById('paperDrawerPanel');
+    hp.togglePanel();
 }

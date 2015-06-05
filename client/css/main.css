@@ -13,31 +13,49 @@ html {
     float: right;
 }
 
+.vertically-aligned {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+}
+
+span.vertically-aligned {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.toolbar span.vertically-aligned {
+    display: inline;
+}
+
 #invisible {
-	display: none;
+    display: none;
 }
 
 #paperDrawerPanel [drawer] {
-	border-right: 1px solid 1px solid #e0e0e0;
+    border-right: 1px solid 1px solid #e0e0e0;
 }
 
 .toolbar {
-	color: white;
-	background-color: #4285f4;
+    color: white;
+    height: 56px;
+    background-color: #4285f4;
+}
+
+#menu-wrapper {
+    margin-top: 50px;
 }
 
 #mainContainer {
+    
 }
-
-#pageTitle {
-	display: inline;
-}
-
 
 /* Navigation Bar */
 #layer-selector-wrapper {
-	width: 100%;
-	position: fixed;
+    width: 100%;
+    position: fixed;
     bottom: 0;
 }
 
@@ -46,36 +64,37 @@ html {
 
 /* Frame */
 .frame {
-	height: 130px;
-	overflow: hidden;
+    height: 130px;
+    overflow: hidden;
 }
 .frame ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	font-size: 50px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 50px;
 }
 .frame ul li {
-	float: left;
-	width: 200px;
-	margin: 10px 0;
-	padding: 0;
-	text-align: center;
-	cursor: pointer;
+    float: left;
+    width: 200px;
+    margin: 10px 0;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
 }
 
 li.active {
-	color: #e28f03;
+    color: #e28f03;
 }
 
 .layer-card {
-	background-color: white;
-	margin: 15px 10px;
-	width: 180px;
-	height: 80px;
+    background-color: white;
+    margin: 15px 10px;
+    width: 180px;
+    height: 80px;
 }
 
-.active-background {
-	
+.active .layer-card {
+    margin: 14px 10px 14px 10px;
+    height: 82px;
 }
