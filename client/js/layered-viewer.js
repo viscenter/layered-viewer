@@ -59,24 +59,34 @@ var cursor = {clipSize: 50,
 
 // read in JSON which defines image set structure and locations of
 // images in the set
-var pages = $.parseJSON(
-    $.ajax(
-    {
+var json = $.ajax({
         url: imageSetJSONFile,
         // necessary to make sure we wait for this to load
         // before moving on
         async: false,
         dataType: 'json'
-    }
-    ).responseText
-)['pages'];
+    }).responseText;
+
+var pages = $.parseJSON(json)['pages'];
 
 // number of pages in image set
 var numPages = pages.length;
 // number of layers in current page
 var numLayers = pages[pageIndex]['layers'].length;
+// returns an array of the names of pages from pages[]
+function pageNames() {
+    array = pages.map(function(obj) {return obj.name;});
+    return array;
+};
 
-// Initialize an OSD instance for the foreground.  
+Polymer({
+    is: 'page-selector',
+    ready: function() {
+        this.pages = pages;
+    }
+});
+
+// Initialize an OSD instance for the foreground.
 var primary = OpenSeadragon({
     id: 'primary',
     prefixUrl: OSDprefixURL,
@@ -148,6 +158,9 @@ primary.addViewerInputHook({hooks: [
     {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onScroll}
 ]});
 
+// Set the initial page name info
+updateSearchBar();
+
 // Functions for custom control elements
 function resetView() {
     primary.viewport.goHome();
@@ -182,7 +195,7 @@ function nextPage() {
 
 // The primary OSD instance's canvas is where we paint
 // transparency effects. OSD works without canvas, but our client
-// will fail if the browser does not. 
+// will fail if the browser does not.
 var pc = primary.canvas.children[0];
 if (!pc) {
     console.log("Browser must support canvas for client to function.");
@@ -206,7 +219,7 @@ function clearCircle(x, y, size) {
 // canvas from the event e.
 function getmpos(canvas, e) {
     var rect = canvas.getBoundingClientRect();
-    
+
     devicePixelRatio = window.devicePixelRatio || 1,
     backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
         ctx.mozBackingStorePixelRatio ||
@@ -216,7 +229,7 @@ function getmpos(canvas, e) {
 
     ratio = devicePixelRatio / backingStoreRatio;
 
-    
+
     return { x: (e.clientX - rect.left) * ratio,
          y: (e.clientY - rect.top) * ratio };
 }
@@ -284,6 +297,10 @@ function updateSecondaryImage() {
     }, updateDelay);
 }
 
+function updateSearchBar() {
+    pageID.value = pages[pageIndex].name;
+}
+
 // After the page index has been changed, update both the primary and
 // secondary viewers to reflect this change.
 // TODO if the new page has fewer layers, reduce the layer indices
@@ -298,6 +315,7 @@ function updatePage() {
                  numLayers - 1);
     updatePrimaryImage();
     updateSecondaryImage();
+    updateSearchBar();
     fillSlider();
     sly.activate(primaryLayerIndex);
 }
@@ -409,7 +427,7 @@ $(document).keydown(function (e) {
 
     case 76: // l
     // increment primary layer index
-    sly.activate((primaryLayerIndex + 1) % numLayers);        
+    sly.activate((primaryLayerIndex + 1) % numLayers);
     updatePrimaryImage();
     break;
 
@@ -498,7 +516,20 @@ function updateCardElevation(newIndex) {
     }
 }
 
+function toggleLayerSelector() {
+    $("#layer-selector").slideToggle();
+};
+
+$("#pageID").focusin(function() {
+    $("#page-selector").slideDown(200);
+});
+
+$("#pageID").focusout(function() {
+    $("#page-selector").slideUp(200);
+});
+
 $(document).ready( function () {
     fillSlider();
+    Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
 });

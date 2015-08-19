@@ -49,10 +49,29 @@ span.vertically-aligned {
 }
 
 #mainContainer {
-    
+
 }
 
 /* Navigation Bar */
+#page-selector-wrapper {
+  display: initial;
+}
+
+#page-selector {
+  display: none;
+  background-color: white;
+  color: black;
+  margin-top: 8px;
+  padding: 10px;
+  position: absolute;
+  width: 149px;
+  max-height: 150px;
+  overflow: scroll;
+  text-align: right;
+  box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
 #layer-selector-wrapper {
     width: 100%;
     position: fixed;
@@ -60,6 +79,11 @@ span.vertically-aligned {
 }
 
 #layer-selector {
+}
+
+#layer-selector-toggle {
+  left: 50%;
+  margin-bottom: -30;
 }
 
 /* Frame */
@@ -97,4 +121,17 @@ li.active {
 .active .layer-card {
     margin: 14px 10px 14px 10px;
     height: 82px;
+}
+
+#pageID {
+    display: inline-block;
+}
+
+#pageID label {
+
+}
+
+#pageID input {
+    text-align: right;
+    padding: 1px;
 }
