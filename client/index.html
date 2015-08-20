@@ -8,6 +8,7 @@
     <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
     <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="bower_components/paper-fab/paper-fab.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
     <link rel="import" href="bower_components/paper-material/paper-material.html">
     <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
@@ -18,31 +19,33 @@
 
     <!-- App JS -->
     <script src="js/viewer-ui.js"></script>
-    <script type="text/javascript" src='/external/openseadragon/openseadragon.min.js'></script>
-    <script type="text/javascript" src='/external/openseadragon/openseadragon-scalebar.js'></script>
-    <script type="text/javascript" src='/external/openseadragon/openseadragon-viewerinputhook.min.js'></script>
-    <script type="text/javascript" src='/external/jquery-1.9.1.min.js'></script>
-    <script type="text/javascript" src='/external/jquery-ui.min.js'></script>
-    <script type="text/javascript" src='/external/sly.min.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon.min.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon-scalebar.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon-viewerinputhook.min.js'></script>
+    <script type="text/javascript" src='external/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='external/jquery-ui.min.js'></script>
+    <script type="text/javascript" src='external/sly.min.js'></script>
 
     <title>Vis Center Layered Viewer</title>
 
     <style is="custom-style">
-      :root #pageID {
+        #pageID {
           --paper-input-container-color: white;
           --paper-input-container-focus-color: white;
           --paper-input-container-input-color: white;
-          };
+        };
 
-          #layer-selector-toggle::shadow #icon {
-            color: #4285f4;
-            width: 50px;
-            height: 50px;
-          }
+        #layer-selector-fab::shadow #icon {
+          color: white;
+          width: 30px;
+          height: 30px;
+        }
 
-          #layer-selector-toggle::shadow #ripple {
-            color: #4285f4;
-          }
+        #layer-selector-fab {
+          --paper-fab-background: rgba(0, 0, 0, 0.3);
+          --paper-fab-keyboard-focus-background: rgba(0, 0, 0, 0.3);
+        }
+
     </style>
 
   </head>
@@ -60,51 +63,42 @@
           </paper-header-panel>
         </div>
         <div main>
-          <paper-header-panel>
-            <paper-toolbar id="mainToolbar" class="toolbar">
-              <div class="left-aligned vertically-aligned">
-                <paper-icon-button icon="icons:menu" onclick="toggleMenu()"></paper-icon-button>
-                <span class="vertically-aligned" id="pageTitle">The St. Chad Gospels</span>
-              </div>
-              <div class="right-aligned vertically-aligned">
-                <div id="viewer-controls">
-                  <div id="page-selector-wrapper">
-                  <paper-input no-label-float id="pageID" label="page"></paper-input>
-                  <ul id="page-selector">
-                      <template is="dom-bind">
-                        <iron-ajax
-                                auto
-                                url="/test/data/test.json"
-                                last-response="{{json}}"
-                                handleAs="json">
-                        </iron-ajax>
-                        <template is="dom-repeat" items="{{json.pages}}">
-                          <li name="{{item.name}}">{{item.name}}</li>
-                        </template>
-                      </template>
-                    </ul>
+            <paper-header-panel>
+              <paper-toolbar id="mainToolbar" class="toolbar">
+                <div class="left-aligned vertically-aligned">
+                  <!-- <paper-icon-button icon="icons:menu" onclick="toggleMenu()"></paper-icon-button> -->
+                  <span class="vertically-aligned" id="pageTitle">The St. Chad Gospels</span>
+                </div>
+                <div class="right-aligned vertically-aligned">
+                  <div id="viewer-controls">
+                    <div id="page-selector-wrapper">
+                    <paper-input no-label-float id="pageID" label="page"></paper-input>
+                    <ul id="page-selector"></ul>
+                    </div>
+                    <paper-icon-button icon="icons:arrow-back"            id="prev-page"  onClick="prevPage()"  ></paper-icon-button>
+                    <paper-icon-button icon="icons:arrow-forward"         id="next-page"  onClick="nextPage()"  ></paper-icon-button>
+                    <paper-icon-button icon="icons:youtube-searched-for"  id="reset-view" onClick="resetView()" ></paper-icon-button>
+                    <paper-icon-button icon="icons:zoom-out"              id="zoom-out"   onClick="zoomOut()"   ></paper-icon-button>
+                    <paper-icon-button icon="icons:zoom-in"               id="zoom-in"    onClick="zoomIn()"    ></paper-icon-button>
                   </div>
-                  <paper-icon-button icon="icons:arrow-back"            id="prev-page"  onClick="prevPage()"  ></paper-icon-button>
-                  <paper-icon-button icon="icons:arrow-forward"         id="next-page"  onClick="nextPage()"  ></paper-icon-button>
-                  <paper-icon-button icon="icons:youtube-searched-for"  id="reset-view" onClick="resetView()" ></paper-icon-button>
-                  <paper-icon-button icon="icons:zoom-out"              id="zoom-out"   onClick="zoomOut()"   ></paper-icon-button>
-                  <paper-icon-button icon="icons:zoom-in"               id="zoom-in"    onClick="zoomIn()"    ></paper-icon-button>
+                </div>
+              </paper-toolbar>
+              <div id="viewer-wrapper">
+                <div id="navigator-wrapper"></div>
+                <div id="primary"   class="openseadragon"></div>
+                <div id="secondary" class="openseadragon"></div>
+              </div>
+              <div id="layer-selector-wrapper">
+                <div id="layer-selector-toggle">
+                  <paper-fab mini icon="icons:expand-more" id="layer-selector-fab" onClick="toggleLayerSelector()"></paper-fab>
+                  <span id="layer-selector-label" class="vertically-aligned">Background Layers</span>
+                </div>
+                <div id="layer-selector">
+                  <div class="frame" id="frame">
+                      <ul class="slidee" id="slidee"></ul>
+                  </div>
                 </div>
               </div>
-            </paper-toolbar>
-            <div id="viewer-wrapper">
-              <div id="navigator-wrapper"></div>
-              <div id="primary"   class="openseadragon"></div>
-              <div id="secondary" class="openseadragon"></div>
-            </div>
-            <div id="layer-selector-wrapper">
-              <paper-icon-button icon="icons:expand-less" id="layer-selector-toggle" onClick="toggleLayerSelector()"></paper-icon-button>
-              <div id="layer-selector">
-                <div class="frame" id="frame">
-                    <ul class="slidee" id="slidee"></ul>
-                </div>
-              </div>
-            </div>
           </paper-header-panel>
         </div>
       </paper-drawer-panel>

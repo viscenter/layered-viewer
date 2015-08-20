@@ -23,6 +23,7 @@ body {
 /* wrapper can be sized/placed any way, contents will fill container */
 #viewer-wrapper {
     display: initial;
+    position: absolute;
     width: 100%;
     height: 100%;
 }

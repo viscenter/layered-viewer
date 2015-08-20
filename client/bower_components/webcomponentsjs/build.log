@@ -1,33 +1,33 @@
 BUILD LOG
 ---------
-Build Time: 2015-05-26T17:48:07-0700
+Build Time: 2015-08-13T12:57:18-0700
 
 NODEJS INFORMATION
 ==================
-nodejs: v2.0.2
-gulp: 3.8.11
+nodejs: v0.12.7
+gulp: 3.9.0
 gulp-audit: 1.0.0
-gulp-concat: 2.5.2
+gulp-concat: 2.6.0
 gulp-header: 1.2.2
-run-sequence: 1.1.0
-web-component-tester: 3.1.3
 gulp-uglify: 1.2.0
+run-sequence: 1.1.2
+web-component-tester: 3.3.10
 
 REPO REVISIONS
 ==============
-webcomponentsjs: 131ea2174ec5c4d4a48e6637cc0751dc5dee43a3
+webcomponentsjs: 0fc12104ac6f39421c5105a3694aa740ed3835df
 
 BUILD HASHES
 ============
-CustomElements.js: 62dbb3db0856c43bb43a90c1f9ac400cb568d2e2
-CustomElements.min.js: 482d41c9b901e21b8be5dde1f334579bea9b3278
-HTMLImports.js: 6aa44b4dbe224ba04011308ffcfc7bac4d2ecf45
-HTMLImports.min.js: ac0190e185cf6a3fcd9b092b2143b8796c2b2db7
-MutationObserver.js: 6d07c7fab2a59b4d3face7bf3b61474514d506ec
-MutationObserver.min.js: 3e3ec659c0b2c27d5717f2155507d76f06abf103
-ShadowDOM.js: aeb06cb34b92f5fd5f91e169a8545043a4c06e4e
-ShadowDOM.min.js: a615e963dfa831edadd0457327a7c3818693e19c
-webcomponents-lite.js: 5ebee320c939e16c7747d354a7b59c5eaf6372b3
-webcomponents-lite.min.js: 3c4c323b2584c009791a41a351491f610e2cc253
-webcomponents.js: a028071aec0b77be6f1c562552f199ea57f73869
-webcomponents.min.js: 57b88a10558b60e24f309ff6dc914d9100977895
+CustomElements.js: 174a3a08af4a551dbd436f5dc527e29c4b989919
+CustomElements.min.js: 5d7f8991d0ce8a10307114de07d7ce0d1481f3a5
+HTMLImports.js: 6bb55981141fcf206496c34dad811e176f0d13f8
+HTMLImports.min.js: f956c8f8751b4e87fd93f5d4a3d053e6e8654d52
+MutationObserver.js: e0fce524fed93243c80971b72be846775bb74d53
+MutationObserver.min.js: 25c795fa01bd9d9feb3a52cf60ab2b6749b78c75
+ShadowDOM.js: 1874e157c0462484bbb34b812d6ec7a97cf63995
+ShadowDOM.min.js: 9a7fca60240b59961eba22b941ab0f890124e96b
+webcomponents-lite.js: 406c7a34b1ab536e7bdf943c22d4293fbbe464e9
+webcomponents-lite.min.js: 97f3d2215d0390bc2e246bd1c1f363b257050f70
+webcomponents.js: 8aa2b2a294e917ec792f6b52f27cfbf9b00f519f
+webcomponents.min.js: 4df2e85a7b0cd173494a9e8ab71660943734fcf9

@@ -38,6 +38,10 @@ span.vertically-aligned {
     border-right: 1px solid 1px solid #e0e0e0;
 }
 
+#pageTitle {
+  padding-left: 25px;
+}
+
 .toolbar {
     color: white;
     height: 56px;
@@ -48,8 +52,11 @@ span.vertically-aligned {
     margin-top: 50px;
 }
 
-#mainContainer {
+#mainToolbar {
+  z-index: 1;
+}
 
+#mainContainer {
 }
 
 /* Navigation Bar */
@@ -61,15 +68,23 @@ span.vertically-aligned {
   display: none;
   background-color: white;
   color: black;
-  margin-top: 8px;
+  margin-top: 7px;
   padding: 10px;
-  position: absolute;
+  position: fixed;
   width: 149px;
   max-height: 150px;
   overflow: scroll;
   text-align: right;
   box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
-  z-index: -1;
+}
+
+#page-selector li {
+  padding: 2px; 
+  margin: 0 0 2 0;
+}
+
+#page-selector li:hover {
+  background-color: #ececec;
 }
 
 #layer-selector-wrapper {
@@ -83,7 +98,19 @@ span.vertically-aligned {
 
 #layer-selector-toggle {
   left: 50%;
-  margin-bottom: -30;
+  margin-bottom: -15px;
+  position: relative;
+}
+
+#layer-selector-label {
+  color: white;
+  font-size: 1em;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  padding: 5;
+  margin-bottom: 2px;
 }
 
 /* Frame */

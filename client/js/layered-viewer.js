@@ -20,20 +20,20 @@ var defaultSecondaryLayerIndex;
 
 // On production server with Chad data available, show Chad data
 if (window.location.hostname == 'infoforest.vis.uky.edu') {
-    defaultImageSetJSONFile = '/data/chad.json';
+    defaultImageSetJSONFile = 'data/chad.json';
     defaultPageIndex = 223;
     defaultPrimaryLayerIndex = 4;
     defaultSecondaryLayerIndex = 2;
 } else {
     // On other machines (for development and testing, show test images
-    defaultImageSetJSONFile = '/test/data/test.json';
+    defaultImageSetJSONFile = 'test/data/test.json';
     defaultPageIndex = 2;
     defaultPrimaryLayerIndex = 2;
     defaultSecondaryLayerIndex = 0;
 }
 
 // OpenSeadragon (OSD) initialization settings
-var OSDprefixURL = '/external/openseadragon/images/';
+var OSDprefixURL = 'external/openseadragon/images/';
 var showNav = true;
 var showFull = false;
 var showScale = true;
@@ -78,13 +78,6 @@ function pageNames() {
     array = pages.map(function(obj) {return obj.name;});
     return array;
 };
-
-Polymer({
-    is: 'page-selector',
-    ready: function() {
-        this.pages = pages;
-    }
-});
 
 // Initialize an OSD instance for the foreground.
 var primary = OpenSeadragon({
@@ -190,6 +183,11 @@ function nextPage() {
     } else {
         pageIndex = 0;
     }
+    updatePage();
+}
+
+function gotoPage(index) {
+    pageIndex = index;
     updatePage();
 }
 
@@ -506,6 +504,15 @@ function fillSlider() {
     }
 }
 
+function fillPageSelector() {
+    var elem = '';
+    for ( id=0; id < pageNames().length; id++ ) {
+      elem = '<li id="'+id+'" onclick="selectPage(this)">'+pageNames()[id]+'</li>';
+      console.log(elem);
+      $("#page-selector").append(elem);
+    }
+}
+
 // WIP - Update the card elevations in the layer-selector toolbar
 function updateCardElevation(newIndex) {
     $("#slidee").find("paper-material").attr("elevation", 1);
@@ -517,8 +524,43 @@ function updateCardElevation(newIndex) {
 }
 
 function toggleLayerSelector() {
-    $("#layer-selector").slideToggle();
+  if( $("#layer-selector").css("display") == 'none' ) {
+    // $("#layer-selector-toggle").attr("icon", "icons:expand-more");
+    $("#layer-selector-toggle").animate(
+      {"margin-bottom": "-15px"},
+      {
+        step: function(now,fx) {
+          var deg = -((now+15)*180)/(25);
+          $(this).find("iron-icon").css("-ms-transform", "rotate("+deg+"deg)");
+          $(this).find("iron-icon").css("-webkit-transform", "rotate("+deg+"deg)");
+          $(this).find("iron-icon").css("transform", "rotate("+deg+"deg)");
+        }
+      },
+      400 );
+  } else {
+    // $("#layer-selector-toggle").attr("icon", "icons:expand-less");
+    $("#layer-selector-toggle").animate(
+      {"margin-bottom": "10px"},
+      {
+        step: function(now,fx) {
+          var deg = ((now+15)*180)/(25);
+          $(this).find("iron-icon").css("-ms-transform", "rotate("+deg+"deg)");
+          $(this).find("iron-icon").css("-webkit-transform", "rotate("+deg+"deg)");
+          $(this).find("iron-icon").css("transform", "rotate("+deg+"deg)");
+        }
+      },
+      400 );
+  }
+  $("#layer-selector").slideToggle(400);
 };
+
+$("#layer-selector-fab").mouseenter( function() {
+  $("#layer-selector-label").animate( {"opacity": "1.0"}, "fast" );
+});
+
+$("#layer-selector-fab").mouseleave( function() {
+  $("#layer-selector-label").animate( {"opacity": "0.0"}, "fast" );
+});
 
 $("#pageID").focusin(function() {
     $("#page-selector").slideDown(200);
@@ -530,6 +572,7 @@ $("#pageID").focusout(function() {
 
 $(document).ready( function () {
     fillSlider();
+    fillPageSelector();
     Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
 });
