@@ -187,6 +187,7 @@ function nextPage() {
 }
 
 function gotoPage(index) {
+    console.log("here");
     pageIndex = index;
     updatePage();
 }
@@ -301,7 +302,6 @@ function updateSearchBar() {
 
 // After the page index has been changed, update both the primary and
 // secondary viewers to reflect this change.
-// TODO if the new page has fewer layers, reduce the layer indices
 function updatePage() {
     // If we are currently at a layer index that does not exist in the
     // new page, we must update the index to be in range of the layers
@@ -316,6 +316,7 @@ function updatePage() {
     updateSearchBar();
     fillSlider();
     sly.activate(primaryLayerIndex);
+    updateSecondaryCard();
 }
 
 // redraw canvas when the mouse moves and update the mpos.
@@ -507,8 +508,7 @@ function fillSlider() {
 function fillPageSelector() {
     var elem = '';
     for ( id=0; id < pageNames().length; id++ ) {
-      elem = '<li id="'+id+'" onclick="selectPage(this)">'+pageNames()[id]+'</li>';
-      console.log(elem);
+      elem = '<li class="page-item" id="'+id+'" onclick="gotoPage('+id+')">'+pageNames()[id]+'</li>';
       $("#page-selector").append(elem);
     }
 }
@@ -523,9 +523,19 @@ function updateCardElevation(newIndex) {
     }
 }
 
+function updateSecondaryCard() {
+  var old = $("#slidee").find(".second-active");
+  old.removeClass("second-active");
+  old.find("span").find(".circle").remove();
+
+  var elem = '<div class="circle"></div>'
+  var newSecond = $("#slidee").find("#" + secondaryLayerIndex);
+  newSecond.addClass("second-active");
+  newSecond.find("span").prepend(elem);
+}
+
 function toggleLayerSelector() {
   if( $("#layer-selector").css("display") == 'none' ) {
-    // $("#layer-selector-toggle").attr("icon", "icons:expand-more");
     $("#layer-selector-toggle").animate(
       {"margin-bottom": "-15px"},
       {
@@ -538,7 +548,6 @@ function toggleLayerSelector() {
       },
       400 );
   } else {
-    // $("#layer-selector-toggle").attr("icon", "icons:expand-less");
     $("#layer-selector-toggle").animate(
       {"margin-bottom": "10px"},
       {
@@ -552,6 +561,7 @@ function toggleLayerSelector() {
       400 );
   }
   $("#layer-selector").slideToggle(400);
+  sly.reload();
 };
 
 $("#layer-selector-fab").mouseenter( function() {
@@ -562,12 +572,25 @@ $("#layer-selector-fab").mouseleave( function() {
   $("#layer-selector-label").animate( {"opacity": "0.0"}, "fast" );
 });
 
+$("#help-button").mouseenter( function() {
+  $("#help-label").animate( {"opacity": "1.0"}, "fast" );
+});
+
+$("#help-button").mouseleave( function() {
+  $("#help-label").animate( {"opacity": "0.0"}, "fast" );
+});
+
+$("#help-button").click(function(){
+  var dialog = document.getElementById("help-dialog");
+  dialog.open();
+});
+
 $("#pageID").focusin(function() {
     $("#page-selector").slideDown(200);
 });
 
 $("#pageID").focusout(function() {
-    $("#page-selector").slideUp(200);
+    $("#page-selector").delay(50).slideUp(200);
 });
 
 $(document).ready( function () {
@@ -575,4 +598,6 @@ $(document).ready( function () {
     fillPageSelector();
     Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
+    updateSecondaryCard();
+    $("#help-button").click();
 });

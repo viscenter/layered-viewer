@@ -8,9 +8,11 @@
     <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
     <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-fab/paper-fab.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
     <link rel="import" href="bower_components/paper-material/paper-material.html">
+    <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
     <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
     <!-- App CSS -->
@@ -35,15 +37,19 @@
           --paper-input-container-input-color: white;
         };
 
-        #layer-selector-fab::shadow #icon {
+        .overlay-fab::shadow #icon {
           color: white;
           width: 30px;
           height: 30px;
         }
 
-        #layer-selector-fab {
+        .overlay-fab {
           --paper-fab-background: rgba(0, 0, 0, 0.3);
           --paper-fab-keyboard-focus-background: rgba(0, 0, 0, 0.3);
+        }
+
+        paper-button {
+          color: #4285f4;
         }
 
     </style>
@@ -88,10 +94,54 @@
                 <div id="primary"   class="openseadragon"></div>
                 <div id="secondary" class="openseadragon"></div>
               </div>
+              <div id="help-wrapper">
+                <paper-fab mini icon="icons:help" id="help-button" class="overlay-fab"></paper-fab>
+                <span id="help-label" class="overlay-label vertically-aligned">Help</span>
+                <paper-dialog id="help-dialog" modal>
+                  <p style="font-size: 1.5em">The St. Chad Gospels Registered Image Viewer</p>
+                  <br />
+                  <p>The St. Chad Gospels (aka The Lichfield Gospels) are a set of illuminated gospels
+                     that contain some of the earliest known examples of Welsh writing. Due to their historic
+                     significance, as well as their active use by Lichfield Cathedral where they are housed,
+                     much effort has been taken to preserve and document the content of these gospels for future
+                     generations.</p>
+                  <br />
+                  <p>The gospels have been photographed five times, in whole or in part, starting in 1912. However,
+                  due to the differences in imaging equipment over the years, a direct comparison of these images has
+                  been difficult. This Registered Image Viewer aims to solve that problem. Every image of the St. Chad
+                  Gospels in this viewer has been digitally aligned with our images from the 2010 imaging project, and our
+                  unique Flashlight tool allows for the clear, direct comparison of these beautiful pages across time.</p>
+                  <br />
+                  <p>We hope you enjoy this wonderful document and our viewer!</p>
+                  <p>The Brent Seales Research Group, University of Kentucky</p>
+                  <br />
+                  <dl>
+                    <dt>Pan:</dt>
+                      <dd>Click + Drag</dd>
+                    <dt>Zoom in/out:</dt>
+                      <dd>Scroll Up/Down</dd>
+                    <dt>Change page:</dt>
+                      <dd>Use the Page selector at the top of the screen</dd>
+                      <dd>Forward/Back: M/N keys</dd>
+                    <dt>Select a background layer:</dt>
+                      <dd>Use the Layers drawer at the bottom of the screen</dd>
+                      <dd>Forward/Back: J/L keys</dd>
+                    <dt>Select a flashlight(foreground) layer:</dt>
+                      <dd>Forward/Back: I/K keys</dd>
+                    <dt>Resize flashlight:</dt>
+                      <dd>Shift + Scroll Up/Down</dd>
+                    <dt>Change flashlight shape:</dt>
+                      <dd>C key</dd>
+                  </dl>
+                 <div class="buttons">
+                   <paper-button dialog-confirm autofocus>Close</paper-button>
+                 </div>
+               </paper-dialog>
+              </div>
               <div id="layer-selector-wrapper">
                 <div id="layer-selector-toggle">
-                  <paper-fab mini icon="icons:expand-more" id="layer-selector-fab" onClick="toggleLayerSelector()"></paper-fab>
-                  <span id="layer-selector-label" class="vertically-aligned">Background Layers</span>
+                  <paper-fab mini icon="icons:expand-more" id="layer-selector-fab" class="overlay-fab" onClick="toggleLayerSelector()"></paper-fab>
+                  <span id="layer-selector-label" class="overlay-label vertically-aligned">Background Layers</span>
                 </div>
                 <div id="layer-selector">
                   <div class="frame" id="frame">

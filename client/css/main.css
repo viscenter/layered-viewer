@@ -53,7 +53,7 @@ span.vertically-aligned {
 }
 
 #mainToolbar {
-  z-index: 1;
+  z-index: 5;
 }
 
 #mainContainer {
@@ -78,13 +78,18 @@ span.vertically-aligned {
   box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
 }
 
-#page-selector li {
-  padding: 2px; 
+.page-item {
+  padding: 2px;
   margin: 0 0 2 0;
+  cursor: pointer;
 }
 
-#page-selector li:hover {
+.page-item:hover {
   background-color: #ececec;
+}
+
+.page-item:active {
+  background-color: #bfbfbf;
 }
 
 #layer-selector-wrapper {
@@ -102,7 +107,7 @@ span.vertically-aligned {
   position: relative;
 }
 
-#layer-selector-label {
+.overlay-label {
   color: white;
   font-size: 1em;
   background-color: rgba(0, 0, 0, 0.3);
@@ -111,6 +116,25 @@ span.vertically-aligned {
               0 3px 1px -2px rgba(0, 0, 0, 0.2);
   padding: 5;
   margin-bottom: 2px;
+  opacity: 0;
+}
+
+#help-button {
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+#help-dialog {
+  max-width: 900px;
+  padding: 0 25px;
+}
+
+#help-dialog dt {
+  font-weight: bold;
+}
+
+#help-dialog dd {
+  text-indent: 15px;
 }
 
 /* Frame */
@@ -123,7 +147,7 @@ span.vertically-aligned {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-size: 50px;
+    font-size: 2em;
 }
 .frame ul li {
     float: left;
@@ -135,7 +159,7 @@ span.vertically-aligned {
 }
 
 li.active {
-    color: #e28f03;
+    color: white;
 }
 
 .layer-card {
@@ -146,8 +170,27 @@ li.active {
 }
 
 .active .layer-card {
+    background-color: #4285f4;
     margin: 14px 10px 14px 10px;
     height: 82px;
+}
+
+.circle {
+  border-radius: 50%;
+  background-color: #4285f4;
+  width: 12px;
+  height: 12px;
+  position: fixed;
+  left: -20px;
+  top: 10px;
+}
+
+.active.second-active .circle {
+  background-color: white;
+}
+
+.second-active {
+
 }
 
 #pageID {
