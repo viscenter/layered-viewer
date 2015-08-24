@@ -177,9 +177,12 @@ li.active {
 
 .circle {
   border-radius: 50%;
-  background-color: #4285f4;
+}
+
+.indicator {
   width: 12px;
   height: 12px;
+  background-color: #4285f4;
   position: fixed;
   left: -20px;
   top: 10px;

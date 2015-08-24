@@ -411,6 +411,7 @@ $(document).keydown(function (e) {
     // increment secondary layer index
     secondaryLayerIndex = (secondaryLayerIndex + 1) % numLayers;
     updateSecondaryImage();
+    updateSecondaryCard();
     break;
 
     case 74: // j
@@ -422,6 +423,7 @@ $(document).keydown(function (e) {
     // decrement secondary layer index
     secondaryLayerIndex = (secondaryLayerIndex - 1 + numLayers) % numLayers;
     updateSecondaryImage();
+    updateSecondaryCard();
     break;
 
     case 76: // l
@@ -526,9 +528,9 @@ function updateCardElevation(newIndex) {
 function updateSecondaryCard() {
   var old = $("#slidee").find(".second-active");
   old.removeClass("second-active");
-  old.find("span").find(".circle").remove();
+  old.find("span").find(".circle.indicator").remove();
 
-  var elem = '<div class="circle"></div>'
+  var elem = '<div class="circle indicator"></div>'
   var newSecond = $("#slidee").find("#" + secondaryLayerIndex);
   newSecond.addClass("second-active");
   newSecond.find("span").prepend(elem);
