@@ -53,6 +53,12 @@ var pageIndex = defaultPageIndex;
 var primaryLayerIndex = defaultPrimaryLayerIndex;
 var secondaryLayerIndex = defaultSecondaryLayerIndex;
 
+// Is a flashlight moving and which one?
+var movingFlashlight = false;
+var whichFlashlight = null;
+var flashlightIndicatorSize = 7;
+var mouse_offset = {x: 0, y: 0};
+
 // clipSize can be radius or side length
 var cursor = {clipSize: 50,
           isCircle: true};
@@ -131,24 +137,29 @@ if (showScale) {
 // position on the secondary OSD instance.
 primary.addHandler('pan', function (e) {
     if (primary && secondary) {
-    if (secondary.viewport)
-        secondary.viewport.panTo(primary.viewport.getCenter(false));
-    }
+      if (secondary.viewport)
+          secondary.viewport.panTo(primary.viewport.getCenter(false));
+    };
+    invalidate();
 });
 
 // Similar for zoom. Every time the user zooms on the primary OSD,
 // zoom to the same position on the secondary client.
 primary.addHandler('zoom', function (e) {
     if (primary && secondary) {
-    if (secondary.viewport) {
-        secondary.viewport.panTo(primary.viewport.getCenter(false));
-        secondary.viewport.zoomTo(primary.viewport.getZoom(false));
-    }
-    }
+      if (secondary.viewport) {
+          secondary.viewport.panTo(primary.viewport.getCenter(false));
+          secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+      };
+    };
+    invalidate();
 });
 
 primary.addViewerInputHook({hooks: [
-    {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onScroll}
+    {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onViewerScroll},
+    {tracker: 'viewer', handler: 'pressHandler', hookHandler: onViewerPress},
+    {tracker: 'viewer', handler: 'releaseHandler', hookHandler: onViewerRelease},
+    {tracker: 'viewer', handler: 'dragHandler', hookHandler: onViewerDrag}
 ]});
 
 // Set the initial page name info
@@ -158,24 +169,24 @@ updateSearchBar();
 function resetView() {
     primary.viewport.goHome();
     secondary.viewport.goHome();
-}
+};
 
 function zoomOut() {
     primary.viewport.zoomBy(0.8);
-}
+};
 
 function zoomIn() {
     primary.viewport.zoomBy(1.2);
-}
+};
 
 function prevPage() {
     if ( pageIndex !== 0 ) {
         pageIndex = (pageIndex - 1 + numPages) % numPages;
     } else {
         pageIndex = numPages - 1;
-    }
+    };
     updatePage();
-}
+};
 
 function nextPage() {
     if ( pageIndex !== numPages - 1 ) {
@@ -184,13 +195,12 @@ function nextPage() {
         pageIndex = 0;
     }
     updatePage();
-}
+};
 
 function gotoPage(index) {
-    console.log("here");
     pageIndex = index;
     updatePage();
-}
+};
 
 // The primary OSD instance's canvas is where we paint
 // transparency effects. OSD works without canvas, but our client
@@ -200,70 +210,114 @@ if (!pc) {
     console.log("Browser must support canvas for client to function.");
     console.log("Try the latest versions of Firefox or Chromium.");
     exit(0);
-}
+};
 var ctx = pc.getContext('2d');
+
+// interval for refreshing the view
+setInterval(validate, 10);
+isValid = false;
+
+function invalidate() { isValid = false };
+
+function validate() {
+  if ( isValid == false ) {
+    // Clear the canvas. This action triggers "tile-drawn", which in turn redraws flashlights
+    primary.forceRedraw();
+    isValid = true;
+  };
+};
+
+// when tiles are updated, redraw all of the flashlights
+// this ensures that flashlights are always drawn AFTER the canvas finishes updating
+primary.addHandler('tile-drawn', drawFlashlights);
+
+// Holds all flashlights
+var flashlights = [];
+
+// Flashlight object
+function Flashlight() {
+  this.x = 0;
+  this.y = 0;
+  this.clipSize = 10;
+  this.fill = 'white';
+};
+
+function addFlashlight(x, y, s) {
+  var light = new Flashlight;
+  light.x = x;
+  light.y = y;
+  light.clipSize = s;
+  flashlights.push(light);
+  invalidate();
+};
+
+function drawIndicator(flashlight, color, context) {
+  context.beginPath();
+  context.arc(flashlight.x, flashlight.y, flashlightIndicatorSize, 0, 2 * Math.PI, false);
+  context.fillStyle = color;
+  context.fill();
+};
+
+function drawFlashlights() {
+  for ( var i = 0; i < flashlights.length; i++ ) {
+    if (cursor.isCircle) {
+      cutCircle(flashlights[i].x, flashlights[i].y, flashlights[i].clipSize/2);
+    } else {
+      cutSquare(flashlights[i].x, flashlights[i].y, flashlights[i].clipSize);
+    };
+    drawIndicator( flashlights[i], flashlights[i].fill, ctx);
+  };
+}
 
 // Draw a clear circle at coordinates x, y with radius size. Allow
 // us to see the background canvas.
-function clearCircle(x, y, size) {
+function cutCircle(x, y, radius) {
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, size, 0, 2*Math.PI, false);
+    ctx.arc(x, y, radius, 0, 2*Math.PI, false);
     ctx.fill();
     ctx.restore();
+};
+
+// Draw a clear square at coordinates x, y with sides of length.
+function cutSquare(x, y, length) {
+    ctx.clearRect(x-length/2, y-length/2, length, length);
+};
+
+// ghost canvas that we use to detect if a flashlight has been clicked
+var ghostcanvas;
+var ghostctx;
+function makeGhostCanvas() {
+  ghostcanvas = document.createElement('canvas');
+  ghostcanvas.width = pc.width;
+  ghostcanvas.height = pc.height;
+  ghostctx = ghostcanvas.getContext('2d');
+};
+
+function clearGhostCanvas() {
+  ghostctx.clearRect(0, 0, ghostcanvas.width, ghostcanvas.height);
 }
 
-// Return an object containing the position of the mouse on the
-// canvas from the event e.
-function getmpos(canvas, e) {
-    var rect = canvas.getBoundingClientRect();
+// return true if the given position is on top of a flashlight indicator
+// if true, whichFlashlight is set to the index number of the flashlight in flashlights[]
+// if false, whichFlashlight is set to null
+function getIndicatorClicked(position) {
+  clearGhostCanvas();
 
-    devicePixelRatio = window.devicePixelRatio || 1,
-    backingStoreRatio = ctx.webkitBackingStorePixelRatio ||
-        ctx.mozBackingStorePixelRatio ||
-        ctx.msBackingStorePixelRatio ||
-        ctx.oBackingStorePixelRatio ||
-        ctx.backingStorePixelRatio || 1,
+  for ( var i = 0; i < flashlights.length; i++ ) {
+    drawIndicator( flashlights[i], 'black', ghostctx);
 
-    ratio = devicePixelRatio / backingStoreRatio;
-
-
-    return { x: (e.clientX - rect.left) * ratio,
-         y: (e.clientY - rect.top) * ratio };
-}
-
-// mpos should always contain the last known position of the mouse
-// cursor on the canvas. It will be updated in the functions
-// produced by makedrawfn.
-var mpos = {};
-function makedrawfn(updatempos, refresh) {
-    // updatempos should be a boolean that indicates whether the drawfn
-    // returned by makedrawfn should update the mouse position.
-
-    // refresh should be a boolean that indicates whether the
-    // primary canvas should be redrawn before drawing the circle
-    // or rectangle.
-
-    // the drawfn will draw a circle if the cursor.isCircle is
-    // true. Otherwise it will draw a rectangle.
-    return function (e) {
-    if (primary.viewport !== undefined) {
-        if (updatempos) {
-        mpos = getmpos(pc, e);
-        }
-        if (refresh) {
-        primary.forceRedraw();
-        }
-        if (cursor.isCircle) {
-        clearCircle(mpos.x, mpos.y, cursor.clipSize/2);
-        } else {
-        ctx.clearRect((mpos.x-cursor.clipSize/2),
-                  (mpos.y-cursor.clipSize/2),
-                  cursor.clipSize,cursor.clipSize);
-        }
+    var imageData = ghostctx.getImageData(position.x, position.y, 1, 1);
+    if ( imageData.data[3] > 0){
+      whichFlashlight = i;
+      return true;
     }
-    };
+
+    clearGhostCanvas();
+  }
+  whichFlashlight = null;
+  return false;
 }
 
 // The OpenSeadragon Viewer.open() method is asynchronous and we have to
@@ -282,7 +336,7 @@ function updatePrimaryImage() {
     primary.viewport.zoomTo(zoom);
     primary.viewport.panTo(pan);
     }, updateDelay);
-}
+};
 
 // After the secondary layer index has been changed, update the secondary
 // viewer to reflect this change.
@@ -294,11 +348,11 @@ function updateSecondaryImage() {
     secondary.viewport.zoomTo(zoom);
     secondary.viewport.panTo(pan);
     }, updateDelay);
-}
+};
 
 function updateSearchBar() {
     pageID.value = pages[pageIndex].name;
-}
+};
 
 // After the page index has been changed, update both the primary and
 // secondary viewers to reflect this change.
@@ -319,34 +373,57 @@ function updatePage() {
     updateSecondaryCard();
 }
 
-// redraw canvas when the mouse moves and update the mpos.
-pc.addEventListener('mousemove', makedrawfn(true, true));
-
-// when tiles are updated, redraw the cursor's circle or rectangle
-// but don't update the mouse position or redraw the canvas.
-primary.addHandler('tile-drawn', makedrawfn(false, false));
-
 // resize clipping on shift+mouseWheel
-function onScroll(e) {
+function onViewerScroll(e) {
     if (shiftDown) {
-    // configurable min and max sizes for clipping region
-    var minClipSize = 10;
-    var maxClipSize = 1000;
-    // prevent the OpenSeadragon viewer from trying to scroll
+      // configurable min and max sizes for clipping region
+      var minClipSize = 10;
+      var maxClipSize = 1000;
+      // prevent the OpenSeadragon viewer from trying to scroll
+      e.preventDefaultAction = true;
+      // divide delta by scale factor to make it feel right
+      var delta = e.originalEvent.wheelDelta / 5;
+
+      // make sure we do not make the size outside the min and max
+      var newClipSize = flashlights[0].clipSize + delta;
+      if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
+          flashlights[0].clipSize = newClipSize;
+      };
+    };
+    invalidate();
+};
+
+function onViewerPress(e) {
+  if ( getIndicatorClicked(e.position) ) {
     e.preventDefaultAction = true;
-    // divide delta by scale factor to make it feel right
-    var delta = e.originalEvent.wheelDelta / 5;
+    e.stopBubbling = true;
 
-    // make sure we do not make the size outside the min and max
-    var newClipSize = cursor.clipSize + delta;
-    if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
-        cursor.clipSize = newClipSize;
-    }
+    mouse_offset.x = e.position.x - flashlights[whichFlashlight].x;
+    mouse_offset.y = e.position.y - flashlights[whichFlashlight].y;
+    movingFlashlight = true;
+  };
+};
 
-    // don't force the canvas to redraw itself and don't
-    // update the mouse position.
-    makedrawfn(false, true)({});
-    }
+function onViewerDrag(e) {
+  if ( movingFlashlight ) {
+    e.preventDefaultAction = true;
+    e.stopBubbling = true;
+
+    flashlights[whichFlashlight].x = e.position.x - mouse_offset.x;
+    flashlights[whichFlashlight].y = e.position.y - mouse_offset.y;
+    invalidate();
+  };
+};
+
+function onViewerRelease(e) {
+  if ( movingFlashlight ) {
+    e.preventDefaultAction = true;
+    e.stopBubbling = true;
+
+    whichFlashlight = null;
+    movingFlashlight = false;
+    mouse_offset = {x: 0, y: 0};
+  };
 }
 
 // Generic function to wait for the final call of something. In this
@@ -374,6 +451,10 @@ $(window).resize(function (e) {
     waitForFinalEvent(function () {
     secondary.viewport.panTo(primary.viewport.getCenter(false));
     secondary.viewport.zoomTo(primary.viewport.getZoom(false));
+    ghostcanvas.width = pc.width;
+    ghostcanvas.height = pc.height;
+    ghostctx = ghostcanvas.getContext('2d');
+    invalidate();
     }, 50, "resize");
 });
 
@@ -400,11 +481,7 @@ $(document).keydown(function (e) {
     case 67: // c
     // change cursor shape from circle <=> square
     cursor.isCircle = !cursor.isCircle;
-    // force the client to redraw itself but don't update the
-    // mouse position. Pass null because the drawfn does not
-    // need to receive an event, which would normally be used
-    // if the mouse position changed.
-    makedrawfn(false, true)(null);
+    invalidate();
     break;
 
     case 73: // i
@@ -429,7 +506,6 @@ $(document).keydown(function (e) {
     case 76: // l
     // increment primary layer index
     sly.activate((primaryLayerIndex + 1) % numLayers);
-    updatePrimaryImage();
     break;
 
     case 77: // m
@@ -601,5 +677,7 @@ $(document).ready( function () {
     Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
     updateSecondaryCard();
-    $("#help-button").click();
+    makeGhostCanvas();
+    addFlashlight(pc.width/2, pc.height/2, cursor.clipSize)
+    //$("#help-button").click();
 });
