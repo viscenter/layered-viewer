@@ -1,10 +1,11 @@
 /*!
- * sly 1.5.1 - 28th Apr 2015
+ * sly 1.6.1 - 8th Aug 2015
  * https://github.com/darsain/sly
  *
  * Licensed under the MIT license.
  * http://opensource.org/licenses/MIT
  */
+
 ;(function ($, w, undefined) {
 	'use strict';
 
@@ -59,6 +60,8 @@
 	 * @param {Object}  callbackMap Callbacks map.
 	 */
 	function Sly(frame, options, callbackMap) {
+		if (!(this instanceof Sly)) return new Sly(frame, options, callbackMap);
+
 		// Extend options
 		var o = $.extend({}, Sly.defaults, options);
 
@@ -1436,11 +1439,22 @@
 
 			if (!dragging.released && dragging.path < 1) return;
 
+			// We haven't decided whether this is a drag or not...
 			if (!dragging.init) {
-				if (o.horizontal ? abs(dragging.pathX) > abs(dragging.pathY) : abs(dragging.pathX) < abs(dragging.pathY)) {
-					dragging.init = 1;
-				} else {
-					return dragEnd();
+				// If the drag path was very short, maybe it's not a drag?
+				if (dragging.path < o.dragThreshold) {
+					// If the pointer was released, the path will not become longer and it's
+					// definitely not a drag. If not released yet, decide on next iteration
+					return dragging.released ? dragEnd() : undefined;
+				}
+				else {
+					// If dragging path is sufficiently long we can confidently start a drag
+					// if drag is in different direction than scroll, ignore it
+					if (o.horizontal ? abs(dragging.pathX) > abs(dragging.pathY) : abs(dragging.pathX) < abs(dragging.pathY)) {
+						dragging.init = 1;
+					} else {
+						return dragEnd();
+					}
 				}
 			}
 
@@ -1731,6 +1745,9 @@
 		 * @return {Void}
 		 */
 		self.destroy = function () {
+			// Remove the reference to itself
+			Sly.removeInstance(frame);
+
 			// Unbind all events
 			$scrollSource
 				.add($handle)
@@ -1791,6 +1808,12 @@
 			if (self.initialized) {
 				return;
 			}
+
+			// Disallow multiple instances on the same element
+			if (Sly.getInstance(frame)) throw new Error('There is already a Sly instance on this element');
+
+			// Store the reference to itself
+			Sly.storeInstance(frame, self);
 
 			// Register callbacks map
 			self.on(callbackMap);
@@ -1894,6 +1917,18 @@
 			return self;
 		};
 	}
+
+	Sly.getInstance = function (element) {
+		return $.data(element, namespace);
+	};
+
+	Sly.storeInstance = function (element, sly) {
+		return $.data(element, namespace, sly);
+	};
+
+	Sly.removeInstance = function (element) {
+		return $.removeData(element, namespace);
+	};
 
 	/**
 	 * Return type of the value.
@@ -2052,7 +2087,7 @@
 
 	// Feature detects
 	(function () {
-		var prefixes = ['', 'webkit', 'moz', 'ms', 'o'];
+		var prefixes = ['', 'Webkit', 'Moz', 'ms', 'O'];
 		var el = document.createElement('div');
 
 		function testProp(prop) {
@@ -2088,11 +2123,11 @@
 		// Apply to all elements
 		return this.each(function (i, element) {
 			// Call with prevention against multiple instantiations
-			var plugin = $.data(element, namespace);
+			var plugin = Sly.getInstance(element);
 
 			if (!plugin && !method) {
 				// Create a new object if it doesn't exist yet
-				plugin = $.data(element, namespace, new Sly(element, options, callbackMap).init());
+				plugin = new Sly(element, options, callbackMap).init();
 			} else if (plugin && method) {
 				// Call method
 				if (plugin[method]) {
@@ -2127,6 +2162,7 @@
 		releaseSwing:  false, // Ease out on dragging swing release.
 		swingSpeed:    0.2,   // Swing synchronization speed, where: 1 = instant, 0 = infinite.
 		elasticBounds: false, // Stretch SLIDEE position limits when dragging past FRAME boundaries.
+		dragThreshold: 3,     // Distance in pixels before Sly recognizes dragging.
 		interactive:   null,  // Selector for special interactive elements.
 
 		// Scrollbar

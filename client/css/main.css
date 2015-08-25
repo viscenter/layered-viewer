@@ -147,13 +147,13 @@ span.vertically-aligned {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-size: 2em;
+    font-size: 30px;
 }
 .frame ul li {
     float: left;
-    width: 200px;
-    margin: 10px 0;
-    padding: 0;
+    max-width: 500px;
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: center;
     cursor: pointer;
 }
@@ -164,19 +164,21 @@ li.active {
 
 .layer-card {
     background-color: white;
-    margin: 15px 10px;
-    width: 180px;
+    margin-top: 15px;
     height: 80px;
 }
 
 .active .layer-card {
     background-color: #4285f4;
-    margin: 14px 10px 14px 10px;
-    height: 82px;
 }
 
 .circle {
   border-radius: 50%;
+}
+
+.layer-card span {
+  padding-left: 35px;
+  padding-right: 35px;
 }
 
 .indicator {
@@ -184,7 +186,7 @@ li.active {
   height: 12px;
   background-color: #4285f4;
   position: fixed;
-  left: -20px;
+  left: 17px;
   top: 10px;
 }
 

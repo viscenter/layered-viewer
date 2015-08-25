@@ -56,12 +56,12 @@ var secondaryLayerIndex = defaultSecondaryLayerIndex;
 // Is a flashlight moving and which one?
 var movingFlashlight = false;
 var whichFlashlight = null;
-var flashlightIndicatorSize = 7;
+var flashlightIndicatorSize = 5;
 var mouse_offset = {x: 0, y: 0};
 
 // clipSize can be radius or side length
-var cursor = {clipSize: 50,
-          isCircle: true};
+var cursor = {clipSize: 200,
+              isCircle: true};
 
 // read in JSON which defines image set structure and locations of
 // images in the set
@@ -214,7 +214,7 @@ if (!pc) {
 var ctx = pc.getContext('2d');
 
 // interval for refreshing the view
-setInterval(validate, 10);
+setInterval(validate, 5);
 isValid = false;
 
 function invalidate() { isValid = false };
@@ -251,12 +251,31 @@ function addFlashlight(x, y, s) {
   invalidate();
 };
 
-function drawIndicator(flashlight, color, context) {
+function drawIndicator(flashlight, color, context, selected) {
+  var size = flashlightIndicatorSize;
+  if (selected) size = flashlightIndicatorSize + (flashlightIndicatorSize * 0.15);
+
   context.beginPath();
-  context.arc(flashlight.x, flashlight.y, flashlightIndicatorSize, 0, 2 * Math.PI, false);
+  context.arc((flashlight.x * pc.width), (flashlight.y * pc.height), size, 0, 2 * Math.PI, false);
+
+  // To-Do: Move this so its not being drawn into the ghost context
+  context.shadowOffsetX = 1.5;
+  context.shadowOffsetY = 1.5;
+  context.shadowBlur = 7;
+  context.shadowColor = 'black';
+
   context.fillStyle = color;
   context.fill();
+  context.closePath();
+  resetContext(context);
 };
+
+function resetContext( context ) {
+  context.globalAlpha = 1;
+  context.shadowOffsetX = 0;
+  context.shadowOffsetY = 0;
+  context.shadowBlur = 0;
+}
 
 function drawFlashlights() {
   for ( var i = 0; i < flashlights.length; i++ ) {
@@ -265,7 +284,10 @@ function drawFlashlights() {
     } else {
       cutSquare(flashlights[i].x, flashlights[i].y, flashlights[i].clipSize);
     };
-    drawIndicator( flashlights[i], flashlights[i].fill, ctx);
+
+    var selected = false;
+    if ( i == whichFlashlight ) selected = true;
+    drawIndicator( flashlights[i], flashlights[i].fill, ctx, selected);
   };
 }
 
@@ -275,14 +297,14 @@ function cutCircle(x, y, radius) {
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2*Math.PI, false);
+    ctx.arc(x * pc.width, y * pc.height, radius, 0, 2*Math.PI, false);
     ctx.fill();
     ctx.restore();
 };
 
 // Draw a clear square at coordinates x, y with sides of length.
 function cutSquare(x, y, length) {
-    ctx.clearRect(x-length/2, y-length/2, length, length);
+    ctx.clearRect((x * pc.width)-length/2, (y * pc.height)-length/2, length, length);
 };
 
 // ghost canvas that we use to detect if a flashlight has been clicked
@@ -398,10 +420,11 @@ function onViewerPress(e) {
     e.preventDefaultAction = true;
     e.stopBubbling = true;
 
-    mouse_offset.x = e.position.x - flashlights[whichFlashlight].x;
-    mouse_offset.y = e.position.y - flashlights[whichFlashlight].y;
+    mouse_offset.x = e.position.x - flashlights[whichFlashlight].x * pc.width;
+    mouse_offset.y = e.position.y - flashlights[whichFlashlight].y * pc.height;
     movingFlashlight = true;
   };
+  invalidate();
 };
 
 function onViewerDrag(e) {
@@ -409,8 +432,8 @@ function onViewerDrag(e) {
     e.preventDefaultAction = true;
     e.stopBubbling = true;
 
-    flashlights[whichFlashlight].x = e.position.x - mouse_offset.x;
-    flashlights[whichFlashlight].y = e.position.y - mouse_offset.y;
+    flashlights[whichFlashlight].x = (e.position.x - mouse_offset.x)/pc.width;
+    flashlights[whichFlashlight].y = (e.position.y - mouse_offset.y)/pc.height;
     invalidate();
   };
 };
@@ -424,6 +447,7 @@ function onViewerRelease(e) {
     movingFlashlight = false;
     mouse_offset = {x: 0, y: 0};
   };
+  invalidate();
 }
 
 // Generic function to wait for the final call of something. In this
@@ -678,6 +702,6 @@ $(document).ready( function () {
     sly.activate(primaryLayerIndex);
     updateSecondaryCard();
     makeGhostCanvas();
-    addFlashlight(pc.width/2, pc.height/2, cursor.clipSize)
-    //$("#help-button").click();
+    addFlashlight(0.5, 0.5, cursor.clipSize)
+    $("#help-button").click();
 });
