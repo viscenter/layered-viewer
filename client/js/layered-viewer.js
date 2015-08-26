@@ -57,10 +57,9 @@ var secondaryLayerIndex = defaultSecondaryLayerIndex;
 var movingFlashlight = false;
 var whichFlashlight = null;
 var flashlightIndicatorSize = 5;
-var mouse_offset = {x: 0, y: 0};
 
 // clipSize can be radius or side length
-var cursor = {clipSize: 200,
+var cursor = {clipSize: 500,
               isCircle: true};
 
 // read in JSON which defines image set structure and locations of
@@ -242,6 +241,35 @@ function Flashlight() {
   this.fill = 'white';
 };
 
+// Return the position of the flashlight in canvas coords
+Flashlight.prototype.canvasPosition = function() {
+    var primaryImg = primary.world.getItemAt(0);
+    var center = primary.viewport.getCenter();
+    var bounds = primaryImg.getBounds();
+    var scale = primaryImg.viewport.getZoom();
+
+    var flash_pos = new OpenSeadragon.Point(this.x, this.y);
+
+    // OSD img coords are between 0 and bounds.w/h, not 0-1
+    // Convert our 0-1 value to 0-bounds value
+    flash_pos.x = flash_pos.x * bounds.width;
+    flash_pos.y = flash_pos.y * bounds.height;
+
+    // Get the offset from the pt at the center of the canvas
+    // Both values are in img coords
+    var offset = flash_pos.minus(center);
+
+    // Scale the offset by the zoom level
+    offset = offset.times(scale);
+
+    // Convert the offset to canvas pixel coords
+    offset = offset.times(pc.width, pc.height);
+
+    // Find the xy position of the pt in canvas coords
+    var position = new OpenSeadragon.Point(pc.width/2, pc.height/2);
+    return position.plus(offset);
+};
+
 function addFlashlight(x, y, s) {
   var light = new Flashlight;
   light.x = x;
@@ -256,7 +284,7 @@ function drawIndicator(flashlight, color, context, selected) {
   if (selected) size = flashlightIndicatorSize + (flashlightIndicatorSize * 0.15);
 
   context.beginPath();
-  context.arc((flashlight.x * pc.width), (flashlight.y * pc.height), size, 0, 2 * Math.PI, false);
+  context.arc(flashlight.canvasPosition().x, flashlight.canvasPosition().y, size, 0, 2 * Math.PI, false);
 
   // To-Do: Move this so its not being drawn into the ghost context
   context.shadowOffsetX = 1.5;
@@ -280,9 +308,9 @@ function resetContext( context ) {
 function drawFlashlights() {
   for ( var i = 0; i < flashlights.length; i++ ) {
     if (cursor.isCircle) {
-      cutCircle(flashlights[i].x, flashlights[i].y, flashlights[i].clipSize/2);
+      cutCircle(flashlights[i].canvasPosition().x, flashlights[i].canvasPosition().y, flashlights[i].clipSize/2);
     } else {
-      cutSquare(flashlights[i].x, flashlights[i].y, flashlights[i].clipSize);
+      cutSquare(flashlights[i].canvasPosition().x, flashlights[i].canvasPosition().y, flashlights[i].clipSize);
     };
 
     var selected = false;
@@ -294,17 +322,20 @@ function drawFlashlights() {
 // Draw a clear circle at coordinates x, y with radius size. Allow
 // us to see the background canvas.
 function cutCircle(x, y, radius) {
+    radius = radius * primary.viewport.getZoom();
+
     ctx.save();
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x * pc.width, y * pc.height, radius, 0, 2*Math.PI, false);
+    ctx.arc(x, y, radius, 0, 2*Math.PI, false);
     ctx.fill();
     ctx.restore();
 };
 
 // Draw a clear square at coordinates x, y with sides of length.
 function cutSquare(x, y, length) {
-    ctx.clearRect((x * pc.width)-length/2, (y * pc.height)-length/2, length, length);
+    length = length * primary.viewport.getZoom();
+    ctx.clearRect(x-length/2, y-length/2, length, length);
 };
 
 // ghost canvas that we use to detect if a flashlight has been clicked
@@ -400,13 +431,14 @@ function onViewerScroll(e) {
     if (shiftDown) {
       // configurable min and max sizes for clipping region
       var minClipSize = 10;
-      var maxClipSize = 1000;
+      var maxClipSize = primary.world.getItemAt(0).getContentSize().y * .25;
       // prevent the OpenSeadragon viewer from trying to scroll
       e.preventDefaultAction = true;
       // divide delta by scale factor to make it feel right
       var delta = e.originalEvent.wheelDelta / 5;
 
       // make sure we do not make the size outside the min and max
+      // To-Do: Make this work if there are multiple flashlights
       var newClipSize = flashlights[0].clipSize + delta;
       if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
           flashlights[0].clipSize = newClipSize;
@@ -420,8 +452,6 @@ function onViewerPress(e) {
     e.preventDefaultAction = true;
     e.stopBubbling = true;
 
-    mouse_offset.x = e.position.x - flashlights[whichFlashlight].x * pc.width;
-    mouse_offset.y = e.position.y - flashlights[whichFlashlight].y * pc.height;
     movingFlashlight = true;
   };
   invalidate();
@@ -432,8 +462,25 @@ function onViewerDrag(e) {
     e.preventDefaultAction = true;
     e.stopBubbling = true;
 
-    flashlights[whichFlashlight].x = (e.position.x - mouse_offset.x)/pc.width;
-    flashlights[whichFlashlight].y = (e.position.y - mouse_offset.y)/pc.height;
+    // Get the drag delta in viewport pixels
+    var delta = new OpenSeadragon.Point(e.delta.x, e.delta.y);
+
+    // Convert the delta to an offset in canvas relative coords
+    var offset = delta.divide(pc.width, pc.height);
+
+    // Scale the offset based on the zoom level
+    var scale = primary.viewport.getZoom();
+    offset = offset.divide(scale);
+
+    // Convert the 0-bounds offset to 0-1
+    var bounds = primary.world.getItemAt(0).getBounds();
+    offset.x = offset.x / bounds.width;
+    offset.y = offset.y / bounds.height;
+
+    // Add the offset to the position value
+    flashlights[whichFlashlight].x += offset.x;
+    flashlights[whichFlashlight].y += offset.y
+
     invalidate();
   };
 };
@@ -445,7 +492,6 @@ function onViewerRelease(e) {
 
     whichFlashlight = null;
     movingFlashlight = false;
-    mouse_offset = {x: 0, y: 0};
   };
   invalidate();
 }

@@ -1,6 +1,6 @@
-//! OpenSeadragon 1.2.1
-//! Built on 2015-04-05
-//! Git commit: v1.2.1-274-b92d3f3
+//! OpenSeadragon 2.0.0
+//! Built on 2015-05-26
+//! Git commit: v2.0.0-0-472ab42
 //! http://openseadragon.github.io
 //! License: http://openseadragon.github.io/license/
 
@@ -89,7 +89,7 @@
 
 
 /**
- * @version  OpenSeadragon 1.2.1
+ * @version  OpenSeadragon 2.0.0
  *
  * @file
  * <h2><strong>OpenSeadragon - Javascript Deep Zooming</strong></h2>
@@ -210,7 +210,12 @@
   *     If 0, adjusts to fit viewer.
   *
   * @property {Number} [opacity=1]
-  *     Opacity of the drawer (1=opaque, 0=transparent)
+  *     Default opacity of the tiled images (1=opaque, 0=transparent)
+  *
+  * @property {String|CanvasGradient|CanvasPattern|Function} [placeholderFillStyle=null]
+  *     Draws a colored rectangle behind the tile if it is not loaded yet.
+  *     You can pass a CSS color value like "#FF8800".
+  *     When passing a function the tiledImage and canvas context are available as argument which is useful when you draw a gradient or pattern.
   *
   * @property {Number} [degrees=0]
   *     Initial rotation.
@@ -268,7 +273,7 @@
   *     Possible subproperties (Numbers, in screen coordinates): left, top, right, bottom.
   *
   * @property {Number} [imageLoaderLimit=0]
-  *     The maximum number of image requests to make concurrently.  By default
+  *     The maximum number of image requests to make concurrently. By default
   *     it is set to 0 allowing the browser to make the maximum number of
   *     image requests in parallel as allowed by the browsers policy.
   *
@@ -696,10 +701,10 @@ window.OpenSeadragon = window.OpenSeadragon || function( options ){
      * @since 1.0.0
      */
     $.version = {
-        versionStr: '1.2.1',
-        major: parseInt('1', 10),
-        minor: parseInt('2', 10),
-        revision: parseInt('1', 10)
+        versionStr: '2.0.0',
+        major: parseInt('2', 10),
+        minor: parseInt('0', 10),
+        revision: parseInt('0', 10)
     };
 
 
@@ -1019,10 +1024,11 @@ window.OpenSeadragon = window.OpenSeadragon || function( options ){
             navigatorRotate:            true,
 
             // INITIAL ROTATION
-            degrees:                0,
+            degrees:                    0,
 
             // APPEARANCE
-            opacity:                1,
+            opacity:                    1,
+            placeholderFillStyle:       null,
 
             //REFERENCE STRIP SETTINGS
             showReferenceStrip:          false,
@@ -6990,7 +6996,6 @@ $.Viewer = function( options ) {
         viewer:             this,
         viewport:           this.viewport,
         element:            this.canvas,
-        opacity:            this.opacity,
         debugGridColor:     this.debugGridColor
     });
 
@@ -7689,6 +7694,9 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
         };
         /**
          * Raised when the viewer is about to change to/from full-screen mode (see {@link OpenSeadragon.Viewer#setFullScreen}).
+         * Note: the pre-full-screen event is not raised when the user is exiting
+         * full-screen mode by pressing the Esc key. In that case, consider using
+         * the full-screen, pre-full-page or full-page events.
          *
          * @event pre-full-screen
          * @memberof OpenSeadragon.Viewer
@@ -7814,6 +7822,7 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
      * @param {OpenSeadragon.Rect} [options.clip] - An area, in image pixels, to clip to
      * (portions of the image outside of this area will not be visible). Only works on
      * browsers that support the HTML5 canvas.
+     * @param {Number} [options.opacity] Opacity the tiled image should be drawn at by default.
      * @param {Function} [options.success] A function that gets called when the image is
      * successfully added. It's passed the event object which contains a single property:
      * "item", the resulting TiledImage.
@@ -7822,6 +7831,7 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
      * and "source" properties.
      * @param {Boolean} [options.collectionImmediately=false] If collectionMode is on,
      * specifies whether to snap to the new arrangement immediately or to animate to it.
+     * @param {String|CanvasGradient|CanvasPattern|Function} [options.placeholderFillStyle] - See {@link OpenSeadragon.Options}.
      * @fires OpenSeadragon.World.event:add-item
      * @fires OpenSeadragon.Viewer.event:add-item-failed
      */
@@ -7832,6 +7842,13 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
         var _this = this;
 
         this._hideMessage();
+
+        if (options.placeholderFillStyle === undefined) {
+            options.placeholderFillStyle = this.placeholderFillStyle;
+        }
+        if (options.opacity === undefined) {
+            options.opacity = this.opacity;
+        }
 
         var myQueueItem = {
             options: options
@@ -7900,6 +7917,8 @@ $.extend( $.Viewer.prototype, $.EventSource.prototype, $.ControlDock.prototype, 
                     width: queueItem.options.width,
                     height: queueItem.options.height,
                     clip: queueItem.options.clip,
+                    placeholderFillStyle: queueItem.options.placeholderFillStyle,
+                    opacity: queueItem.options.opacity,
                     springStiffness: _this.springStiffness,
                     animationTime: _this.animationTime,
                     minZoomImageRatio: _this.minZoomImageRatio,
@@ -8822,7 +8841,7 @@ function onCanvasKeyDown( event ) {
                 if ( event.shift ) {
                     this.viewport.zoomBy(1.1);
                 } else {
-                    this.viewport.panBy(new $.Point(0, -0.05));
+                    this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(0, -40)));
                 }
                 this.viewport.applyConstraints();
                 return false;
@@ -8830,16 +8849,16 @@ function onCanvasKeyDown( event ) {
                 if ( event.shift ) {
                     this.viewport.zoomBy(0.9);
                 } else {
-                    this.viewport.panBy(new $.Point(0, 0.05));
+                    this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(0, 40)));
                 }
                 this.viewport.applyConstraints();
                 return false;
             case 37://left arrow
-                this.viewport.panBy(new $.Point(-0.05, 0));
+                this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(-40, 0)));
                 this.viewport.applyConstraints();
                 return false;
             case 39://right arrow
-                this.viewport.panBy(new $.Point(0.05, 0));
+                this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(40, 0)));
                 this.viewport.applyConstraints();
                 return false;
             default:
@@ -8871,7 +8890,7 @@ function onCanvasKeyPress( event ) {
                 if ( event.shift ) {
                     this.viewport.zoomBy(1.1);
                 } else {
-                    this.viewport.panBy(new $.Point(0, -0.05));
+                    this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(0, -40)));
                 }
                 this.viewport.applyConstraints();
                 return false;
@@ -8880,16 +8899,16 @@ function onCanvasKeyPress( event ) {
                 if ( event.shift ) {
                     this.viewport.zoomBy(0.9);
                 } else {
-                    this.viewport.panBy(new $.Point(0, 0.05));
+                    this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(0, 40)));
                 }
                 this.viewport.applyConstraints();
                 return false;
             case 97://a
-                this.viewport.panBy(new $.Point(-0.05, 0));
+                this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(-40, 0)));
                 this.viewport.applyConstraints();
                 return false;
             case 100://d
-                this.viewport.panBy(new $.Point(0.05, 0));
+                this.viewport.panBy(this.viewport.deltaPointsFromPixels(new $.Point(40, 0)));
                 this.viewport.applyConstraints();
                 return false;
             default:
@@ -14529,7 +14548,7 @@ $.Tile = function(level, x, y, bounds, exists, url) {
     this.y       = y;
     /**
      * Where this tile fits, in normalized coordinates
-     * @member {OpenSeadragon.Point} bounds
+     * @member {OpenSeadragon.Rect} bounds
      * @memberof OpenSeadragon.Tile#
      */
     this.bounds  = bounds;
@@ -15148,11 +15167,9 @@ $.Tile.prototype = /** @lends OpenSeadragon.Tile.prototype */{
  * @param {OpenSeadragon.Viewer} options.viewer - The Viewer that owns this Drawer.
  * @param {OpenSeadragon.Viewport} options.viewport - Reference to Viewer viewport.
  * @param {Element} options.element - Parent element.
- * @param {Number} [options.opacity=1] - See opacity in {@link OpenSeadragon.Options} for details.
  * @param {Number} [options.debugGridColor] - See debugGridColor in {@link OpenSeadragon.Options} for details.
  */
 $.Drawer = function( options ) {
-    var _this = this;
 
     $.console.assert( options.viewer, "[Drawer] options.viewer is required" );
 
@@ -15178,7 +15195,9 @@ $.Drawer = function( options ) {
     this.viewer = options.viewer;
     this.viewport = options.viewport;
     this.debugGridColor = options.debugGridColor || $.DEFAULT_SETTINGS.debugGridColor;
-    this.opacity = options.opacity === undefined ? $.DEFAULT_SETTINGS.opacity : options.opacity;
+    if (options.opacity) {
+        $.console.error( "[Drawer] options.opacity is no longer accepted; set the opacity on the TiledImage instead" );
+    }
 
     this.useCanvas  = $.supportsCanvas && ( this.viewer ? this.viewer.useCanvas : true );
     /**
@@ -15201,6 +15220,13 @@ $.Drawer = function( options ) {
      * @memberof OpenSeadragon.Drawer#
      */
     this.context    = this.useCanvas ? this.canvas.getContext( "2d" ) : null;
+
+    /**
+     * Sketch canvas used to temporarily draw tiles which cannot be drawn directly
+     * to the main canvas due to opacity. Lazily initialized.
+     */
+    this.sketchCanvas = null;
+    this.sketchContext = null;
 
     /**
      * @member {Element} element
@@ -15266,8 +15292,11 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
      * @return {OpenSeadragon.Drawer} Chainable.
      */
     setOpacity: function( opacity ) {
-        this.opacity = opacity;
-        $.setElementOpacity( this.canvas, this.opacity, true );
+        $.console.error("drawer.setOpacity is deprecated. Use tiledImage.setOpacity instead.");
+        var world = this.viewer.world;
+        for (var i = 0; i < world.getItemCount(); i++) {
+            world.getItemAt( i ).setOpacity( opacity );
+        }
         return this;
     },
 
@@ -15276,7 +15305,16 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
      * @returns {Number}
      */
     getOpacity: function() {
-        return this.opacity;
+        $.console.error("drawer.getOpacity is deprecated. Use tiledImage.getOpacity instead.");
+        var world = this.viewer.world;
+        var maxOpacity = 0;
+        for (var i = 0; i < world.getItemCount(); i++) {
+            var opacity = world.getItemAt( i ).getOpacity();
+            if ( opacity > maxOpacity ) {
+                maxOpacity = opacity;
+            }
+        }
+        return maxOpacity;
     },
 
     // deprecated
@@ -15320,6 +15358,8 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
         //force unloading of current canvas (1x1 will be gc later, trick not necessarily needed)
         this.canvas.width  = 1;
         this.canvas.height = 1;
+        this.sketchCanvas = null;
+        this.sketchContext = null;
     },
 
     /**
@@ -15333,9 +15373,39 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
                 this.canvas.height != viewportSize.y ) {
                 this.canvas.width = viewportSize.x;
                 this.canvas.height = viewportSize.y;
+                if ( this.sketchCanvas !== null ) {
+                    this.sketchCanvas.width = this.canvas.width;
+                    this.sketchCanvas.height = this.canvas.height;
+                }
             }
-            this.context.clearRect( 0, 0, viewportSize.x, viewportSize.y );
+            this._clear();
         }
+    },
+
+    _clear: function ( useSketch ) {
+        if ( !this.useCanvas ) {
+            return;
+        }
+        var context = this._getContext( useSketch );
+        var canvas = context.canvas;
+        context.clearRect( 0, 0, canvas.width, canvas.height );
+    },
+
+    /**
+     * Translates from OpenSeadragon viewer rectangle to drawer rectangle.
+     * @param {OpenSeadragon.Rect} rectangle - The rectangle in viewport coordinate system.
+     * @return {OpenSeadragon.Rect} Rectangle in drawer coordinate system.
+     */
+    viewportToDrawerRectangle: function(rectangle) {
+        var topLeft = this.viewport.pixelFromPoint(rectangle.getTopLeft(), true);
+        var size = this.viewport.deltaPixelsFromPoints(rectangle.getSize(), true);
+
+        return new $.Rect(
+            topLeft.x * $.pixelDensityRatio,
+            topLeft.y * $.pixelDensityRatio,
+            size.x    * $.pixelDensityRatio,
+            size.y    * $.pixelDensityRatio
+        );
     },
 
     /**
@@ -15343,170 +15413,221 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
      * @param {OpenSeadragon.Tile} tile - The tile to draw.
      * @param {Function} drawingHandler - Method for firing the drawing event if using canvas.
      * drawingHandler({context, tile, rendered})
+     * @param {Boolean} useSketch - Whether to use the sketch canvas or not.
      * where <code>rendered</code> is the context with the pre-drawn image.
      */
-    drawTile: function( tile, drawingHandler ) {
+    drawTile: function( tile, drawingHandler, useSketch ) {
         $.console.assert(tile, '[Drawer.drawTile] tile is required');
         $.console.assert(drawingHandler, '[Drawer.drawTile] drawingHandler is required');
 
         if ( this.useCanvas ) {
+            var context = this._getContext( useSketch );
             // TODO do this in a more performant way
             // specifically, don't save,rotate,restore every time we draw a tile
             if( this.viewport.degrees !== 0 ) {
-                this._offsetForRotation( tile, this.viewport.degrees );
-                tile.drawCanvas( this.context, drawingHandler );
-                this._restoreRotationChanges( tile );
+                this._offsetForRotation( tile, this.viewport.degrees, useSketch );
+                tile.drawCanvas( context, drawingHandler );
+                this._restoreRotationChanges( tile, useSketch );
             } else {
-                tile.drawCanvas( this.context, drawingHandler );
+                tile.drawCanvas( context, drawingHandler );
             }
         } else {
             tile.drawHTML( this.canvas );
         }
     },
 
+    _getContext: function( useSketch ) {
+        var context = this.context;
+        if ( useSketch ) {
+            if (this.sketchCanvas === null) {
+                this.sketchCanvas = document.createElement( "canvas" );
+                this.sketchCanvas.width = this.canvas.width;
+                this.sketchCanvas.height = this.canvas.height;
+                this.sketchContext = this.sketchCanvas.getContext( "2d" );
+            }
+            context = this.sketchContext;
+        }
+        return context;
+    },
+
     // private
-    saveContext: function() {
+    saveContext: function( useSketch ) {
         if (!this.useCanvas) {
+            return;
+        }
+
+        this._getContext( useSketch ).save();
+    },
+
+    // private
+    restoreContext: function( useSketch ) {
+        if (!this.useCanvas) {
+            return;
+        }
+
+        this._getContext( useSketch ).restore();
+    },
+
+    // private
+    setClip: function(rect, useSketch) {
+        if (!this.useCanvas) {
+            return;
+        }
+
+        var context = this._getContext( useSketch );
+        context.beginPath();
+        context.rect(rect.x, rect.y, rect.width, rect.height);
+        context.clip();
+    },
+
+    // private
+    drawRectangle: function(rect, fillStyle, useSketch) {
+        if (!this.useCanvas) {
+            return;
+        }
+
+        var context = this._getContext( useSketch );
+        context.save();
+        context.fillStyle = fillStyle;
+        context.fillRect(rect.x, rect.y, rect.width, rect.height);
+        context.restore();
+    },
+
+    /**
+     * Blends the sketch canvas in the main canvas.
+     * @param {Float} opacity The opacity of the blending.
+     * @returns {undefined}
+     */
+    blendSketch: function(opacity) {
+        if (!this.useCanvas || !this.sketchCanvas) {
             return;
         }
 
         this.context.save();
-    },
-
-    // private
-    restoreContext: function() {
-        if (!this.useCanvas) {
-            return;
-        }
-
+        this.context.globalAlpha = opacity;
+        this.context.drawImage(this.sketchCanvas, 0, 0);
         this.context.restore();
     },
 
     // private
-    setClip: function(rect) {
-        if (!this.useCanvas) {
+    drawDebugInfo: function( tile, count, i ){
+        if ( !this.useCanvas ) {
             return;
         }
 
-        this.context.beginPath();
-        this.context.rect(rect.x, rect.y, rect.width, rect.height);
-        this.context.clip();
-    },
+        var context = this.context;
+        context.save();
+        context.lineWidth = 2 * $.pixelDensityRatio;
+        context.font = 'small-caps bold ' + (13 * $.pixelDensityRatio) + 'px arial';
+        context.strokeStyle = this.debugGridColor;
+        context.fillStyle = this.debugGridColor;
 
-    // private
-    drawDebugInfo: function( tile, count, i ){
-        if ( this.useCanvas ) {
-            this.context.save();
-            this.context.lineWidth = 2 * $.pixelDensityRatio;
-            this.context.font = 'small-caps bold ' + (13 * $.pixelDensityRatio) + 'px arial';
-            this.context.strokeStyle = this.debugGridColor;
-            this.context.fillStyle = this.debugGridColor;
-
-            if ( this.viewport.degrees !== 0 ) {
-                this._offsetForRotation( tile, this.canvas, this.context, this.viewport.degrees );
-            }
-
-            this.context.strokeRect(
-                tile.position.x * $.pixelDensityRatio,
-                tile.position.y * $.pixelDensityRatio,
-                tile.size.x * $.pixelDensityRatio,
-                tile.size.y * $.pixelDensityRatio
-            );
-
-            var tileCenterX = (tile.position.x + (tile.size.x / 2)) * $.pixelDensityRatio;
-            var tileCenterY = (tile.position.y + (tile.size.y / 2)) * $.pixelDensityRatio;
-
-            // Rotate the text the right way around.
-            this.context.translate( tileCenterX, tileCenterY );
-            this.context.rotate( Math.PI / 180 * -this.viewport.degrees );
-            this.context.translate( -tileCenterX, -tileCenterY );
-
-            if( tile.x === 0 && tile.y === 0 ){
-                this.context.fillText(
-                    "Zoom: " + this.viewport.getZoom(),
-                    tile.position.x * $.pixelDensityRatio,
-                    (tile.position.y - 30) * $.pixelDensityRatio
-                );
-                this.context.fillText(
-                    "Pan: " + this.viewport.getBounds().toString(),
-                    tile.position.x * $.pixelDensityRatio,
-                    (tile.position.y - 20) * $.pixelDensityRatio
-                );
-            }
-            this.context.fillText(
-                "Level: " + tile.level,
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 20) * $.pixelDensityRatio
-            );
-            this.context.fillText(
-                "Column: " + tile.x,
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 30) * $.pixelDensityRatio
-            );
-            this.context.fillText(
-                "Row: " + tile.y,
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 40) * $.pixelDensityRatio
-            );
-            this.context.fillText(
-                "Order: " + i + " of " + count,
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 50) * $.pixelDensityRatio
-            );
-            this.context.fillText(
-                "Size: " + tile.size.toString(),
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 60) * $.pixelDensityRatio
-            );
-            this.context.fillText(
-                "Position: " + tile.position.toString(),
-                (tile.position.x + 10) * $.pixelDensityRatio,
-                (tile.position.y + 70) * $.pixelDensityRatio
-            );
-
-            if ( this.viewport.degrees !== 0 ) {
-                this._restoreRotationChanges( tile, this.canvas, this.context );
-            }
-            this.context.restore();
+        if ( this.viewport.degrees !== 0 ) {
+            this._offsetForRotation( tile, this.viewport.degrees );
         }
+
+        context.strokeRect(
+            tile.position.x * $.pixelDensityRatio,
+            tile.position.y * $.pixelDensityRatio,
+            tile.size.x * $.pixelDensityRatio,
+            tile.size.y * $.pixelDensityRatio
+        );
+
+        var tileCenterX = (tile.position.x + (tile.size.x / 2)) * $.pixelDensityRatio;
+        var tileCenterY = (tile.position.y + (tile.size.y / 2)) * $.pixelDensityRatio;
+
+        // Rotate the text the right way around.
+        context.translate( tileCenterX, tileCenterY );
+        context.rotate( Math.PI / 180 * -this.viewport.degrees );
+        context.translate( -tileCenterX, -tileCenterY );
+
+        if( tile.x === 0 && tile.y === 0 ){
+            context.fillText(
+                "Zoom: " + this.viewport.getZoom(),
+                tile.position.x * $.pixelDensityRatio,
+                (tile.position.y - 30) * $.pixelDensityRatio
+            );
+            context.fillText(
+                "Pan: " + this.viewport.getBounds().toString(),
+                tile.position.x * $.pixelDensityRatio,
+                (tile.position.y - 20) * $.pixelDensityRatio
+            );
+        }
+        context.fillText(
+            "Level: " + tile.level,
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 20) * $.pixelDensityRatio
+        );
+        context.fillText(
+            "Column: " + tile.x,
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 30) * $.pixelDensityRatio
+        );
+        context.fillText(
+            "Row: " + tile.y,
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 40) * $.pixelDensityRatio
+        );
+        context.fillText(
+            "Order: " + i + " of " + count,
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 50) * $.pixelDensityRatio
+        );
+        context.fillText(
+            "Size: " + tile.size.toString(),
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 60) * $.pixelDensityRatio
+        );
+        context.fillText(
+            "Position: " + tile.position.toString(),
+            (tile.position.x + 10) * $.pixelDensityRatio,
+            (tile.position.y + 70) * $.pixelDensityRatio
+        );
+
+        if ( this.viewport.degrees !== 0 ) {
+            this._restoreRotationChanges( tile );
+        }
+        context.restore();
     },
 
     // private
     debugRect: function(rect) {
         if ( this.useCanvas ) {
-            this.context.save();
-            this.context.lineWidth = 2 * $.pixelDensityRatio;
-            this.context.strokeStyle = this.debugGridColor;
-            this.context.fillStyle = this.debugGridColor;
+            var context = this.context;
+            context.save();
+            context.lineWidth = 2 * $.pixelDensityRatio;
+            context.strokeStyle = this.debugGridColor;
+            context.fillStyle = this.debugGridColor;
 
-            this.context.strokeRect(
+            context.strokeRect(
                 rect.x * $.pixelDensityRatio,
                 rect.y * $.pixelDensityRatio,
                 rect.width * $.pixelDensityRatio,
                 rect.height * $.pixelDensityRatio
             );
 
-            this.context.restore();
+            context.restore();
         }
     },
 
     // private
-    _offsetForRotation: function( tile, degrees ){
+    _offsetForRotation: function( tile, degrees, useSketch ){
         var cx = this.canvas.width / 2,
             cy = this.canvas.height / 2,
             px = tile.position.x - cx,
             py = tile.position.y - cy;
 
-        this.context.save();
+        var context = this._getContext( useSketch );
+        context.save();
 
-        this.context.translate(cx, cy);
-        this.context.rotate( Math.PI / 180 * degrees);
+        context.translate(cx, cy);
+        context.rotate( Math.PI / 180 * degrees);
         tile.position.x = px;
         tile.position.y = py;
     },
 
     // private
-    _restoreRotationChanges: function( tile ){
+    _restoreRotationChanges: function( tile, useSketch ){
         var cx = this.canvas.width / 2,
             cy = this.canvas.height / 2,
             px = tile.position.x + cx,
@@ -15515,7 +15636,8 @@ $.Drawer.prototype = /** @lends OpenSeadragon.Drawer.prototype */{
         tile.position.x = px;
         tile.position.y = py;
 
-        this.context.restore();
+        var context = this._getContext( useSketch );
+        context.restore();
     },
 
     // private
@@ -16845,7 +16967,9 @@ $.Viewport.prototype = /** @lends OpenSeadragon.Viewport.prototype */{
  * @param {Number} [options.blendTime] - See {@link OpenSeadragon.Options}.
  * @param {Boolean} [options.alwaysBlend] - See {@link OpenSeadragon.Options}.
  * @param {Number} [options.minPixelRatio] - See {@link OpenSeadragon.Options}.
+ * @param {Number} [options.opacity=1] - Opacity the tiled image should be drawn at.
  * @param {Boolean} [options.debugMode] - See {@link OpenSeadragon.Options}.
+ * @param {String|CanvasGradient|CanvasPattern|Function} [options.placeholderFillStyle] - See {@link OpenSeadragon.Options}.
  * @param {String|Boolean} [options.crossOriginPolicy] - See {@link OpenSeadragon.Options}.
  */
 $.TiledImage = function( options ) {
@@ -16907,21 +17031,23 @@ $.TiledImage = function( options ) {
         coverage:       {},    // A '3d' dictionary [level][x][y] --> Boolean.
         lastDrawn:      [],    // An unordered list of Tiles drawn last frame.
         lastResetTime:  0,     // Last time for which the tiledImage was reset.
-        _midDraw:      false, // Is the tiledImage currently updating the viewport?
-        _needsDraw:    true,  // Does the tiledImage need to update the viewport again?
+        _midDraw:       false, // Is the tiledImage currently updating the viewport?
+        _needsDraw:     true,  // Does the tiledImage need to update the viewport again?
 
         //configurable settings
-        springStiffness:    $.DEFAULT_SETTINGS.springStiffness,
-        animationTime:      $.DEFAULT_SETTINGS.animationTime,
-        minZoomImageRatio:  $.DEFAULT_SETTINGS.minZoomImageRatio,
-        wrapHorizontal:     $.DEFAULT_SETTINGS.wrapHorizontal,
-        wrapVertical:       $.DEFAULT_SETTINGS.wrapVertical,
-        immediateRender:    $.DEFAULT_SETTINGS.immediateRender,
-        blendTime:          $.DEFAULT_SETTINGS.blendTime,
-        alwaysBlend:        $.DEFAULT_SETTINGS.alwaysBlend,
-        minPixelRatio:      $.DEFAULT_SETTINGS.minPixelRatio,
-        debugMode:          $.DEFAULT_SETTINGS.debugMode,
-        crossOriginPolicy:  $.DEFAULT_SETTINGS.crossOriginPolicy
+        springStiffness:      $.DEFAULT_SETTINGS.springStiffness,
+        animationTime:        $.DEFAULT_SETTINGS.animationTime,
+        minZoomImageRatio:    $.DEFAULT_SETTINGS.minZoomImageRatio,
+        wrapHorizontal:       $.DEFAULT_SETTINGS.wrapHorizontal,
+        wrapVertical:         $.DEFAULT_SETTINGS.wrapVertical,
+        immediateRender:      $.DEFAULT_SETTINGS.immediateRender,
+        blendTime:            $.DEFAULT_SETTINGS.blendTime,
+        alwaysBlend:          $.DEFAULT_SETTINGS.alwaysBlend,
+        minPixelRatio:        $.DEFAULT_SETTINGS.minPixelRatio,
+        debugMode:            $.DEFAULT_SETTINGS.debugMode,
+        crossOriginPolicy:    $.DEFAULT_SETTINGS.crossOriginPolicy,
+        placeholderFillStyle: $.DEFAULT_SETTINGS.placeholderFillStyle,
+        opacity:              $.DEFAULT_SETTINGS.opacity
 
     }, options );
 
@@ -17262,6 +17388,21 @@ $.extend($.TiledImage.prototype, $.EventSource.prototype, /** @lends OpenSeadrag
             this._clip = null;
         }
 
+        this._needsDraw = true;
+    },
+
+    /**
+     * @returns {Number} The TiledImage's current opacity.
+     */
+    getOpacity: function() {
+        return this.opacity;
+    },
+
+    /**
+     * @param {Number} opacity Opacity the tiled image should be drawn at.
+     */
+    setOpacity: function(opacity) {
+        this.opacity = opacity;
         this._needsDraw = true;
     },
 
@@ -17929,41 +18070,48 @@ function compareTiles( previousBest, tile ) {
     return previousBest;
 }
 
-function drawTiles( tiledImage, lastDrawn ){
+function drawTiles( tiledImage, lastDrawn ) {
     var i,
-        tile,
-        tileKey,
-        viewer,
-        viewport,
-        position,
-        tileSource;
+        tile;
+
+    if ( tiledImage.opacity <= 0 ) {
+        drawDebugInfo( tiledImage, lastDrawn );
+        return;
+    }
+    var useSketch = tiledImage.opacity < 1;
+    if ( useSketch ) {
+        tiledImage._drawer._clear( true );
+    }
 
     var usedClip = false;
-    if (tiledImage._clip) {
-        tiledImage._drawer.saveContext();
+    if ( tiledImage._clip ) {
+        tiledImage._drawer.saveContext(useSketch);
+
         var box = tiledImage.imageToViewportRectangle(tiledImage._clip, true);
-        var topLeft = tiledImage.viewport.pixelFromPoint(box.getTopLeft(), true);
-        var size = tiledImage.viewport.deltaPixelsFromPoints(box.getSize(), true);
-        box = new OpenSeadragon.Rect(topLeft.x * $.pixelDensityRatio,
-            topLeft.y * $.pixelDensityRatio,
-            size.x * $.pixelDensityRatio,
-            size.y * $.pixelDensityRatio);
-        tiledImage._drawer.setClip(box);
+        var clipRect = tiledImage._drawer.viewportToDrawerRectangle(box);
+        tiledImage._drawer.setClip(clipRect, useSketch);
+
         usedClip = true;
+    }
+
+    if ( tiledImage.placeholderFillStyle && lastDrawn.length === 0 ) {
+        var placeholderRect = tiledImage._drawer.viewportToDrawerRectangle(tiledImage.getBounds(true));
+
+        var fillStyle = null;
+        if ( typeof tiledImage.placeholderFillStyle === "function" ) {
+            fillStyle = tiledImage.placeholderFillStyle(tiledImage, tiledImage._drawer.context);
+        }
+        else {
+            fillStyle = tiledImage.placeholderFillStyle;
+        }
+
+        tiledImage._drawer.drawRectangle(placeholderRect, fillStyle, useSketch);
     }
 
     for ( i = lastDrawn.length - 1; i >= 0; i-- ) {
         tile = lastDrawn[ i ];
-        tiledImage._drawer.drawTile( tile, tiledImage._drawingHandler );
+        tiledImage._drawer.drawTile( tile, tiledImage._drawingHandler, useSketch );
         tile.beingDrawn = true;
-
-        if( tiledImage.debugMode ){
-            try{
-                tiledImage._drawer.drawDebugInfo( tile, lastDrawn.length, i );
-            }catch(e){
-                $.console.error(e);
-            }
-        }
 
         if( tiledImage.viewer ){
             /**
@@ -17984,8 +18132,26 @@ function drawTiles( tiledImage, lastDrawn ){
         }
     }
 
-    if (usedClip) {
-        tiledImage._drawer.restoreContext();
+    if ( usedClip ) {
+        tiledImage._drawer.restoreContext( useSketch );
+    }
+
+    if ( useSketch ) {
+        tiledImage._drawer.blendSketch( tiledImage.opacity );
+    }
+    drawDebugInfo( tiledImage, lastDrawn );
+}
+
+function drawDebugInfo( tiledImage, lastDrawn ) {
+    if( tiledImage.debugMode ) {
+        for ( var i = lastDrawn.length - 1; i >= 0; i-- ) {
+            var tile = lastDrawn[ i ];
+            try {
+                tiledImage._drawer.drawDebugInfo( tile, lastDrawn.length, i );
+            } catch(e) {
+                $.console.error(e);
+            }
+        }
     }
 }
 
