@@ -443,8 +443,8 @@ function onViewerScroll(e) {
       if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
           flashlights[0].clipSize = newClipSize;
       };
-    };
     invalidate();
+    };
 };
 
 function onViewerPress(e) {
@@ -729,9 +729,22 @@ $("#help-button").mouseleave( function() {
 });
 
 $("#help-button").click(function(){
-  var dialog = document.getElementById("help-dialog");
-  dialog.open();
+  if (Shepherd.activeTour == null) {
+    primary.setMouseNavEnabled(false);
+    $(".navigator").hide();
+    var dialog = document.getElementById("help-dialog");
+    dialog.open();
+  }
 });
+
+function onHelpConfirm() {
+  startTour();
+};
+
+function onHelpClose() {
+  primary.setMouseNavEnabled(true);
+  $(".navigator").show();
+}
 
 $("#pageID").focusin(function() {
     $("#page-selector").slideDown(200);
@@ -741,7 +754,7 @@ $("#pageID").focusout(function() {
     $("#page-selector").delay(50).slideUp(200);
 });
 
-$(document).ready( function () {
+$(window).load( function () {
     fillSlider();
     fillPageSelector();
     Polymer.updateStyles();
@@ -749,5 +762,6 @@ $(document).ready( function () {
     updateSecondaryCard();
     makeGhostCanvas();
     addFlashlight(0.5, 0.5, cursor.clipSize)
+    sly.reload();
     $("#help-button").click();
 });

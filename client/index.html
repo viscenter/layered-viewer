@@ -16,17 +16,22 @@
     <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
     <!-- App CSS -->
+    <link rel="stylesheet" type="text/css" href="css/tour-shepherd-theme.css">
     <link rel="stylesheet" type="text/css" href='css/main.css'>
     <link rel="stylesheet" type="text/css" href='css/layered-viewer.css'>
 
     <!-- App JS -->
     <script src="js/viewer-ui.js"></script>
+    <script src="js/viewer-tour.js"></script>
+    <script type="text/javascript" src='external/underscore-min.js'></script>
     <script type="text/javascript" src='external/openseadragon/openseadragon.min.js'></script>
     <script type="text/javascript" src='external/openseadragon/openseadragon-scalebar.js'></script>
     <script type="text/javascript" src='external/openseadragon/openseadragon-viewerinputhook.min.js'></script>
     <script type="text/javascript" src='external/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src='external/jquery-ui.min.js'></script>
     <script type="text/javascript" src='external/sly.min.js'></script>
+    <script type="text/javascript" src='external/tether/js/tether.min.js'></script>
+    <script type="text/javascript" src='external/tether-shepherd/js/shepherd.min.js'></script>
 
     <title>Vis Center Layered Viewer</title>
 
@@ -97,7 +102,7 @@
               <div id="help-wrapper">
                 <paper-fab mini icon="icons:help" id="help-button" class="overlay-fab"></paper-fab>
                 <span id="help-label" class="overlay-label vertically-aligned">Help</span>
-                <paper-dialog id="help-dialog" modal>
+                <paper-dialog id="help-dialog" no-cancel-on-outside-click>
                   <p style="font-size: 1.5em">The St. Chad Gospels Registered Image Viewer</p>
                   <br />
                   <p>The St. Chad Gospels (aka The Lichfield Gospels) are a set of illuminated gospels
@@ -114,27 +119,9 @@
                   <br />
                   <p>We hope you enjoy this wonderful document and our viewer!</p>
                   <p>The Brent Seales Research Group, University of Kentucky</p>
-                  <br />
-                  <dl>
-                    <dt>Pan:</dt>
-                      <dd>Click + Drag</dd>
-                    <dt>Zoom in/out:</dt>
-                      <dd>Scroll Up/Down</dd>
-                    <dt>Change page:</dt>
-                      <dd>Use the Page selector at the top of the screen</dd>
-                      <dd>Forward/Back: M/N keys</dd>
-                    <dt>Select a background layer:</dt>
-                      <dd>Use the Layers drawer at the bottom of the screen</dd>
-                      <dd>Forward/Back: J/L keys</dd>
-                    <dt>Select a flashlight(foreground) layer:</dt>
-                      <dd>Forward/Back: I/K keys</dd>
-                    <dt>Resize flashlight:</dt>
-                      <dd>Shift + Scroll Up/Down</dd>
-                    <dt>Change flashlight shape:</dt>
-                      <dd>C key</dd>
-                  </dl>
                  <div class="buttons">
-                   <paper-button dialog-confirm autofocus>Close</paper-button>
+                   <paper-button dialog-dismiss onClick="onHelpClose()">Close</paper-button>
+                   <paper-button dialog-confirm autofocus onClick="onHelpConfirm()">Begin Tour</paper-button>
                  </div>
                </paper-dialog>
               </div>
@@ -154,4 +141,5 @@
       </paper-drawer-panel>
   </body>
   <script type="text/javascript" src='js/layered-viewer.js'></script>
+  <script type="text/javascript" src='js/viewer-tour.js'></script>
 </html>
