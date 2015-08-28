@@ -168,7 +168,7 @@ var original = {};
 var modulator;
 
 var angle = 0;
-var theta  = 0.1;
+var theta  = 2;
 var demoLight = 0;
 function startDemoRotation() {
   var temp_event = {delta: {x:0, y:0}};
@@ -179,18 +179,18 @@ function startDemoRotation() {
   original.y = flashlights[demoLight].y;
 
   // Offset the origin of rotation
-  flashlights[demoLight].x -= 2.5 / pc.width / primary.viewport.getZoom();
-  flashlights[demoLight].y -= 2.5 / pc.height / primary.viewport.getZoom();
+  flashlights[demoLight].x += 10 / pc.width/ primary.viewport.getZoom();
+  flashlights[demoLight].y -= 10 / pc.height / primary.viewport.getZoom();
 
   modulator = setInterval(function(){
-    var offset_x = Math.cos(angle);
-    var offset_y = Math.sin(angle);
+    var offset_x = Math.cos(toRadian(angle));
+    var offset_y = Math.sin(toRadian(angle));
     temp_event.delta.x = offset_x;
     temp_event.delta.y = offset_y;
 
     onViewerDrag(temp_event);
-    angle += theta;
-  }, 20)
+    angle += theta + .5;
+  }, 1)
 }
 
 function resetDemoRotation() {
@@ -214,11 +214,11 @@ function startDemoScroll() {
   original.clipSize = flashlights[demoLight].clipSize;
 
   modulator = setInterval(function(){
-    temp_event.originalEvent.wheelDelta = Math.sin(angle) * 100;
+    temp_event.originalEvent.wheelDelta = Math.sin(toRadian(angle)) * 50;
 
     onViewerScroll(temp_event);
     angle += theta;
-  }, 10)
+  }, 1)
 }
 
 function resetDemoScroll() {
@@ -231,4 +231,12 @@ function resetDemoScroll() {
   shiftDown = false;
   whichFlashlight = null;
   invalidate();
+}
+
+function toRadian(theta) {
+  return theta * Math.PI / 180;
+}
+
+function toDegree(theta) {
+  return theta * 180 / Math.PI;
 }
