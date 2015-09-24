@@ -133,14 +133,6 @@ span.vertically-aligned {
   padding: 0 25px;
 }
 
-#help-dialog dt {
-  font-weight: bold;
-}
-
-#help-dialog dd {
-  text-indent: 15px;
-}
-
 /* Frame */
 .frame {
     height: 130px;
@@ -181,6 +173,7 @@ li.active {
 }
 
 .layer-card span {
+  min-width: 50px;
   padding-left: 35px;
   padding-right: 35px;
 }

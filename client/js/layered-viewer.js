@@ -27,9 +27,9 @@ if (window.location.hostname == 'infoforest.vis.uky.edu') {
 } else {
     // On other machines (for development and testing, show test images
     defaultImageSetJSONFile = 'test/data/test.json';
-    defaultPageIndex = 2;
-    defaultPrimaryLayerIndex = 2;
-    defaultSecondaryLayerIndex = 0;
+    defaultPageIndex = 0;
+    defaultPrimaryLayerIndex = 0;
+    defaultSecondaryLayerIndex = 1;
 }
 
 // OpenSeadragon (OSD) initialization settings
@@ -96,6 +96,7 @@ var primary = OpenSeadragon({
     maxZoomLevel: maxZoom,
     showFullPageControl: false,
     showNavigationControl: false,
+    zoomPerScroll: 1.1,
 });
 
 // Initialize an OSD instance for the background.
@@ -213,7 +214,7 @@ if (!pc) {
 var ctx = pc.getContext('2d');
 
 // interval for refreshing the view
-setInterval(validate, 5);
+setInterval(validate, 1);
 isValid = false;
 
 function invalidate() { isValid = false };
@@ -270,6 +271,7 @@ Flashlight.prototype.canvasPosition = function() {
     return position.plus(offset);
 };
 
+// Adds a clipping flashlight to the viewer
 function addFlashlight(x, y, s) {
   var light = new Flashlight;
   light.x = x;
@@ -279,6 +281,7 @@ function addFlashlight(x, y, s) {
   invalidate();
 };
 
+// Function to draw the indicator (the white handle that positions the flashlight)
 function drawIndicator(flashlight, color, context, selected) {
   var size = flashlightIndicatorSize;
   if (selected) size = flashlightIndicatorSize + (flashlightIndicatorSize * 0.15);
@@ -298,6 +301,9 @@ function drawIndicator(flashlight, color, context, selected) {
   resetContext(context);
 };
 
+// Clear the special effects from the context once we're done with them
+// If these are cleared, every element drawn into the context from now on
+// will have these effects.
 function resetContext( context ) {
   context.globalAlpha = 1;
   context.shadowOffsetX = 0;
@@ -305,6 +311,7 @@ function resetContext( context ) {
   context.shadowBlur = 0;
 }
 
+// Iterate over the list of flashlights and draw each one onto the canvas.
 function drawFlashlights() {
   for ( var i = 0; i < flashlights.length; i++ ) {
     if (cursor.isCircle) {
@@ -348,6 +355,7 @@ function makeGhostCanvas() {
   ghostctx = ghostcanvas.getContext('2d');
 };
 
+// Empty's the ghost canvas for future click detection
 function clearGhostCanvas() {
   ghostctx.clearRect(0, 0, ghostcanvas.width, ghostcanvas.height);
 }
@@ -403,6 +411,7 @@ function updateSecondaryImage() {
     }, updateDelay);
 };
 
+// Fill the Page Selector with the currently active page
 function updateSearchBar() {
     pageID.value = pages[pageIndex].name;
 };
@@ -428,10 +437,11 @@ function updatePage() {
 
 // resize clipping on shift+mouseWheel
 function onViewerScroll(e) {
-    if (shiftDown) {
+    if (e.shift) {
       // configurable min and max sizes for clipping region
-      var minClipSize = 10;
-      var maxClipSize = primary.world.getItemAt(0).getContentSize().y * .25;
+      // To-Do: these values are image dependent
+      var minClipSize = 15;
+      var maxClipSize = primary.world.getItemAt(0).getContentSize().y;
       // prevent the OpenSeadragon viewer from trying to scroll
       e.preventDefaultAction = true;
       // divide delta by scale factor to make it feel right
@@ -440,13 +450,19 @@ function onViewerScroll(e) {
       // make sure we do not make the size outside the min and max
       // To-Do: Make this work if there are multiple flashlights
       var newClipSize = flashlights[0].clipSize + delta;
-      if (newClipSize >= minClipSize && newClipSize <= maxClipSize) {
-          flashlights[0].clipSize = newClipSize;
+      if (newClipSize < minClipSize) {
+        flashlights[0].clipSize = minClipSize;
+      } else if (newClipSize > maxClipSize) {
+        flashlights[0].clipSize = maxClipSize;
+      } else {
+        flashlights[0].clipSize = newClipSize;
       };
     invalidate();
     };
 };
 
+// Handle the click event on the viewer
+// Primarily handles the user clicking an indicator
 function onViewerPress(e) {
   if ( getIndicatorClicked(e.position) ) {
     e.preventDefaultAction = true;
@@ -457,6 +473,8 @@ function onViewerPress(e) {
   invalidate();
 };
 
+// Handle the drag event on the viewer
+// Primarily handles updating the flashlights if they are being drug
 function onViewerDrag(e) {
   if ( movingFlashlight ) {
     e.preventDefaultAction = true;
@@ -485,6 +503,8 @@ function onViewerDrag(e) {
   };
 };
 
+// Handle the viewer release event
+// Primarly releases the previously selected flashlight
 function onViewerRelease(e) {
   if ( movingFlashlight ) {
     e.preventDefaultAction = true;
@@ -535,9 +555,6 @@ var shiftDown = false;
 // handle keypresses
 $(document).keyup(function (e) {
     switch (e.which) {
-    case 16: // shift
-    shiftDown = false;
-    break;
     default:
     return;
     }
@@ -545,9 +562,6 @@ $(document).keyup(function (e) {
 
 $(document).keydown(function (e) {
     switch (e.which) {
-    case 16: // shift
-    shiftDown = true;
-    break;
     case 67: // c
     // change cursor shape from circle <=> square
     cursor.isCircle = !cursor.isCircle;
@@ -622,21 +636,23 @@ var sly = new Sly('#frame' , {
     clickBar: 1,
 });
 
+// Handle the user selecting a new primary layer from the slidee
 sly.on('active', function (eventName, itemIndex) {
-    // Update the background image if we need to (e.g. the slidee is clicked)
     if (primaryLayerIndex !== itemIndex) {
         primaryLayerIndex = itemIndex;
         updatePrimaryImage();
     }
 });
 
+// Initialize sly
 sly.init();
 
+// Reload sly if the window is resized
 $(window).resize(function(e) {
     sly.reload();
 });
 
-// fill slider with names of each layer
+// Fills the slider with the names of each layer
 function fillSlider() {
     // Empty the slider. This is the way sly wants you to do it
     cards = sly.items.length;
@@ -653,6 +669,7 @@ function fillSlider() {
     }
 }
 
+// Fills the Page Selector with the names of each page
 function fillPageSelector() {
     var elem = '';
     for ( id=0; id < pageNames().length; id++ ) {
@@ -661,16 +678,7 @@ function fillPageSelector() {
     }
 }
 
-// WIP - Update the card elevations in the layer-selector toolbar
-function updateCardElevation(newIndex) {
-    $("#slidee").find("paper-material").attr("elevation", 1);
-    var newActive = $("#" + newIndex).children("paper-material");
-    if (primaryLayerIndex !== newIndex) {
-        oldActive.attr("elevation", 1);
-        newActive.attr("elevation", 3);
-    }
-}
-
+// Update the slider to indicate the active secondary layer
 function updateSecondaryCard() {
   var old = $("#slidee").find(".second-active");
   old.removeClass("second-active");
@@ -682,6 +690,7 @@ function updateSecondaryCard() {
   newSecond.find("span").prepend(elem);
 }
 
+// Show or hide the Layer Selector
 function toggleLayerSelector() {
   if( $("#layer-selector").css("display") == 'none' ) {
     $("#layer-selector-toggle").animate(
@@ -712,6 +721,7 @@ function toggleLayerSelector() {
   sly.reload();
 };
 
+// Special animations for the layer selector and help buttons
 $("#layer-selector-fab").mouseenter( function() {
   $("#layer-selector-label").animate( {"opacity": "1.0"}, "fast" );
 });
@@ -728,6 +738,7 @@ $("#help-button").mouseleave( function() {
   $("#help-label").animate( {"opacity": "0.0"}, "fast" );
 });
 
+// Start the help dialog if the help button is clicked
 $("#help-button").click(function(){
   if (Shepherd.activeTour == null) {
     primary.setMouseNavEnabled(false);
@@ -737,23 +748,28 @@ $("#help-button").click(function(){
   }
 });
 
+// Start the tour if it's clicked in the help page
 function onHelpConfirm() {
   startTour();
 };
 
+// Re-enable the navigator and mouse functionality once the help box is closed
 function onHelpClose() {
   primary.setMouseNavEnabled(true);
   $(".navigator").show();
 }
 
+// Show the page selector when you click on the Page ID in the nav bar
 $("#pageID").focusin(function() {
     $("#page-selector").slideDown(200);
 });
 
+// Hide the page selector when you unclick the Page ID in the nav bar
 $("#pageID").focusout(function() {
     $("#page-selector").delay(50).slideUp(200);
 });
 
+// Setup everything when the viewer loads
 $(window).load( function () {
     fillSlider();
     fillPageSelector();

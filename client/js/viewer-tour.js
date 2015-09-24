@@ -179,7 +179,7 @@ function startDemoRotation() {
   original.y = flashlights[demoLight].y;
 
   // Offset the origin of rotation
-  flashlights[demoLight].x += 10 / pc.width/ primary.viewport.getZoom();
+  flashlights[demoLight].x += 10 / pc.width  / primary.viewport.getZoom();
   flashlights[demoLight].y -= 10 / pc.height / primary.viewport.getZoom();
 
   modulator = setInterval(function(){
