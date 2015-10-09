@@ -277,19 +277,19 @@ function addFlashlight(x, y, s) {
   light.x = x;
   light.y = y;
   light.clipSize = s;
-  addHandle(light);
+  addHandle(flashlights.length, light);
   flashlights.push(light);
   invalidate();
 };
 
-function addHandle(flashlight) {
+function addHandle(index, flashlight) {
   // setup
   var primaryImg = primary.world.getItemAt(0);
   var bounds = primaryImg.getBounds();
   var h_pos = flashlight.boundsPosition();
 
   var h_element = document.createElement("div");
-  h_element.id = "handle-" + flashlights.length;
+  h_element.id = "handle-" + index;
   $(h_element).addClass("circle handle");
 
   // add to the OSD instance
@@ -320,12 +320,10 @@ function onHandlePress(e) {
 function onHandleDrag(e) {
   if ( movingFlashlight ) {
     // Get the drag delta in viewport pixels
-    var delta = new OpenSeadragon.Point(e.delta.x, e.delta.y);
+    var delta = new OpenSeadragon.Point(e.delta.x * OpenSeadragon.pixelDensityRatio, e.delta.y * OpenSeadragon.pixelDensityRatio);
 
     // Convert the delta to an offset in canvas relative coords
     var offset = delta.divide(pc.width, pc.height);
-
-    offset.times(OpenSeadragon.pixelDensityRatio);
 
     // Scale the offset based on the zoom level
     var scale = primary.viewport.getZoom();
@@ -340,9 +338,6 @@ function onHandleDrag(e) {
     flashlights[whichFlashlight].x += offset.x;
     flashlights[whichFlashlight].y += offset.y
 
-    primary.currentOverlays[whichFlashlight].update(flashlights[whichFlashlight].boundsPosition());
-    primary.currentOverlays[whichFlashlight].drawHTML(primary.overlaysContainer, primary.viewport);
-
     invalidate();
   };
 };
@@ -355,25 +350,6 @@ function onHandleRelease(e) {
   };
   invalidate();
 }
-
-// Function to draw the indicator (the white handle that positions the flashlight)
-function drawIndicator(flashlight, color, context, selected) {
-  var size = flashlightIndicatorSize;
-  if (selected) size = flashlightIndicatorSize + (flashlightIndicatorSize * 0.15);
-
-  context.beginPath();
-  context.arc(flashlight.canvasPosition().x, flashlight.canvasPosition().y, size, 0, 2 * Math.PI, false);
-
-  context.shadowOffsetX = 1.5;
-  context.shadowOffsetY = 1.5;
-  context.shadowBlur = 7;
-  context.shadowColor = 'black';
-
-  context.fillStyle = color;
-  context.fill();
-  context.closePath();
-  resetContext(context);
-};
 
 // Clear the special effects from the context once we're done with them
 // If these are cleared, every element drawn into the context from now on
@@ -393,6 +369,12 @@ function drawFlashlights() {
     } else {
       cutSquare(flashlights[i].canvasPosition().x, flashlights[i].canvasPosition().y, flashlights[i].clipSize);
     };
+    if (!($('#'+flashlights[i].handle.id).length))
+      addHandle(i, flashlights[i]);
+    else {
+      primary.currentOverlays[i].update(flashlights[i].boundsPosition());
+      primary.currentOverlays[i].drawHTML(primary.overlaysContainer, primary.viewport);
+    }
   };
 }
 
@@ -520,9 +502,6 @@ $(window).resize(function (e) {
     waitForFinalEvent(function () {
     secondary.viewport.panTo(primary.viewport.getCenter(false));
     secondary.viewport.zoomTo(primary.viewport.getZoom(false));
-    ghostcanvas.width = pc.width;
-    ghostcanvas.height = pc.height;
-    ghostctx = ghostcanvas.getContext('2d');
     invalidate();
     }, 50, "resize");
 });
@@ -756,9 +735,8 @@ $(window).load( function () {
     sly.activate(primaryLayerIndex);
     updateSecondaryCard();
     sly.reload();
+    setTimeout(function(){
+      addFlashlight(0.5, 0.5, cursor.clipSize)},
+    100);
     $("#help-button").click();
-});
-
-primary.addHandler('open', function() {
-    setTimeout(addFlashlight(0.5, 0.5, cursor.clipSize), 100);
 });

@@ -37,7 +37,7 @@ tour.addStep('indicator', {
     tetherOptions: {
       attachment: 'middle left',
       targetAttachment: 'middle center',
-      offset: '0 -' + (flashlightIndicatorSize + 10)
+      offset: '0 -' + (20)
     },
     when: {
       show: startDemoRotation,
@@ -51,7 +51,7 @@ tour.addStep('resize', {
     tetherOptions: {
       attachment: 'middle left',
       targetAttachment: 'middle center',
-      offset: '0 -' + (flashlightIndicatorSize + 10)
+      offset: '0 -' + (20)
     },
     when: {
       show: startDemoScroll,
@@ -140,6 +140,12 @@ function startTour() {
     tour.getById("background").options.text = backgroundText + pages[pageIndex]['layers'][primaryLayerIndex]['version'] + ".";
 
     var fl_offset = flashlights[0].clipSize * primary.viewport.getZoom() / 2;
+    original.x = flashlights[demoLight].x;
+    original.y = flashlights[demoLight].y;
+    original.clipSize = flashlights[demoLight].clipSize;
+    flashlights[demoLight].x = 0.5;
+    flashlights[demoLight].y = 0.5;
+    flashlights[demoLight].clipSize = 500;
     tour.getById("flashlight").options.tetherOptions.offset = "0 -" + fl_offset + "px";
     tour.getById("flashlight").options.text = flashlightText + pages[pageIndex]['layers'][secondaryLayerIndex]['version'] + ".";
 
@@ -156,11 +162,16 @@ function startTour() {
 }
 
 tour.on('complete', function() {
+  flashlights[demoLight].x = original.x;
+  flashlights[demoLight].y = original.y;
+  flashlights[demoLight].clipSize = original.clipSize;
+  original = {};
   _.each(tour.steps, function(step) {
     step.destroy();
   });
   primary.setMouseNavEnabled(true);
   $(".navigator").show();
+  invalidate();
 })
 
 // Fancy Effects - Warning: Only use one at a time
@@ -175,20 +186,21 @@ function startDemoRotation() {
   movingFlashlight = true;
   whichFlashlight = demoLight;
 
-  original.x = flashlights[demoLight].x;
-  original.y = flashlights[demoLight].y;
-
   // Offset the origin of rotation
-  flashlights[demoLight].x += 10 / pc.width  / primary.viewport.getZoom();
-  flashlights[demoLight].y -= 10 / pc.height / primary.viewport.getZoom();
+  flashlights[demoLight].x = 0.5;
+  flashlights[demoLight].y = 0.5;
+  temp_event.delta.x = 12.5;
+  temp_event.delta.y = -12.5;
+  onHandleDrag(temp_event);
+  // flashlights[demoLight].y -= 10 / pc.height / primary.viewport.getZoom();
 
   modulator = setInterval(function(){
-    var offset_x = Math.cos(toRadian(angle));
-    var offset_y = Math.sin(toRadian(angle));
-    temp_event.delta.x = offset_x;
-    temp_event.delta.y = offset_y;
+    var offset_x = Math.cos(3/4*toRadian(angle));
+    var offset_y = Math.sin(3/4*toRadian(angle));
+    temp_event.delta.x = offset_x * primary.viewport.getZoom();
+    temp_event.delta.y = offset_y * primary.viewport.getZoom();
 
-    onViewerDrag(temp_event);
+    onHandleDrag(temp_event);
     angle += theta + .5;
   }, 1)
 }
@@ -197,9 +209,8 @@ function resetDemoRotation() {
   clearInterval(modulator);
   angle = 0;
 
-  flashlights[demoLight].x = original.x;
-  flashlights[demoLight].y = original.y;
-  original = {};
+  flashlights[demoLight].x = 0.5;
+  flashlights[demoLight].y = 0.5;
 
   movingFlashlight = false;
   whichFlashlight = null;
@@ -207,15 +218,13 @@ function resetDemoRotation() {
 }
 
 function startDemoScroll() {
-  var temp_event = {originalEvent: {wheelDelta: 0}};
-  shiftDown = true;
+  var temp_event = {originalEvent: {wheelDelta: 0},  shift: true};
   whichFlashlight = demoLight;
 
-  original.clipSize = flashlights[demoLight].clipSize;
+  flashlights[demoLight].clipSize = 500;
 
   modulator = setInterval(function(){
-    temp_event.originalEvent.wheelDelta = Math.sin(toRadian(angle)) * 50;
-
+    temp_event.originalEvent.wheelDelta = Math.sin(3/4*toRadian(angle)) * 25;
     onViewerScroll(temp_event);
     angle += theta;
   }, 1)
@@ -225,8 +234,7 @@ function resetDemoScroll() {
   clearInterval(modulator);
   angle = 0;
 
-  flashlights[demoLight].clipSize = original.clipSize;
-  original = {};
+  flashlights[demoLight].clipSize = 500;
 
   shiftDown = false;
   whichFlashlight = null;
