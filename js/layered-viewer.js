@@ -254,7 +254,7 @@ Flashlight.prototype.canvasPosition = function() {
     var scale = primaryImg.viewport.getZoom();
 
     // get 0-bounds position
-    var flash_pos = this.boundsPosition().times(OpenSeadragon.pixelDensityRatio);
+    var flash_pos = this.boundsPosition();
 
     // Get the offset from the pt at the center of the canvas
     // Both values are in img coords
@@ -340,7 +340,7 @@ function onHandleDrag(e) {
     flashlights[whichFlashlight].x += offset.x;
     flashlights[whichFlashlight].y += offset.y
 
-    primary.currentOverlays[whichFlashlight].update(flashlights[whichFlashlight].boundsPosition().times(OpenSeadragon.pixelDensityRatio));
+    primary.currentOverlays[whichFlashlight].update(flashlights[whichFlashlight].boundsPosition());
     primary.currentOverlays[whichFlashlight].drawHTML(primary.overlaysContainer, primary.viewport);
 
     invalidate();
