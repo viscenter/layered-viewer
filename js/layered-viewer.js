@@ -56,7 +56,6 @@ var secondaryLayerIndex = defaultSecondaryLayerIndex;
 // Is a flashlight moving and which one?
 var movingFlashlight = false;
 var whichFlashlight = null;
-var flashlightIndicatorSize = 5;
 
 // clipSize can be radius or side length
 var cursor = {clipSize: 500,
@@ -156,10 +155,7 @@ primary.addHandler('zoom', function (e) {
 });
 
 primary.addViewerInputHook({hooks: [
-    {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onViewerScroll},
-    {tracker: 'viewer', handler: 'pressHandler', hookHandler: onViewerPress},
-    {tracker: 'viewer', handler: 'releaseHandler', hookHandler: onViewerRelease},
-    {tracker: 'viewer', handler: 'dragHandler', hookHandler: onViewerDrag}
+    {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onViewerScroll}
 ]});
 
 // Set the initial page name info
@@ -240,6 +236,7 @@ function Flashlight() {
   this.y = 0;
   this.clipSize = 10;
   this.fill = 'white';
+  this.handle = '';
 };
 
 // Return the position of the flashlight in canvas coords
@@ -277,9 +274,79 @@ function addFlashlight(x, y, s) {
   light.x = x;
   light.y = y;
   light.clipSize = s;
+  addHandle(light);
   flashlights.push(light);
   invalidate();
 };
+
+function addHandle(flashlight) {
+  // setup
+  var h_element = document.createElement("div");
+  h_element.id = "handle-" + flashlights.length;
+  $(h_element).addClass("circle handle");
+  var h_pos = new OpenSeadragon.Point(flashlight.x, flashlight.y);
+
+  // add to the OSD instance
+  primary.addOverlay({
+    element: h_element,
+    location: h_pos
+  });
+
+  // add handler for click events
+  new OpenSeadragon.MouseTracker({
+    element: h_element.id,
+    pressHandler: onHandlePress,
+    releaseHandler: onHandleRelease,
+    dragHandler: onHandleDrag
+  });
+
+  // add ref back to flashlight
+  flashlight.handle = h_element;
+}
+
+// Handle the click event on the flashlight handles
+function onHandlePress(e) {
+  movingFlashlight = true;
+  whichFlashlight = e.eventSource.element.id.split("-")[1];
+};
+
+// Handle the drag event on the flashlight handles
+function onHandleDrag(e) {
+  if ( movingFlashlight ) {
+    // Get the drag delta in viewport pixels
+    var delta = new OpenSeadragon.Point(e.delta.x, e.delta.y);
+
+    // Convert the delta to an offset in canvas relative coords
+    var offset = delta.divide(pc.width, pc.height);
+
+    // Scale the offset based on the zoom level
+    var scale = primary.viewport.getZoom();
+    offset = offset.divide(scale);
+
+    // Convert the 0-bounds offset to 0-1
+    var bounds = primary.world.getItemAt(0).getBounds();
+    offset.x = offset.x / bounds.width;
+    offset.y = offset.y / bounds.height;
+
+    // Add the offset to the position value
+    flashlights[whichFlashlight].x += offset.x;
+    flashlights[whichFlashlight].y += offset.y
+
+    primary.currentOverlays[whichFlashlight].update(new OpenSeadragon.Point(flashlights[0].x, flashlights[0].y));
+    primary.currentOverlays[whichFlashlight].drawHTML(primary.overlaysContainer, primary.viewport);
+
+    invalidate();
+  };
+};
+
+// Handle the flashlight handle release event
+function onHandleRelease(e) {
+  if ( movingFlashlight ) {
+    whichFlashlight = null;
+    movingFlashlight = false;
+  };
+  invalidate();
+}
 
 // Function to draw the indicator (the white handle that positions the flashlight)
 function drawIndicator(flashlight, color, context, selected) {
@@ -289,7 +356,6 @@ function drawIndicator(flashlight, color, context, selected) {
   context.beginPath();
   context.arc(flashlight.canvasPosition().x, flashlight.canvasPosition().y, size, 0, 2 * Math.PI, false);
 
-  // To-Do: Move this so its not being drawn into the ghost context
   context.shadowOffsetX = 1.5;
   context.shadowOffsetY = 1.5;
   context.shadowBlur = 7;
@@ -319,10 +385,6 @@ function drawFlashlights() {
     } else {
       cutSquare(flashlights[i].canvasPosition().x, flashlights[i].canvasPosition().y, flashlights[i].clipSize);
     };
-
-    var selected = false;
-    if ( i == whichFlashlight ) selected = true;
-    drawIndicator( flashlights[i], flashlights[i].fill, ctx, selected);
   };
 }
 
@@ -344,42 +406,6 @@ function cutSquare(x, y, length) {
     length = length * primary.viewport.getZoom();
     ctx.clearRect(x-length/2, y-length/2, length, length);
 };
-
-// ghost canvas that we use to detect if a flashlight has been clicked
-var ghostcanvas;
-var ghostctx;
-function makeGhostCanvas() {
-  ghostcanvas = document.createElement('canvas');
-  ghostcanvas.width = pc.width;
-  ghostcanvas.height = pc.height;
-  ghostctx = ghostcanvas.getContext('2d');
-};
-
-// Empty's the ghost canvas for future click detection
-function clearGhostCanvas() {
-  ghostctx.clearRect(0, 0, ghostcanvas.width, ghostcanvas.height);
-}
-
-// return true if the given position is on top of a flashlight indicator
-// if true, whichFlashlight is set to the index number of the flashlight in flashlights[]
-// if false, whichFlashlight is set to null
-function getIndicatorClicked(position) {
-  clearGhostCanvas();
-
-  for ( var i = 0; i < flashlights.length; i++ ) {
-    drawIndicator( flashlights[i], 'black', ghostctx);
-
-    var imageData = ghostctx.getImageData(position.x, position.y, 1, 1);
-    if ( imageData.data[3] > 0){
-      whichFlashlight = i;
-      return true;
-    }
-
-    clearGhostCanvas();
-  }
-  whichFlashlight = null;
-  return false;
-}
 
 // The OpenSeadragon Viewer.open() method is asynchronous and we have to
 // wait for it to complete before we can pan/zoom the new image to the
@@ -460,61 +486,6 @@ function onViewerScroll(e) {
     invalidate();
     };
 };
-
-// Handle the click event on the viewer
-// Primarily handles the user clicking an indicator
-function onViewerPress(e) {
-  if ( getIndicatorClicked(e.position) ) {
-    e.preventDefaultAction = true;
-    e.stopBubbling = true;
-
-    movingFlashlight = true;
-  };
-  invalidate();
-};
-
-// Handle the drag event on the viewer
-// Primarily handles updating the flashlights if they are being drug
-function onViewerDrag(e) {
-  if ( movingFlashlight ) {
-    e.preventDefaultAction = true;
-    e.stopBubbling = true;
-
-    // Get the drag delta in viewport pixels
-    var delta = new OpenSeadragon.Point(e.delta.x, e.delta.y);
-
-    // Convert the delta to an offset in canvas relative coords
-    var offset = delta.divide(pc.width, pc.height);
-
-    // Scale the offset based on the zoom level
-    var scale = primary.viewport.getZoom();
-    offset = offset.divide(scale);
-
-    // Convert the 0-bounds offset to 0-1
-    var bounds = primary.world.getItemAt(0).getBounds();
-    offset.x = offset.x / bounds.width;
-    offset.y = offset.y / bounds.height;
-
-    // Add the offset to the position value
-    flashlights[whichFlashlight].x += offset.x;
-    flashlights[whichFlashlight].y += offset.y
-
-    invalidate();
-  };
-};
-
-// Handle the viewer release event
-// Primarly releases the previously selected flashlight
-function onViewerRelease(e) {
-  if ( movingFlashlight ) {
-    e.preventDefaultAction = true;
-    e.stopBubbling = true;
-
-    whichFlashlight = null;
-    movingFlashlight = false;
-  };
-  invalidate();
-}
 
 // Generic function to wait for the final call of something. In this
 // case we use this to resync the pan and zoom only once after the
@@ -776,8 +747,10 @@ $(window).load( function () {
     Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
     updateSecondaryCard();
-    makeGhostCanvas();
-    addFlashlight(0.5, 0.5, cursor.clipSize)
     sly.reload();
     $("#help-button").click();
+});
+
+primary.addHandler('open', function() {
+    setTimeout(addFlashlight(0.5, 0.5, cursor.clipSize), 100);
 });
