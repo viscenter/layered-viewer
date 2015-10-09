@@ -325,6 +325,8 @@ function onHandleDrag(e) {
     // Convert the delta to an offset in canvas relative coords
     var offset = delta.divide(pc.width, pc.height);
 
+    offset.times(OpenSeadragon.pixelDensityRatio);
+
     // Scale the offset based on the zoom level
     var scale = primary.viewport.getZoom();
     offset = offset.divide(scale);
