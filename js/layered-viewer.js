@@ -281,10 +281,18 @@ function addFlashlight(x, y, s) {
 
 function addHandle(flashlight) {
   // setup
+  var primaryImg = primary.world.getItemAt(0);
+  var bounds = primaryImg.getBounds();
+  var h_pos = new OpenSeadragon.Point(flashlight.x, flashlight.y);
+
+  // OSD img coords are between 0 and bounds.w/h, not 0-1
+  // Convert our 0-1 value to 0-bounds value
+  h_pos.x = h_pos.x * bounds.width;
+  h_pos.y = h_pos.y * bounds.height;
+
   var h_element = document.createElement("div");
   h_element.id = "handle-" + flashlights.length;
   $(h_element).addClass("circle handle");
-  var h_pos = new OpenSeadragon.Point(flashlight.x, flashlight.y);
 
   // add to the OSD instance
   primary.addOverlay({
