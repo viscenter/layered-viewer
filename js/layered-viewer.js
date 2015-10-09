@@ -239,19 +239,22 @@ function Flashlight() {
   this.handle = '';
 };
 
+// OSD img coords are between 0 and bounds.w/h, not 0-1
+// Convert our 0-1 value to 0-bounds value
+Flashlight.prototype.boundsPosition = function() {
+    var primaryImg = primary.world.getItemAt(0);
+    var bounds = primaryImg.getBounds();
+    return new OpenSeadragon.Point(this.x * bounds.width, this.y * bounds.height);
+};
+
 // Return the position of the flashlight in canvas coords
 Flashlight.prototype.canvasPosition = function() {
     var primaryImg = primary.world.getItemAt(0);
     var center = primary.viewport.getCenter();
-    var bounds = primaryImg.getBounds();
     var scale = primaryImg.viewport.getZoom();
 
-    var flash_pos = new OpenSeadragon.Point(this.x, this.y);
-
-    // OSD img coords are between 0 and bounds.w/h, not 0-1
-    // Convert our 0-1 value to 0-bounds value
-    flash_pos.x = flash_pos.x * bounds.width;
-    flash_pos.y = flash_pos.y * bounds.height;
+    // get 0-bounds position
+    var flash_pos = this.boundsPosition();
 
     // Get the offset from the pt at the center of the canvas
     // Both values are in img coords
@@ -283,12 +286,7 @@ function addHandle(flashlight) {
   // setup
   var primaryImg = primary.world.getItemAt(0);
   var bounds = primaryImg.getBounds();
-  var h_pos = new OpenSeadragon.Point(flashlight.x, flashlight.y);
-
-  // OSD img coords are between 0 and bounds.w/h, not 0-1
-  // Convert our 0-1 value to 0-bounds value
-  h_pos.x = h_pos.x * bounds.width;
-  h_pos.y = h_pos.y * bounds.height;
+  var h_pos = flashlight.boundsPosition();
 
   var h_element = document.createElement("div");
   h_element.id = "handle-" + flashlights.length;
@@ -340,7 +338,7 @@ function onHandleDrag(e) {
     flashlights[whichFlashlight].x += offset.x;
     flashlights[whichFlashlight].y += offset.y
 
-    primary.currentOverlays[whichFlashlight].update(new OpenSeadragon.Point(flashlights[0].x, flashlights[0].y));
+    primary.currentOverlays[whichFlashlight].update(flashlights[whichFlashlight].boundsPosition());
     primary.currentOverlays[whichFlashlight].drawHTML(primary.overlaysContainer, primary.viewport);
 
     invalidate();
