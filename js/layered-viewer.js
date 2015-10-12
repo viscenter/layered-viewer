@@ -315,6 +315,7 @@ function onHandlePress(e) {
   whichFlashlight = e.eventSource.element.id.split("-")[1];
   $("#primary").css('cursor', '-webkit-grabbing');
   $("#handle-"+whichFlashlight).css('cursor', '-webkit-grabbing');
+  primary.zoomPerScroll = 1;
 };
 
 // Handle the drag event on the flashlight handles
@@ -348,6 +349,7 @@ function onHandleDrag(e) {
 function onHandleRelease(e) {
   $("#primary").css('cursor', "");
   $("#handle-"+whichFlashlight).css('cursor', '-webkit-grab');
+  primary.zoomPerScroll = 1.1;
   whichFlashlight = null;
   invalidate();
 }
