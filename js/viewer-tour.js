@@ -71,7 +71,7 @@ tour.addStep('selectedPrimary', {
 
 var idBeforeActive;
 tour.addStep('changePrimary', {
-    text: 'To change the background image, select another image from this list. Alternatively, use the J/L keys on the keyboard to cycle through the list.',
+    text: 'To change the background image, select another image from this list. Alternatively, use the <span class="tour-emphasis">J/L</span> keys on the keyboard to cycle through the list.',
     attachTo: '.active left',
     tetherOptions: {
       attachment: 'bottom center',
@@ -91,7 +91,7 @@ tour.addStep('selectedFlashlight', {
 });
 
 tour.addStep('changeFlashlight', {
-    text: 'To change the flashlight image, use the I/K keys on the keyboard to cycle through the list.',
+    text: 'To change the flashlight image, use the <span class="tour-emphasis">I/K</span> keys on the keyboard to cycle through the list.',
     attachTo: '.second-active left',
     tetherOptions: {
       attachment: 'bottom center',

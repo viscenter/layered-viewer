@@ -133,6 +133,31 @@ span.vertically-aligned {
   padding: 0 25px;
 }
 
+#tour-controls-wrapper {
+  width: 350px;
+  height: 50px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tour-keys {
+  height: 30px;
+}
+
+.tour-controls {
+  float: left;
+  text-align: center;
+  width: 115px;
+}
+
+.tour-emphasis {
+  color: #4285f4;
+  font-weight: bold;
+}
+
 /* Frame */
 .frame {
     height: 130px;
@@ -170,12 +195,12 @@ li.active {
 
 .handle {
   background-color: white;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
               0 1px 5px 0 rgba(0, 0, 0, 0.12),
               0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+  cursor: -webkit-grab;
 }
 
 .circle {

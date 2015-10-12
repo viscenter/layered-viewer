@@ -90,6 +90,7 @@ var primary = OpenSeadragon({
     tileSources: pages[pageIndex]['layers'][primaryLayerIndex]['dzi'],
     showNavigator: showNav,
     navigatorID: "navigator-wrapper",
+    navigatorMaintainSizeRatio: true,
     animationTime: animationTime,
     minZoomLevel: minZoom,
     maxZoomLevel: maxZoom,
@@ -284,8 +285,6 @@ function addFlashlight(x, y, s) {
 
 function addHandle(index, flashlight) {
   // setup
-  var primaryImg = primary.world.getItemAt(0);
-  var bounds = primaryImg.getBounds();
   var h_pos = flashlight.boundsPosition();
 
   var h_element = document.createElement("div");
@@ -295,7 +294,8 @@ function addHandle(index, flashlight) {
   // add to the OSD instance
   primary.addOverlay({
     element: h_element,
-    location: h_pos
+    location: h_pos,
+    checkResize: false
   });
 
   // add handler for click events
@@ -312,13 +312,16 @@ function addHandle(index, flashlight) {
 
 // Handle the click event on the flashlight handles
 function onHandlePress(e) {
-  movingFlashlight = true;
   whichFlashlight = e.eventSource.element.id.split("-")[1];
+  $("#primary").css('cursor', '-webkit-grabbing');
+  $("#handle-"+whichFlashlight).css('cursor', '-webkit-grabbing');
 };
 
 // Handle the drag event on the flashlight handles
 function onHandleDrag(e) {
-  if ( movingFlashlight ) {
+    e.preventDefaultAction = true;
+    e.stopBubbling = true;
+
     // Get the drag delta in viewport pixels
     var delta = new OpenSeadragon.Point(e.delta.x * OpenSeadragon.pixelDensityRatio, e.delta.y * OpenSeadragon.pixelDensityRatio);
 
@@ -339,15 +342,13 @@ function onHandleDrag(e) {
     flashlights[whichFlashlight].y += offset.y
 
     invalidate();
-  };
 };
 
 // Handle the flashlight handle release event
 function onHandleRelease(e) {
-  if ( movingFlashlight ) {
-    whichFlashlight = null;
-    movingFlashlight = false;
-  };
+  $("#primary").css('cursor', "");
+  $("#handle-"+whichFlashlight).css('cursor', '-webkit-grab');
+  whichFlashlight = null;
   invalidate();
 }
 
@@ -410,20 +411,20 @@ function updatePrimaryImage() {
     var pan = primary.viewport.getCenter(false);
     primary.open(pages[pageIndex]['layers'][primaryLayerIndex]['dzi']);
     setTimeout(function() {
-    primary.viewport.zoomTo(zoom);
-    primary.viewport.panTo(pan);
+    primary.viewport.zoomTo(zoom, true);
+    primary.viewport.panTo(pan, true);
     }, updateDelay);
 };
 
 // After the secondary layer index has been changed, update the secondary
 // viewer to reflect this change.
 function updateSecondaryImage() {
-    var zoom = secondary.viewport.getZoom(false);
+    var zoom = primary.viewport.getZoom(false);
     var pan = primary.viewport.getCenter(false);
     secondary.open(pages[pageIndex]['layers'][secondaryLayerIndex]['dzi']);
     setTimeout(function() {
-    secondary.viewport.zoomTo(zoom);
-    secondary.viewport.panTo(pan);
+    secondary.viewport.zoomTo(zoom, true);
+    secondary.viewport.panTo(pan, true);
     }, updateDelay);
 };
 
@@ -701,8 +702,7 @@ $("#help-button").click(function(){
   if (Shepherd.activeTour == null) {
     primary.setMouseNavEnabled(false);
     $(".navigator").hide();
-    var dialog = document.getElementById("help-dialog");
-    dialog.open();
+    $("#help-dialog")[0].open();
   }
 });
 
@@ -737,6 +737,6 @@ $(window).load( function () {
     sly.reload();
     setTimeout(function(){
       addFlashlight(0.5, 0.5, cursor.clipSize)},
-    100);
+    500);
     $("#help-button").click();
 });

@@ -1,5 +1,8 @@
 <html>
   <head>
+    <!-- Load webcomponents-lite.min.js for polyfill support first. -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
     <!-- favicon and bookmark stuff -->
     <link rel="apple-touch-icon" sizes="57x57" href="images/apple-touch-icon-57x57.png?v=2">
     <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-60x60.png?v=2">
@@ -29,8 +32,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
 
-    <!-- Load webcomponents-lite.min.js for polyfill support first. -->
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <!-- Polymer elements -->
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="bower_components/iron-icons/iron-icons.html">
@@ -54,8 +55,8 @@
     <script type="text/javascript" src='external/sly.min.js'></script>
     <script type="text/javascript" src='external/tether/js/tether.min.js'></script>
     <script type="text/javascript" src='external/tether-shepherd/js/shepherd.min.js'></script>
-    <script src="js/viewer-ui.js"></script>
-    <script src="js/viewer-tour.js"></script>
+    <!-- <script src="js/viewer-ui.js"></script>
+    <script src="js/viewer-tour.js"></script> -->
 
     <title>VisLayers</title>
 
@@ -144,7 +145,22 @@
                   <p>We hope you enjoy this wonderful document and our viewer!</p>
                   <p>The Brent Seales Research Group, University of Kentucky</p>
                   <br />
-                  <p>NOTE: This viewer only works reliably in Google Chrome. Please use Chrome for best results.</p>
+                  <p style="font-size: 1.25em; text-align: center">Keyboard Controls</p>
+                  <div id="tour-controls-wrapper" class="center">
+                    <div class="tour-controls">
+                      Page -/+
+                      <object type="image/svg+xml" data="images/controls-pages.svg" class="tour-keys"></object>
+                    </div>
+                    <div class="tour-controls">
+                      Background -/+
+                      <object type="image/svg+xml" data="images/controls-background.svg" class="tour-keys"></object>
+                    </div>
+                    <div class="tour-controls">
+                      Flashlight -/+
+                      <object type="image/svg+xml" data="images/controls-flashlight.svg" class="tour-keys"></object>
+                    </div>
+                  </div>
+                  <div><p style="text-align: center">NOTE: This viewer only works reliably in Google Chrome. Please use Chrome for best results.</p></div>
                  <div class="buttons">
                    <paper-button dialog-dismiss onClick="onHelpClose()">Close</paper-button>
                    <paper-button dialog-confirm autofocus onClick="onHelpConfirm()">Begin Tour</paper-button>
@@ -166,5 +182,5 @@
         </div>
       </paper-drawer-panel>
   </body>
-  <script type="text/javascript" src='js/layered-viewer.js'></script>
+  <script type="text/javascript" src='js/layered-viewer.min.js'></script>
 </html>
