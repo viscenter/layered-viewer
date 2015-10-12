@@ -159,9 +159,6 @@ primary.addViewerInputHook({hooks: [
     {tracker: 'viewer', handler: 'scrollHandler', hookHandler: onViewerScroll}
 ]});
 
-// Set the initial page name info
-updateSearchBar();
-
 // Functions for custom control elements
 function resetView() {
     primary.viewport.goHome();
@@ -719,6 +716,14 @@ function onHelpClose() {
   $(".navigator").show();
 }
 
+function usingChrome() {
+  return navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+}
+
+function showWarning() {
+  $("#browser-warning").css("display", "block");
+}
+
 // Show the page selector when you click on the Page ID in the nav bar
 $("#pageID").focusin(function() {
     $("#page-selector").slideDown(200);
@@ -731,11 +736,12 @@ $("#pageID").focusout(function() {
 
 // Setup everything when the viewer loads
 $(window).load( function () {
+    if (!usingChrome()) { showWarning() };
     fillSlider();
     fillPageSelector();
-    Polymer.updateStyles();
     sly.activate(primaryLayerIndex);
     updateSecondaryCard();
+    updateSearchBar();
     sly.reload();
     setTimeout(function(){
       addFlashlight(0.5, 0.5, cursor.clipSize)},
