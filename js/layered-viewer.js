@@ -701,19 +701,20 @@ $("#help-button").click(function(){
   if (Shepherd.activeTour == null) {
     primary.setMouseNavEnabled(false);
     $(".navigator").hide();
-    $("#help-dialog")[0].open();
+    $("#help-dialog-wrapper").slideToggle();
   }
 });
 
 // Start the tour if it's clicked in the help page
 function onHelpConfirm() {
-  startTour();
+  $("#help-dialog-wrapper").slideToggle(400, startTour);
 };
 
 // Re-enable the navigator and mouse functionality once the help box is closed
 function onHelpClose() {
   primary.setMouseNavEnabled(true);
   $(".navigator").show();
+  $("#help-dialog-wrapper").slideToggle();
 }
 
 function usingChrome() {

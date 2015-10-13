@@ -24,8 +24,7 @@
     "paper-button": "PolymerElements/paper-button",
     "paper-fab": "PolymerElements/paper-fab",
     "paper-input": "PolymerElements/paper-input",
-    "paper-material": "PolymerElements/paper-material", 
-    "paper-dialog": "PolymerElements/paper-dialog", 
+    "paper-material": "PolymerElements/paper-material",
     "iron-ajax": "PolymerElements/iron-ajax"
   }
 }

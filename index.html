@@ -42,7 +42,6 @@
     <link rel="import" href="bower_components/paper-fab/paper-fab.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
     <link rel="import" href="bower_components/paper-material/paper-material.html">
-    <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
     <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
     <!-- App JS -->
@@ -127,45 +126,6 @@
               <div id="help-wrapper">
                 <paper-fab mini icon="icons:help" id="help-button" class="overlay-fab"></paper-fab>
                 <span id="help-label" class="overlay-label vertically-aligned">Help</span>
-                <paper-dialog id="help-dialog" no-cancel-on-outside-click>
-                  <p style="font-size: 1.5em">The St. Chad Gospels Registered Image Viewer</p>
-                  <br />
-                  <p>The St. Chad Gospels (aka The Lichfield Gospels) are a set of illuminated gospels
-                     that contain some of the earliest known examples of Welsh writing. Due to their historic
-                     significance, as well as their active use by Lichfield Cathedral where they are housed,
-                     much effort has been taken to preserve and document the content of these gospels for future
-                     generations.</p>
-                  <br />
-                  <p>The gospels have been photographed five times, in whole or in part, starting in 1912. However,
-                  due to the differences in imaging equipment over the years, a direct comparison of these images has
-                  been difficult. This Registered Image Viewer aims to solve that problem. Every image of the St. Chad
-                  Gospels in this viewer has been digitally aligned with our images from the 2010 imaging project, and our
-                  unique Flashlight tool allows for the clear, direct comparison of these beautiful pages across time.</p>
-                  <br />
-                  <p>We hope you enjoy this wonderful document and our viewer!</p>
-                  <p>The Brent Seales Research Group, University of Kentucky</p>
-                  <br />
-                  <p style="font-size: 1.25em; text-align: center">Keyboard Controls</p>
-                  <div id="tour-controls-wrapper" class="center">
-                    <div class="tour-controls">
-                      Page -/+
-                      <object type="image/svg+xml" data="images/controls-pages.svg" class="tour-keys"></object>
-                    </div>
-                    <div class="tour-controls">
-                      Background -/+
-                      <object type="image/svg+xml" data="images/controls-background.svg" class="tour-keys"></object>
-                    </div>
-                    <div class="tour-controls">
-                      Flashlight -/+
-                      <object type="image/svg+xml" data="images/controls-flashlight.svg" class="tour-keys"></object>
-                    </div>
-                  </div>
-                  <div id="browser-warning" style="display:none"><p style="text-align: center">WARNING: We've detected an unsupported browser. Please use Google Chrome for the best experience.</p></div>
-                 <div class="buttons">
-                   <paper-button dialog-dismiss onClick="onHelpClose()">Close</paper-button>
-                   <paper-button dialog-confirm autofocus onClick="onHelpConfirm()">Begin Tour</paper-button>
-                 </div>
-               </paper-dialog>
               </div>
               <div id="layer-selector-wrapper">
                 <div id="layer-selector-toggle">
@@ -177,6 +137,48 @@
                       <ul class="slidee" id="slidee"></ul>
                   </div>
                 </div>
+              </div>
+              <div id="help-dialog-wrapper">
+                <paper-material id="help-dialog" class="vertically-aligned" elevation="1">
+                  <div id="help-title" style="font-size: 1.25em">The St. Chad Gospels Registered Image Viewer</div>
+                  <div id="help-text">
+                    <p>The St. Chad Gospels (aka The Lichfield Gospels) are a set of illuminated gospels
+                       that contain some of the earliest known examples of Welsh writing. Due to their historic
+                       significance, as well as their active use by Lichfield Cathedral where they are housed,
+                       much effort has been taken to preserve and document the content of these gospels for future
+                       generations.</p>
+                    <br />
+                    <p>The gospels have been photographed five times, in whole or in part, starting in 1912. However,
+                    due to the differences in imaging equipment over the years, a direct comparison of these images has
+                    been difficult. This Registered Image Viewer aims to solve that problem. Every image of the St. Chad
+                    Gospels in this viewer has been digitally aligned with our images from the 2010 imaging project, and our
+                    unique Flashlight tool allows for the clear, direct comparison of these beautiful pages across time.</p>
+                    <br />
+                    <p>We hope you enjoy this wonderful document and our viewer!</p>
+                    <p>The Brent Seales Research Group, University of Kentucky</p>
+                    <div id="help-controls" class="center">
+                      <p style="font-size: 1.25em; text-align: center">Keyboard Controls</p>
+                      <br />
+                      <div class="tour-controls">
+                        Page -/+
+                        <object type="image/svg+xml" data="images/controls-pages.svg" class="tour-keys"></object>
+                      </div>
+                      <div class="tour-controls">
+                        Background -/+
+                        <object type="image/svg+xml" data="images/controls-background.svg" class="tour-keys"></object>
+                      </div>
+                      <div class="tour-controls">
+                        Flashlight -/+
+                        <object type="image/svg+xml" data="images/controls-flashlight.svg" class="tour-keys"></object>
+                      </div>
+                    </div>
+                  <div id="browser-warning" style="display:none"><p style="text-align: center">WARNING: We've detected an unsupported browser. Please use Google Chrome for the best experience.</p></div>
+                 </div>
+                 <div id="help-buttons" class="right-aligned">
+                   <paper-button onClick="onHelpClose()">Close</paper-button>
+                   <paper-button onClick="onHelpConfirm()">Begin Tour</paper-button>
+                 </div>
+                </paper-material>
               </div>
           </paper-header-panel>
         </div>
