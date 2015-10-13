@@ -102,21 +102,21 @@ tour.addStep('changeFlashlight', {
 
 tour.addStep('changePage', {
     text: 'To see other pages of the Chad Gospels, select them from this dropdown.',
-    attachTo: '#page-selector right',
-    beforeShowPromise: function(){$("#page-selector").show()},
+    attachTo: '#page-list right',
+    beforeShowPromise: function(){$("#page-list").show()},
     tetherOptions: {
       attachment: 'middle right',
       targetAttachment: 'middle left',
       offset: '0 5'
     },
     when: {
-      "hide": function(){$("#page-selector").slideUp(200)}
+      "hide": function(){$("#page-list").slideUp(200)}
     }
 })
 
 tour.addStep('help', {
     text: 'To access this tour again, click the help button.',
-    attachTo: '#help-button right',
+    attachTo: '#help-fab right',
     tetherOptions: {
       attachment: 'top left',
       targetAttachment: 'top right',

@@ -429,7 +429,7 @@ function updateSecondaryImage() {
 
 // Fill the Page Selector with the currently active page
 function updateSearchBar() {
-    pageID.value = pages[pageIndex].name;
+    $("#page-id")[0].value = pages[pageIndex].name;
 };
 
 // After the page index has been changed, update both the primary and
@@ -632,7 +632,7 @@ function fillPageSelector() {
     var elem = '';
     for ( id=0; id < pageNames().length; id++ ) {
       elem = '<li class="page-item" id="'+id+'" onclick="gotoPage('+id+')">'+pageNames()[id]+'</li>';
-      $("#page-selector").append(elem);
+      $("#page-list").append(elem);
     }
 }
 
@@ -652,10 +652,10 @@ function updateSecondaryCard() {
 function toggleLayerSelector() {
   if( $("#layer-selector").css("display") == 'none' ) {
     $("#layer-selector-toggle").animate(
-      {"margin-bottom": "-15px"},
+      {"margin-bottom": "10px"},
       {
         step: function(now,fx) {
-          var deg = -((now+15)*180)/(25);
+          var deg = -((now-10)*180)/(20);
           $(this).find("iron-icon").css("-ms-transform", "rotate("+deg+"deg)");
           $(this).find("iron-icon").css("-webkit-transform", "rotate("+deg+"deg)");
           $(this).find("iron-icon").css("transform", "rotate("+deg+"deg)");
@@ -664,10 +664,10 @@ function toggleLayerSelector() {
       400 );
   } else {
     $("#layer-selector-toggle").animate(
-      {"margin-bottom": "10px"},
+      {"margin-bottom": "30px"},
       {
         step: function(now,fx) {
-          var deg = ((now+15)*180)/(25);
+          var deg = ((now-10)*180)/(20);
           $(this).find("iron-icon").css("-ms-transform", "rotate("+deg+"deg)");
           $(this).find("iron-icon").css("-webkit-transform", "rotate("+deg+"deg)");
           $(this).find("iron-icon").css("transform", "rotate("+deg+"deg)");
@@ -688,16 +688,16 @@ $("#layer-selector-fab").mouseleave( function() {
   $("#layer-selector-label").animate( {"opacity": "0.0"}, "fast" );
 });
 
-$("#help-button").mouseenter( function() {
+$("#help-fab").mouseenter( function() {
   $("#help-label").animate( {"opacity": "1.0"}, "fast" );
 });
 
-$("#help-button").mouseleave( function() {
+$("#help-fab").mouseleave( function() {
   $("#help-label").animate( {"opacity": "0.0"}, "fast" );
 });
 
 // Start the help dialog if the help button is clicked
-$("#help-button").click(function(){
+$("#help-fab").click(function(){
   if (Shepherd.activeTour == null) {
     primary.setMouseNavEnabled(false);
     $(".navigator").hide();
@@ -706,6 +706,9 @@ $("#help-button").click(function(){
 });
 
 // Start the tour if it's clicked in the help page
+$("#help-close").click(onHelpClose);
+$("#help-confirm").click(onHelpConfirm);
+
 function onHelpConfirm() {
   $("#help-dialog-wrapper").slideToggle(400, startTour);
 };
@@ -726,18 +729,17 @@ function showWarning() {
 }
 
 // Show the page selector when you click on the Page ID in the nav bar
-$("#pageID").focusin(function() {
-    $("#page-selector").slideDown(200);
+$("#page-id").focusin(function() {
+    $("#page-list").slideDown(200);
 });
 
 // Hide the page selector when you unclick the Page ID in the nav bar
-$("#pageID").focusout(function() {
-    $("#page-selector").delay(50).slideUp(200);
+$("#page-id").focusout(function() {
+    $("#page-list").delay(50).slideUp(200);
 });
 
 // Setup everything when the viewer loads
 $(window).load( function () {
-    if (!usingChrome()) { showWarning() };
     fillSlider();
     fillPageSelector();
     sly.activate(primaryLayerIndex);
@@ -747,5 +749,5 @@ $(window).load( function () {
     setTimeout(function(){
       addFlashlight(0.5, 0.5, cursor.clipSize)},
     500);
-    $("#help-button").click();
+    $("#help-fab").click();
 });

@@ -127,7 +127,7 @@
   .shepherd-element.shepherd-theme-arrows .shepherd-content * {
     font-size: inherit; }
   .shepherd-element.shepherd-theme-arrows .shepherd-content header {
-    *zoom: 1;
+    zoom: 1;
     /*border-radius: 5px 5px 0 0; */
   }
     .shepherd-element.shepherd-theme-arrows .shepherd-content header:after {
