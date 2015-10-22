@@ -9,7 +9,7 @@ tour.addStep('welcome', {
   text: "This image viewer allows you to view and compare the pages of the Chad Gospels across time."
 });
 
-backgroundText = 'The background image is showing us the page as it existed in ';
+backgroundText = 'The background image is showing us how the page looked in images from ';
 tour.addStep('background', {
     text: backgroundText,
     attachTo: '#primary left',
@@ -20,7 +20,7 @@ tour.addStep('background', {
     }
 });
 
-var flashlightText = 'The flashlight reveals the page as it existed at some other point in time. Right now, it\'s showing us what this page looked like in ';
+var flashlightText = 'The flashlight reveals the page as it existed at some other point in time. Right now, it\'s showing us what this page looked like in images from ';
 tour.addStep('flashlight', {
     text: flashlightText,
     attachTo: '#primary left',
