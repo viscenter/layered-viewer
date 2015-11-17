@@ -116,6 +116,7 @@ span.vertically-aligned {
     width: 100%;
     position: fixed;
     bottom: 0;
+    z-index: 1;
 }
 
 #layer-selector {
@@ -138,6 +139,21 @@ span.vertically-aligned {
   padding: 5;
   margin-bottom: 2px;
   opacity: 0;
+}
+
+#copyright {
+  position: absolute;
+  color: white;
+  right: 10;
+  bottom: 10;
+  width: 25%;
+  text-align: right;
+  text-shadow: 0px 0px 4px black;
+  font-size: small;
+}
+
+#copyright img {
+  vertical-align: middle;
 }
 
 #help-wrapper {
