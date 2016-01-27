@@ -337,7 +337,7 @@ function onHandleDrag(e) {
 
     // Add the offset to the position value
     flashlights[whichFlashlight].x += offset.x;
-    flashlights[whichFlashlight].y += offset.y
+    flashlights[whichFlashlight].y += offset.y;
 
     invalidate();
 };
