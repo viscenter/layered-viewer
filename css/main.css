@@ -117,6 +117,7 @@ span.vertically-aligned {
     position: fixed;
     bottom: 0;
     z-index: 1;
+    pointer-events: none;
 }
 
 #layer-selector {
@@ -306,4 +307,12 @@ li.active {
 
 .second-active {
 
+}
+
+li {
+  pointer-events: auto;
+}
+
+paper-icon-button {
+  pointer-events: auto;
 }
