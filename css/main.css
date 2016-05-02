@@ -316,3 +316,7 @@ li {
 paper-icon-button {
   pointer-events: auto;
 }
+
+a {
+  color: inherit;
+}
