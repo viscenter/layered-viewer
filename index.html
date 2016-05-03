@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <!-- Load webcomponents-lite.min.js for polyfill support first. -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <!-- favicon and bookmark stuff -->
+    <link rel="apple-touch-icon" sizes="57x57" href="images/apple-touch-icon-57x57.png?v=2">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touch-icon-60x60.png?v=2">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png?v=2">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon-76x76.png?v=2">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png?v=2">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-120x120.png?v=2">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touch-icon-144x144.png?v=2">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon-152x152.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-180x180.png?v=2">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png?v=2" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon-194x194.png?v=2" sizes="194x194">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png?v=2" sizes="96x96">
+    <link rel="icon" type="image/png" href="images/android-chrome-192x192.png?v=2" sizes="192x192">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png?v=2" sizes="16x16">
+    <link rel="manifest" href="manifest.json?v=2">
+    <link rel="shortcut icon" href="images/favicon.ico?v=2">
+    <meta name="msapplication-TileColor" content="#4285f4">
+    <meta name="msapplication-TileImage" content="images/mstile-144x144.png?v=2">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href='css/reset.css'>
+    <link rel="stylesheet" type="text/css" href="css/tour-shepherd-theme.css">
+    <link rel="stylesheet" type="text/css" href='css/main.css'>
+    <link rel="stylesheet" type="text/css" href='css/layered-viewer.css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
+
+    <!-- Polymer elements -->
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-material/paper-material.html">
+
+    <!-- App JS -->
+    <script type="text/javascript" src='external/underscore-min.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon.min.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon-scalebar.js'></script>
+    <script type="text/javascript" src='external/openseadragon/openseadragon-viewerinputhook.min.js'></script>
+    <script type="text/javascript" src='external/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='external/jquery-ui.min.js'></script>
+    <script type="text/javascript" src='external/sly.min.js'></script>
+    <script type="text/javascript" src='external/tether/js/tether.min.js'></script>
+    <script type="text/javascript" src='external/tether-shepherd/js/shepherd.min.js'></script>
+    <!-- <script src="js/viewer-ui.js"></script>
+    <script src="js/viewer-tour.js"></script> -->
+
+    <title>VisLayers</title>
+
+    <style is="custom-style">
+        #viewer-controls paper-icon-button {
+          width: 24px;
+          height: 24px;
+        }
+
+        .mini-fab::shadow #icon {
+          color: white;
+          width: 30px;
+          height: 30px;
+        }
+
+        .mini-fab {
+          --paper-fab-background: rgba(0, 0, 0, 0.3);
+          --paper-fab-keyboard-focus-background: rgba(0, 0, 0, 0.3);
+        }
+
+        paper-button {
+          color: #4285f4;
+        }
+
+    </style>
+
+  </head>
+  <body class="fullbleed layout vertical">
+      <paper-header-panel>
+        <paper-toolbar id="mainToolbar" class="toolbar">
+          <div class="left-aligned vertically-aligned">
+            <!-- <paper-icon-button icon="icons:menu" onclick="toggleMenu()"></paper-icon-button> -->
+            <span class="vertically-aligned" id="pageTitle">The St. Chad Gospels</span>
+          </div>
+          <div id="viewer-controls" class="right-aligned vertically-aligned">
+              <paper-icon-button icon="icons:arrow-back"            id="prev-page"  onClick="prevPage()"  ></paper-icon-button>
+              <paper-icon-button icon="icons:arrow-forward"         id="next-page"  onClick="nextPage()"  ></paper-icon-button>
+              <paper-icon-button icon="icons:youtube-searched-for"  id="reset-view" onClick="resetView()" ></paper-icon-button>
+              <paper-icon-button icon="icons:zoom-out"              id="zoom-out"   onClick="zoomOut()"   ></paper-icon-button>
+              <paper-icon-button icon="icons:zoom-in"               id="zoom-in"    onClick="zoomIn()"    ></paper-icon-button>
+          </div>
+          <div id="page-selector-wrapper" class="right-aligned vertically-aligned">
+              <input id="page-id" type="text" readonly>
+              <ul id="page-list"></ul>
+          </div>
+        </paper-toolbar>
+        <div id="viewer-wrapper">
+          <div id="navigator-wrapper"></div>
+          <div id="primary"   class="openseadragon"></div>
+          <div id="secondary" class="openseadragon"></div>
+        </div>
+        <div id="help-wrapper">
+          <div id="help-toggle">
+            <paper-icon-button icon="icons:help" id="help-fab" class="mini-fab circle"></paper-icon-button>
+            <span id="help-label" class="overlay-label vertically-aligned">Help</span>
+          </div>
+        </div>
+        <div id="layer-selector-wrapper">
+          <div id="layer-selector-toggle">
+            <paper-icon-button icon="icons:expand-more" id="layer-selector-fab" class="mini-fab circle" onClick="toggleLayerSelector()"></paper-icon-button>
+            <span id="layer-selector-label" class="overlay-label vertically-aligned">Background Layers</span>
+          </div>
+          <div id="layer-selector">
+            <div class="frame" id="frame">
+                <ul class="slidee" id="slidee"></ul>
+            </div>
+          </div>
+        </div>
+        <div id="copyright">
+          All images &copy; 2010, The Chapter of Lichfield Cathedral,<br>
+	  under a Creative Commons Non-Commercial 
+          <a href="license.html" target="_blank">License</a>.<br />
+          Reproduced by kind permission of the Chapter of Lichfield Cathedral.<br />
+        </div>
+        <div id="help-dialog-wrapper">
+          <paper-material id="help-dialog" class="vertically-aligned" elevation="1">
+            <div id="help-title" style="font-size: 1.5em">The St. Chad Gospels Registered Image Viewer</div>
+            <div id="help-text">
+              <p>The St. Chad Gospels (aka The Lichfield Gospels) are a set of illuminated gospels
+                 that contain some of the earliest known examples of Welsh writing. Due to their historic
+                 significance, as well as their active use by Lichfield Cathedral where they are housed,
+                 much effort has been taken to preserve and document the content of these gospels for future
+                 generations.</p>
+              <br />
+              <p>The gospels have been photographed five times, in whole or in part, starting in 1912. However,
+              due to the differences in imaging equipment over the years, a direct comparison of these images has
+              been difficult. This Registered Image Viewer aims to solve that problem. Every image of the St. Chad
+              Gospels in this viewer has been digitally aligned with our images from the 2010 imaging project, and our
+              unique Flashlight tool allows for the clear, direct comparison of these beautiful pages across time.</p>
+              <br />
+              <p>We hope you enjoy this wonderful document and our viewer!</p>
+              <p>The Brent Seales Research Group, University of Kentucky</p>
+              <div id="help-controls" class="center">
+                <p style="font-size: 1.25em; text-align: center">Keyboard Controls</p>
+                <br />
+                <div class="tour-controls">
+                  Page -/+
+                  <object type="image/svg+xml" data="images/controls-pages.svg" class="tour-keys"></object>
+                </div>
+                <div class="tour-controls">
+                  Background -/+
+                  <object type="image/svg+xml" data="images/controls-background.svg" class="tour-keys"></object>
+                </div>
+                <div class="tour-controls">
+                  Flashlight -/+
+                  <object type="image/svg+xml" data="images/controls-flashlight.svg" class="tour-keys"></object>
+                </div>
+              </div>
+           </div>
+           <div id="help-buttons" class="right-aligned">
+             <paper-button id="help-close">Close</paper-button>
+             <paper-button id="help-confirm">Begin Tour</paper-button>
+           </div>
+          </paper-material>
+        </div>
+    </paper-header-panel>
+  </body>
+  <script type="text/javascript" src='js/layered-viewer.min.js'></script>
+</html>

@@ -1,4 +1,5 @@
-/test/data/Chad*
+client/test/data/Chad*
 /data/dzi
 /data/images
 /client/data
+/bower_components
