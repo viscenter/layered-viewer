@@ -1,3 +1,11 @@
+# Registered Image Viewer
+A web interface for viewing and comparing multi-version, multi-page documents. Originally developed for the presentation of historical documents that have been imaged diachronically.
+
+A live demo is available [here](http://infoforest.vis.uky.edu/).
+
+This work is presented in the article:
+Parsons, Stephen, C. Seth Parker, and W. Brent Seales. "The St. Chad Gospels: Diachronic Manuscript Registration and Visualization." Manuscript Studies: A Journal of the Schoenberg Institute for Manuscript Studies 2.2 (2017): 483-498.
+
 # Overview of contents
 ##css
 Stylesheets for the webpage.
