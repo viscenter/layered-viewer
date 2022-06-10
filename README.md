@@ -1,3 +1,6 @@
+# Note: This repository has been archived!
+Development on this project has moved to a new code base at https://gitlab.com/educelab/vislayers. This repository has been archived and no longer accepts pull requests or issues.
+
 # Registered Image Viewer
 A web interface for viewing and comparing multi-version, multi-page documents. Originally developed for the presentation of historical documents that have been imaged diachronically.
 
